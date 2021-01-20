@@ -1,0 +1,26 @@
+<form action="#" method="POST" name="bodyStats" novalidate>
+      <h4 class="orangetext">My Body:</h4>
+      <table class="table table-condensed">
+        <tr class="form-group form-inline" ng-class="{ 'has-error' : bodyStats.{{bodyStat['value']}}.$invalid && !bodyStats.{{bodyStat['value']}}.$pristine && bodyStats.{{bodyStat['value']}}.$touched}" ng-repeat-start="bodyStat in profile.bodyStats | orderBy:'value' track by $index"></tr>
+          <td><label class="small">{{profile.nameFilter(bodyStat['value'])}} {{profile.unitsFilter(bodyStat['value'])}} :</label></td>
+          <td><input type="number" name="{{profile.nameFilter(bodyStat['value'])}}" onfocus="if(this.value == '0') {this.value = ''; }" class="form-control" min="0" max="600" ng-model="bodyStat['data']" ng-change="profile.updateBS($index)" ng-init="profile.updateBS($index)" ng-readonly="bodyStat['value'] ==='bmi'"></td>
+          <td class="hidden-xs hidden-sm hidden-md"><button type="button" class="btn btn-primary btn-sm img-responsive center-block" ng-click="profile.displayBodyStatHistory(bodyStat)">History</button></td>
+        </tr>
+        <tr class="form-group form-inline ng-hide hidden-xs hidden-sm hidden-md" ng-repeat-end ng-hide="profile['hiding'][bodyStat['value']]">
+          <td colspan="3" class="ng-hide" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length > 1"><h4 class="text-center">We need more data to graph!</h4></td>
+          <td colspan="3" class="ng-hide" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length <= 1"><linechart data="profile.bodyStatHistory" options="profile.options" mode="" height="350" width="700"></linechart></td>
+        </tr>
+        <tr class="form-group form-inline" ng-class="{ 'has-error' : bodyStats.measurement.$invalid && !bodyStats.measurement.$pristine && bodyStats.measurement.$touched}">
+          <td><label class="small">Measurements {{profile.user.settings.units === "standard" ? "(inches)" : "(cm)"}}:</label></td>
+          <td><select ng-options="o.body_part.name for o in profile.bodyPartStats | orderBy:'body_part.name'" ng-model="selectedBodyPart" ng-init="selectedBodyPart= profile.bodyPartStats[0]" class="form-control" name="bodymeasurement"></select>
+            <input type="number" name="measurement" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="selectedBodyPart.data" class="form-control"></input>
+          </td>
+          <td class="hidden-xs hidden-sm hidden-md"><button type="button" class="btn btn-primary btn-sm img-responsive center-block" ng-click="profile.displayBodyPartStatHistory(selectedBodyPart)">History</td>
+        </tr>
+        <tr class="form-group form-inline ng-hide hidden-xs hidden-sm hidden-md" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']]">
+          <td colspan="3" class="ng-hide" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']] || profile.bodyPartStatHistory.length > 1"><h4 class="text-center">We need more data to graph!</h4></td>
+          <td colspan="3" class="ng-hide" ng-hide="profile['hiding'][selectedBoydPart['body_part_id']] || profile.bodyPartStatHistory.length <= 1"><linechart data="profile.bodyPartStatHistory" options="profile.options" mode="" width="600" height="300"></linechart></td>
+        </tr>
+      </table>
+      <ud-animated-button options="{submitText: 'Update', submittingText: 'Updating.. '}" ng-disabled="bodyStats.$invalid" class="btn btn-primary btn-lg img-responsive center-block" ng-click="profile.submitStats()" ui-sref="profile"></ud-animated-button>
+</form>

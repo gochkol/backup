@@ -1,0 +1,41 @@
+<form id="basicInfo" name="basicInfo" style="margin-top:20px" class="greywell" novalidate>
+  <div class="row" style="padding-top:20px">
+    <div class="col-md-6">
+      <div class="form-group" ng-class="{ 'has-error' : basicInfo.firstName.$invalid}">
+        <label>* First Name:</label>
+        <input ng-model="account.user.first_name" type="text" maxlength="20" name="firstName" id="firstName" class="form-control" placeholder="First Name" required></input>
+        <p ng-show="basicInfo.firstName.$invalid" class="help-block">First name is required.</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" ng-class="{ 'has-error' : basicInfo.lastName.$invalid}">
+        <label>* Last Name:</label>
+        <input ng-model="account.user.last_name" type="text" maxlength="20" name="lastName" id="lastName" class="form-control" placeholder="Last Name" required></input>
+        <p ng-show="basicInfo.lastName.$invalid" class="help-block">Last name is required.</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Country:</label>
+        <select ng-model="account.user['country_code']" ng-options="country['country_code'] as country['name'] for country in account.constants.COUNTRIES" 
+              ng-init="account.user['country_code'] = account.user['country_code'] || account.constants.COUNTRIES[0]['country_code']" type="text" 
+               name="country" id="country" class="form-control" placeholder="Country">
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>City:</label>
+        <input ng-model="account.user.city" type="text" maxlength="25" name="city" id="city" class="form-control" placeholder="City"></input>
+      </div>
+    </div>
+    <div class="col-md-6 ng-hide" ng-hide="account.user.auth_flags === 'facebook' || account.user.auth_flags === 'facebook_and_updown'">
+      <div class="form-group" ng-class="{ 'has-error' : basicInfo.email.$invalid}">
+        <label>* Email:</label>
+        <input ng-model="account.user.email" type="email" maxlength="75" name="email" id="email" placeholder="Email" class="form-control" required></input>
+        <p ng-show="basicInfo.email.$invalid" class="help-block">Enter a valid email.</p>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-warning" ng-disabled="basicInfo.$invalid" ng-click="account.submit(); account.showEditBasic =! account.showEditBasic">Save</button>
+</form>

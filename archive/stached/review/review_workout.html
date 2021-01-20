@@ -1,0 +1,80 @@
+
+<div style="display:none;">
+  workout_id = {{workout.id}}
+</div>
+
+
+  <div class="row toppad">
+  </div>
+  <form name="workoutForm">
+  
+  <div class="row well">      
+    <div class="col-md-8 col-md-offset-2 text-center">
+        <h2 class="textheader" style="display:inline">Preview </h2><button style="margin-bottom:10px" class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><img src="images/infoicon.png" style="height:20px; margin-bottom:1px"></button>
+        <div collapse="isCollapsed">
+          <div class="well">Updown automatically customized your workout to fit you and your goals. If needed, adjust weights, reps, and rest times on this screen or during your workout. Updown will automatically learn based on what you do and will continue to refine your workouts, just like a real personal trainer!
+          </div>
+        </div> 
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="row">
+        <div class="col-sm-6 col-xs-6">
+          <button type="button" class="btn btn-warning btn-lg img-responsive center-block" ng-disabled="isReadonly" ng-click="favorite(); isReadonly = ! isReadonly">Favorite <img src="images/starIcon.png" style="height:22px; margin-bottom:3px;"></button>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+          <button type="button" id="startworkout" class="btn btn-warning btn-lg img-responsive center-block" ng-click="start()">Start!</button>
+        </div>
+      </div>
+      <div class="row toppad">
+        <div class="col-sm-6 col-sm-offset-3">
+        <div class="form-group">
+          <input type="text" class="form-control text-center" tooltip="Optionally, name your workout." tooltip-trigger="focus" tooltip-placement="bottom" maxlength="25" ng-model="workout.name" placeholder="Workout Name">
+        </div>
+        </div>
+      </div>
+      <div class="row text-center whitetext">
+        <h4><img src="images/stopwatchWhite.png" style="height:30px; margin-bottom:5px">Duration ~ {{timeString(workout.workout_total_time)}}</h4>             
+      </div>
+    </div>
+  </div>
+    
+    
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <table class='table table-condensed well' ng-repeat="block in workout.blocks track by $index" ng-init="$blockIndex = $index">
+        <tr><td colspan="3"><h4 style="display:inline">{{block.block_sets[0].exercise.name}} </h4><a href="" class="help_link"><img src="images/infoicon.png" ng-mouseenter="showExercise($blockIndex)" ng-mouseleave="hideExercise($blockIndex)" style="height:20px; margin-bottom:7px"></a>
+        </tr>
+        <tr class="ng-hide" ng-hide="hide_exercise[$blockIndex]"><td colspan="3" class="ng-hide" ng-hide="hide_exercise[$blockIndex]">
+          <div class="row ng-hide" ng-hide="hide_exercise[$blockIndex]">
+            <div class="col-md-8 col-md-offset-2 well ng-hide" ng-hide="hide_exercise[$blockIndex]">
+              <img ng-src="{{photo.url}}" class="img-responsive center-block ng-hide" ng-hide="hide_exercise[$blockIndex]" style="width: 300px;"></img>
+            </div></div></td></tr>
+ 	<tr class='form-group-sm text-center form-inline' ng-repeat="set in block.block_sets track by $index" ng-init="$setIndex = $index">
+          <td data-ng-repeat="(criteria, value) in set.exercise.criterion | modeFilter as results track by $index">
+            <label class='small'>{{modeDisplay(criterion[$blockIndex][$setIndex][$index])}}</label>
+            <input ng-model="values[$blockIndex][$setIndex][$index]"
+                   ng-model-options="{ updateOn: 'blur' }" 
+                   ng-change="updateTime($blockIndex, $setIndex, $index)" tooltip="You may adjust values that you'd like to change." tooltip-trigger="focus" tooltip-placement="top" type='number' min='0' class='form-control field-bg' required>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+                            
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 topbottompad">
+      <div class="row">
+        <div class="col-sm-6 col-xs-6">
+        <!--  <button type="button" id="editworkout" class="btn btn-warning btn-lg img-responsive center-block" onclick="window.location.href='workoutedit.html'">Edit</button>  -->
+        </div>
+        <div class="col-sm-6 col-xs-6">
+          <button type="button" id="startworkout" class="btn btn-warning btn-lg img-responsive center-block" ng-click="start()">Start!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </form>

@@ -1,0 +1,58 @@
+<ion-scroll direction="y" style="right: 0;top: 0;left: 0;position: absolute;">
+
+<form name="bodyStats" novalidate>
+<!--
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedBody = !profile.isCollapsedBody">
+  <i class="icon ion-ios-body"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Body Stats
+</div>
+-->
+<div class="list">
+  <div class="row item row-center" ng-repeat-start="bodyStat in profile.bodyStats | orderBy:'value' track by $index" ng-class="{ 'has-error' : bodyStats.{{bodyStat['value']}}.$invalid && !bodyStats.{{bodyStat['value']}}.$pristine && bodyStats.{{bodyStat['value']}}.$touched}">
+    <div class="col col-66">
+      {{profile.nameFilter(bodyStat['value'])}} {{profile.unitsFilter(bodyStat['value'])}} :
+    </div>
+    <div class="col">
+      <input type="number" ng-keydown="profile.blur($event)" name="{{profile.nameFilter(bodyStat['value'])}}" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="bodyStat['data']" ng-change="profile.updateBS($index)" ng-init="profile.updateBS($index)" ng-readonly="bodyStat['value'] ==='bmi'">
+    </div>
+    <div class="col text-right">
+      <i class="icon button button-icon ion-android-arrow-dropdown" ng-click="profile.displayBodyStatHistory(bodyStat)"></i>
+    </div>
+  </div>
+  <div class="row item item-image ng-hide" ng-repeat-end ng-hide="profile['hiding'][bodyStat['value']]">
+    <div class="col">
+      <h4 class="ng-hide text-center" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length > 1">We need more data to graph!</h4>
+      <linechart class="ng-hide" style="height:250px" height="250" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length <= 1" data="profile.bodyStatHistory" options="profile.options" mode=""></linechart>
+    </div>
+  </div>
+  <div class="row item item-text-wrap" style="padding-top:10px;background-color:white">
+    <div class="col col-66">
+      Measurements {{profile.user.settings.units === "standard" ? "(inches)" : "(cm)"}} :
+      <select ng-options="o.body_part.name for o in profile.bodyPartStats | orderBy:'body_part.name'" ng-model="selectedBodyPart" ng-init="selectedBodyPart= profile.bodyPartStats[0]" name="bodymeasurement"></select>
+    </div>
+    <div class="col">
+      <input type="number" ng-keydown="profile.blur($event)" name="measurement" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="selectedBodyPart.data"></input>
+    </div>
+    <div class="col text-right">
+     <i class="icon button button-icon ion-android-arrow-dropdown" ng-click="profile.displayBodyPartStatHistory(selectedBodyPart)"></i>
+    </div>
+  </div>
+  <div class="row item item-image ng-hide" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']]">
+    <div class="col">
+      <h4 class="ng-hide text-center" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']] || profile.bodyPartStatHistory.length > 1">We need more data to graph!</h4>
+      <linechart class="ng-hide" style="height:250px" height="250" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']] || profile.bodyPartStatHistory.length <= 1" data="profile.bodyPartStatHistory" options="profile.options" mode=""></linechart>
+	</div>
+  </div>
+  <div class="row item" style="background-color:white">
+    <div class="col col-50 col-offset-25 text-center">
+      <a class="tab-item text-center" ng-disabled="bodyStats.$invalid" ng-click="profile.submitStats()">
+        <i class="icon calm ion-ios-checkmark"></i>
+        <span style="color:black">Update Body Stats</span>
+      </a>
+    </div>
+  </div>
+</div>
+</form>
+
+</ion-scroll>

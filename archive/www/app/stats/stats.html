@@ -1,0 +1,22 @@
+<ion-view view-title="<i class='icon ion-person'></i> Fitness Stats" hide-back-button="true">
+
+<ion-content>
+
+<ion-tabs class="tabs-calm tabs-icon-top">
+  <ion-tab title="Overall Stats" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+    <!--Fitness Stats-->
+    <div ui-view="fitnessStats"></div>
+  </ion-tab>
+  <ion-tab title="History" icon-on="ion-ios-book" icon-off="ion-ios-book-outline">
+    <!--Finished Workouts-->
+    <div ui-view="workouts"></div>
+  </ion-tab>
+  <ion-tab title="Exercise Stats" icon-on="ion-ios-body" icon-off="ion-ios-body-outline">
+    <!--Exercise Stats-->
+    <div ui-view="exerciseStats"></div>
+  </ion-tab>
+</ion-tabs>
+
+</ion-content>
+
+</ion-view>

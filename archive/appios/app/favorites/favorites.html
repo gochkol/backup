@@ -1,0 +1,39 @@
+<ion-view view-title="<i class='icon ion-star'></i> Favorites">
+  
+<ion-content style="margin-bottom:65px;">
+  
+
+<div class="row ng-hide" ng-hide="favorites.favorites.length > 0" style="margin-top:15px">
+  <div class="col text-center">
+    <h5>Looks like you don't have any favorite workouts yet! Click the "Favorite" button on either the workout preview or workout summary screen in order to add a workout to your favorites.
+      </br></br>
+      Or, create your own workout with the custom workout tool.
+    </h5>
+  </div>
+</div>
+
+<div class="list" style="margin-top:15px">
+  <div class="row item calm item-text-wrap" ng-repeat="favorite in favorites.favorites track by $index">
+    <div class="col-80 col col-center " ng-click="favorites.doWorkout(favorite)" style="cursor:pointer">
+      {{favorite.name}}
+    </div>
+    <div class="col text-right">
+      <i class="icon button button-icon ion-backspace-outline" ng-really-message="Really, you want to delete me?" ng-really-click="favorites.deleteFavorite($index)"></i>
+    </div>
+  </div>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="nav.quickLog">
+    <i class="icon calm ion-clipboard"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="nav.quickWorkout">
+    <i class="icon calm ion-android-walk"></i>
+    Updown Workout
+  </a>
+</div>
+
+</ion-view>

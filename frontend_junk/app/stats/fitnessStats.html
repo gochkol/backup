@@ -1,0 +1,24 @@
+<h4 class="orangetext">My Fitness Stats:</h4>
+    <table class="table table-striped table-condensed well">
+      <tr>
+        <td colspan="10"><b>Total Workout Time</b></td>
+        <td colspan="2">{{stats.userHistory.total_workout_time ? stats.timeString(stats.userHistory.total_workout_time) : 0}}</td>
+      </tr>
+      <tr>
+        <td colspan="10"><b>Workout Calories Burned</b></td>
+        <td colspan="2">{{stats.userHistory.total_calories_burned ? stats.userHistory.total_calories_burned : 0}}</td>
+      </tr>
+      <tr>
+        <td colspan="10"><b>Total Workouts Completed</b></td>
+        <td colspan="2">{{stats.userHistory.workouts ? stats.userHistory.workouts.length : 0}}</td>
+      </tr>
+      <tr ng-repeat="count in stats.userHistory.total_count_of_workouts">
+        <td colspan="2"></td>
+        <td colspan="8"><b>{{count['category_name']}}</b></td>
+        <td colspan="2">{{count.count ? count.count : 0}}</td>
+      </tr>
+	  <tr>
+        <td colspan="10"><b>Total Logged Activities</b></td>
+        <td colspan="2">{{stats.userHistory.quick_logs ? stats.userHistory.quick_logs.length : 0}}</td>
+      </tr>
+    </table>

@@ -1,0 +1,27 @@
+<ion-content>
+
+<div class="row" style="padding-top:50px">
+  <div class="col">
+      <img class="full-image" src="content/images/upDownLogo.png">
+  </div>
+</div>
+<form>
+<div class="row" style="padding-top:20px">
+  <div class="col">
+      <div class="list card">
+        <label class="item item-input">
+          <input type="email" name="email" maxlength="75" id="email" ng-model="reset.email" placeholder="Enter Email Address" required></input>
+        </label>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col text-center">
+     <button type="submit" ng-disabled="reset.emailSent" class="button button-calm" ng-click="reset.reset()">Reset</button>
+  </div>
+</div>
+</form>
+<div class="row item item-text-wrap ng-show" ng-show="reset.emailSent" style="padding-top:20px">
+  <p>You should be receiving an email shortly with instructions. Thank you for your patience.</p>
+</div>

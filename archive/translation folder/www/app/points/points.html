@@ -1,0 +1,53 @@
+<ion-view view-title="Points">
+
+<ion-content>
+
+<div class="row">
+  <div class="col">
+    <h4 class="text-center">DAILY POINTS: {{points.user.current_daily_points}}/{{points.maxDay}}</h4>
+    <progressbar value="points.dProgress" type="info"><span style="color:white; white-space:nowrap;">{{points.dProgress | number : 0}}%</span></progressbar>
+    <h4 class="text-center">MONTHLY POINTS: {{points.user.current_monthly_points}}/{{points.maxMonth}}</h4>
+    <progressbar value="points.mProgress" type="info"><span style="color:white; white-space:nowrap;">{{points.mProgress | number : 0}}%</span></progressbar>
+  </div>
+</div>
+
+<div class="item item-icon-right item-divider">
+  My Points
+  <i class="icon ion-ribbon-b"></i>
+</div>
+<div class="row" dir-paginate="point in points.points | itemsPerPage: 10">
+  <div class="col col-25">
+    {{points.formatTime(point.earned_at)}}
+  </div>
+  <div class="col">
+    {{point.sentence}}
+  </div>
+</div>
+
+<div class="row">
+  <dir-pagination-controls max-size="5"></dir-pagination-controls>
+</div>
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="quickLog">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="quickWorkout">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item" ng-click="home.customWorkout()">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+  <a class="tab-item" ui-sref="favorites">
+    <i class="icon ion-gear-a"></i>
+    Favorites
+  </a>
+</div>
+
+</ion-view>

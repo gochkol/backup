@@ -1,0 +1,24 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>My Account</h2>
+  </div>
+</div>
+<div class="row" style="padding-bottom:50px">
+  <div class="col-md-8 col-md-offset-2">
+    <div ui-view="basicInfo"></div>
+    <div ui-view="editBasicInfo" style="padding-top:15px" ng-show="account.showEditBasic"></div>
+<!--
+    <div ui-view="viewBillingInfo" style="padding-top:15px"></div>
+    <div ui-view="plusSignup" style="padding-top:15px"></div>
+-->
+    <div ng-show="account.user['auth_flags'] == 'updown'" ui-view="passwordChange" style="padding-top:15px"></div>
+  </div>
+</div>
+
+<!--
+<input data-braintree-name="number" value="4111111111111111"
+<input data-braintree-name="cardholder_name" value="John Smith"
+<input data-braintree-name="cvv" value="100"
+<input data-braintree-name="expiration_date"
+<input data-braintree-name="postal_code"
+-->

@@ -1,0 +1,8 @@
+<p>Would you like to <a style="cursor:pointer" ng-click="account.showCancel =! account.showCancel">cancel your subscription?</a></p>
+<div class="row greywell" ng-show="account.showCancel">
+  <div class="col-md-12">
+    <p>Your account will remain an Updown Plus Account through your remaining subscription period. At the end of this period, your subscription will expire and your account will become a free account.</p>
+    <button class="btn btn-primary" ng-click="account.showCancel =! account.showCancel">Not now</button>
+    <button class="btn btn-warning" ng-click="account.cancelSubscription()">Cancel account</button>
+  </div>
+</div>

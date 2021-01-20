@@ -1,0 +1,52 @@
+<ion-view view-title="Guest">
+
+<form action="#" method="POST" name="userForm" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="list" style="margin-top:15px">
+  <div class="item item-divider">
+    * Sex
+  </div>
+  <label class="item item-radio">
+    <input ng-model="guest.user['gender']" type="radio" name="optionsex" id="optionmale" value="male" required>
+    <div class="radio-content">
+      <div class="item-content">
+        Male
+      </div>
+    <i class="radio-icon calm ion-checkmark"></i>
+    </div>
+  </label>
+  <label class="item item-radio">
+    <input ng-model="guest.user['gender']" type="radio" name="optionsex" id="optionfemale" value="female" required>
+    <div class="radio-content">
+      <div class="item-content">
+        Female
+      </div>
+    <i class="radio-icon calm ion-checkmark"></i>
+    </div>
+  </label>
+  <div class="item item-icon-right item-divider">
+    * Fitness
+  </div>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessExp.$invalid}">
+    <div class="input-label">
+      Fitness Experience
+    </div>
+    <select ng-options="exp.value as exp.name for exp in guest.experiences" ng-init="guest.user.experience = 1" ng-model="guest.user.experience" name="fitnessExp" required>
+    </select>
+    <p ng-show="userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched" class="help-block">Fitness experience is required.</p>
+  </label>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-disabled="userForm.$invalid" ng-click="guest.submit()">
+    <i class="icon calm ion-ios-checkmark"></i>
+    Continue
+  </a>
+</div>
+</form>
+
+</ion-view>
+

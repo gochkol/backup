@@ -1,0 +1,66 @@
+
+    <div class="row toppad">
+    </div>
+    
+    <div class="row well">
+        <div class="col-md-8 col-md-offset-2 text-center">
+           <h2 class="textheader" style="display:inline">Summary </h2><button style="margin-bottom:10px" class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><img src="images/infoicon.png" style="height:20px; margin-bottom:1px"></button>
+           <div collapse="isCollapsed">
+             <div class="well">Review your completed workout and adjust any numbers as needed. Hit "Done" and Updown will do a bunch of fancy math to adjust future routines to maximize your progress!
+	     </div>
+           </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="row">
+                <div class="col-sm-6 col-xs-6">
+                    <button type="button" class="btn btn-warning btn-lg img-responsive center-block" ng-disabled="isReadonly" ng-click="favorite(); isReadonly = ! isReadonly">Favorite <img src="images/starIcon.png" style="height:22px; margin-bottom:3px;"></button>       
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <button type="button" id="finishworkout" class="btn btn-warning btn-lg img-responsive center-block" ng-click="finish()">Done</button>
+                </div>
+            </div>
+            <div class="row toppad">
+                    <div class="col-sm-6 col-sm-offset-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control text-center" maxlength="25" field-bg" ng-model="workout.name">
+                    </div>
+                    </div>
+            </div>
+            <div class="row text-center whitetext">
+                    <h4><img src="images/stopwatchWhite.png" style="height:30px; margin-bottom:5px">Duration ~ {{timeString(workout.workout_total_time)}}</h4> 
+                    <span id='calorie_counter'></span><h4 class="text-center whitetext"><img src="images/fireIcon.png" style="height:20px; margin-bottom:4px">Cals: {{workout.calories_burned | number : 1}}</h4>  
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+  		<table class='table table-condensed well' ng-repeat="block in workout.blocks track by $index" ng-init="$blockIndex = $index">
+			<tr><td colspan="2"><h4>{{block.block_sets[0].exercise.name}}</h4></tr>
+ 			<tr class='form-group-sm text-center form-inline' ng-repeat="set in block.block_sets track by $index" ng-init="$setIndex = $index">
+				<td data-ng-repeat="(criteria, value) in set.exercise.criterion | modeFilter as results track by $index">
+					<label class='small'>{{modeDisplay(criterion[$blockIndex][$setIndex][$index])}}</label>
+					<input ng-model="values[$blockIndex][$setIndex][$index]" type='number' min='0' class='form-control field-bg' required>
+				</td>
+			</tr>
+		</table>
+        </div>
+    </div>
+ 
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 topbottompad">
+            <div class="row">
+                <div class="col-sm-6 col-xs-6">
+                    <button type="button" class="btn btn-warning btn-lg img-responsive center-block" ng-disabled="isReadonly" ng-click="favorite(); isReadonly = ! isReadonly">Favorite <img src="images/starIcon.png" style="height:22px; margin-bottom:3px;"></button>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <button type="button" id="finishworkout" class="btn btn-warning btn-lg img-responsive center-block" ng-click="finish()">Done</button>
+                </div>
+            </div>
+        </div>
+     </div>
+

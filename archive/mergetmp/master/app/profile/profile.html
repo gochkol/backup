@@ -1,0 +1,266 @@
+<ion-view view-title="<i class='icon ion-person'></i> Profile" hide-back-button="true">
+
+<ion-content>
+
+<!--Points-->
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedPoints = !profile.isCollapsedPoints">
+  My Points
+  <i class="icon ion-ribbon-b"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="item item-text-wrap ng-show" ng-show="profile.totalPoints == 0">
+  <h4 class="help-text text-center">
+    No points yet. Earn points by completing workouts and logging activity. Try to hit the cap each month!
+  </h4>
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedPoints">
+  <div class="list card" style="margin-top:15px">
+    <h3 class="text-center">Total points: <span class="energized">{{profile.totalPoints}}</span></h3>
+  </div>
+  <div class="row item">
+    <div class="col">
+      <div class="list card" style="padding-top:10px;margin-bottom:0px;margin-top:0px">
+        <h4 class="text-center">Daily: {{profile.user['current_daily_points']}}/{{profile.maxDay}}</h4>
+        <progressbar style="margin-left:10px;margin-right:10px" value="profile.dProgress" type="danger"><span style="color:white; white-space:nowrap;">{{profile.dProgress | number : 0}}%</span></progressbar>
+        <h4 class="text-center">Monthly: {{profile.user['current_monthly_points']}}/{{profile.maxMonth}}</h4>
+        <progressbar style="margin-left:10px;margin-right:10px" value="profile.mProgress" type="info"><span style="color:white; white-space:nowrap;">{{profile.mProgress | number : 0}}%</span></progressbar>
+      </div>
+    </div>
+  </div>
+  <div class="row header" style="padding-top:5px">
+    <div class="col col-20">
+      <b>Points</b>
+    </div>
+    <div class="col">
+      <b>Points Event</b>
+    </div>
+    <div class="col col-25">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate="point in profile.points | itemsPerPage: 10">
+    <div class="col col-20 text-center">
+      {{point.number_of}}
+    </div>
+    <div class="col" style="font-size:12px">
+      {{profile.helpers.pointSentence(point)}}
+    </div>
+    <div class="col col-25" style="font-size:10px">
+      {{profile.formatTime(point.earned_at)}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!--Body Stats-->
+<form action="#" method="POST" name="bodyStats" novalidate>
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedBody = !profile.isCollapsedBody">
+  <i class="icon ion-ios-body"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Body Stats
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedBody">
+  <div class="row item row-center" ng-repeat-start="bodyStat in profile.bodyStats | orderBy:'value' track by $index" ng-class="{ 'has-error' : bodyStats.{{bodyStat['value']}}.$invalid && !bodyStats.{{bodyStat['value']}}.$pristine && bodyStats.{{bodyStat['value']}}.$touched}">
+    <div class="col col-66">
+      {{profile.nameFilter(bodyStat['value'])}} {{profile.unitsFilter(bodyStat['value'])}} :
+    </div>
+    <div class="col">
+      <input type="number" ng-keydown="profile.blur($event)" name="{{profile.nameFilter(bodyStat['value'])}}" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="bodyStat['data']" ng-change="profile.updateBS($index)" ng-init="profile.updateBS($index)" ng-readonly="bodyStat['value'] ==='bmi'">
+    </div>
+    <div class="col text-right">
+      <i class="icon button button-icon ion-android-arrow-dropdown" ng-click="profile.displayBodyStatHistory(bodyStat)"></i>
+    </div>
+  </div>
+  <div class="row item item-image ng-hide" ng-repeat-end ng-hide="profile['hiding'][bodyStat['value']]">
+    <div class="col">
+      <h4 class="ng-hide text-center" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length > 1">We need more data to graph!</h4>
+      <linechart class="ng-hide" style="height:250px" height="250" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length <= 1" data="profile.bodyStatHistory" options="profile.options" mode=""></linechart>
+    </div>
+  </div>
+  <div class="row item item-text-wrap" style="padding-top:10px;background-color:white">
+    <div class="col col-66">
+      Measurements {{profile.user.settings.units === "standard" ? "(inches)" : "(cm)"}} :
+      <select ng-options="o.body_part.name for o in profile.bodyPartStats | orderBy:'body_part.name'" ng-model="selectedBodyPart" ng-init="selectedBodyPart= profile.bodyPartStats[0]" name="bodymeasurement"></select>
+    </div>
+    <div class="col">
+      <input type="number" ng-keydown="profile.blur($event)" name="measurement" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="selectedBodyPart.data"></input>
+    </div>
+    <div class="col text-right">
+     <i class="icon button button-icon ion-android-arrow-dropdown" ng-click="profile.displayBodyPartStatHistory(selectedBodyPart)"></i>
+    </div>
+  </div>
+  <div class="row item item-image ng-hide" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']]">
+    <div class="col">
+      <h4 class="ng-hide text-center" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']] || profile.bodyPartStatHistory.length > 1">We need more data to graph!</h4>
+      <linechart class="ng-hide" style="height:250px" height="250" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']] || profile.bodyPartStatHistory.length <= 1" data="profile.bodyPartStatHistory" options="profile.options" mode=""></linechart>
+	</div>
+  </div>
+  <div class="row item" style="background-color:white">
+    <div class="col col-50 col-offset-25 text-center">
+      <i style="cursor:pointer;color:#11c1f3;" ng-disabled="bodyStats.$invalid" ng-click="profile.submitStats()" class="button button-icon icon ion-ios-checkmark"> Update</i>
+    </div>
+  </div>
+</div>
+</form>
+
+<!--Fitness Stats-->
+<div class="item item-icon-right item-calm item-icon-left item-divider" ng-click="profile.isCollapsedStats = !profile.isCollapsedStats">
+  My Fitness Stats
+  <i class="icon ion-stats-bars"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedStats">
+  <div class="row item">
+    <div class="col col-75">
+      Total Workout Time
+    </div>
+    <div class="col">
+      {{profile.userHistory.total_workout_time ? profile.timeString(profile.userHistory.total_workout_time) : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Workout Calories Burned
+    </div>
+    <div class="col">
+      {{profile.userHistory.total_calories_burned ? profile.userHistory.total_calories_burned : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Workouts Completed
+    </div>
+    <div class="col">
+      {{profile.userHistory.workouts ? profile.userHistory.workouts.length : 0}}
+    </div>
+  </div>
+  <div class="row item" ng-repeat="count in profile.userHistory.total_count_of_workouts">
+    <div class="col col-50 col-offset-25">
+      {{count['category_name']}}
+    </div>
+    <div class="col">
+      {{count.count ? count.count : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Quick Logs
+    </div>
+    <div class="col">
+      {{profile.userHistory.quick_logs ? profile.userHistory.quick_logs.length : 0}}
+    </div>
+  </div>
+</div>
+
+<!--Finished Workouts-->
+<div class="item item-icon-right item-calm item-icon-left item-divider" ng-click="profile.isCollapsedWorkouts = !profile.isCollapsedWorkouts">
+  <i class="icon ion-arrow-graph-up-right"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Finished Workouts
+</div>
+<div class="ng-show item item-text-wrap text-center" ng-show="profile.userHistory.workouts.length > 0 && !profile.isCollapsedWorkouts">
+  <h4 class="help-text">
+    Tap on a workout to see the details.
+  </h4>  
+</div>
+<div class="ng-show item item-text-wrap" ng-show="profile.userHistory.workouts.length === 0">
+  <h4 class="help-text">
+    You haven't completed any Updown Workouts yet! Tap "Workout" on the Home page to get started.
+  </h4>  
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedWorkouts"> 
+  <div class="row header" style="background-color:white">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col">
+      <b>Name</b>
+    </div>
+    <div class="col col-20">
+      <b>Cals / Time</b>
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate-start ="workout in profile.userHistory['workouts'] | itemsPerPage: 10" pagination-id="workouts" ng-click="profile.expander(profile.userHistory['workouts'], workout); profile.getWorkout(workout.id)">
+    <div class="col col-25" style="font-size:10px">
+      {{profile.formatTime(workout['finished_at']) || " "}}
+    </div>
+    <div class="col" style="font-size:10px">
+      {{workout['name'] ? workout['name'] : "Workout"}}
+    </div>
+    <div class="col col-20">
+      {{workout['calories_burned']}} / {{profile.timeString(workout['total_time'])}}
+    </div>
+    <div class="col col-10 text-right" style="cursor:pointer">
+      <i style="font-size:30px" class="icon button button-icon ion-android-arrow-dropdown"></i>
+    </div>
+  </div>
+  <ion-item class="energized-bg ng-hide" style="padding:0px" ng-hide="profile.workoutHidden[workout.id]" dir-paginate-end>
+  <div class="card row grey-bg ng-hide" ng-hide="profile.workoutHidden[workout.id]" ng-repeat="block in profile.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+    <div class="col">
+      <div class="row header item-text-wrap">
+        <h4 style="margin: 0 0 4px 0;font-size: 12px;">{{profile.exerciseLookup[block.block_sets[0].exercise_id].name}} </h4>
+      </div>
+      <div class="row" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+        <div class="col" data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+          {{profile.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}
+        </div>
+      </div>
+    </div>
+  </div>  
+  </ion-item>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="workouts" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-calm item-icon-left item-divider" ng-click="profile.isCollapsedLogs = !profile.isCollapsedLogs">
+  <i class="icon ion-ios-list-outline"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Quick Logs
+</div>
+<div class="ng-show item item-text-wrap" ng-show="profile.userHistory.quick_logs.length === 0">
+  <h4 class="help-text">
+    You haven't logged any activity yet! Tap "Quick Log" on the Home page to record activity and earn points.
+  </h4>  
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedLogs" style="background-color:white"> 
+  <div class="row header">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col col-50">
+      <b>Activity</b>
+    </div>
+    <div class="col">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row item" dir-paginate="quick in profile.userHistory['quick_logs'] | itemsPerPage: 10" pagination-id="quicklogs">
+    <div class="col col-33 item-text-wrap" style="font-size:10px">
+      {{profile.formatTime(quick['finished_at']) || " "}}
+    </div>
+    <div class="col col-50 item-text-wrap">
+      {{quick['activity_name']}}
+    </div>
+    <div class="col">
+      {{profile.timeString(quick['duration']*60) || 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="quicklogs" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+</ion-content>
+
+</ion-view>

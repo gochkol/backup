@@ -1,0 +1,129 @@
+class WorkoutUpdateService
+
+  attr_accessor :user, :workout, :params, :intensity
+
+  def initialize(user, params)
+    @user = user
+    @params = params
+    @workout = Workout.find(params[:id])
+    @intensity = workout.request_params["intensity"]
+    @finished = params[:finished] ||= false
+  end
+
+  def update
+    params[:blocks].each do |block|
+      block[:block_sets].each do |block_set|
+        bsvs = workout.block_set_value_sets.where(block_set_id: block_set[:id]).first
+        h0 = bsvs.value_set.values
+        h1 = block_set[:exercise][:criterion]
+        vs = ValueSet.create(values: h1, block_set_value_set: bsvs)
+        bsvs.value_set = vs
+        bsvs.save
+        if @finished
+          update_body_area_factors(bsvs.block_set.exercise, h1, h0)
+        end
+      end
+    end
+  end
+
+  def update_body_area_factors(e, h, o)
+    usage = user.usage.value
+    mode = e.mode.value
+    baf = user.factors_for_body_area_id(e.primary_body_area.id)
+    mr = baf.mr
+    mw = baf.mw
+    t = e.technique
+    i = @intensity
+
+    if (mode.include?("repetition") || mode.include?("pattern") || mode.include?("breath"))
+      reps_new = nil
+      reps_old = nil
+      if mode.include?("repetition")
+        reps_new = h["reps"]
+        reps_old = o["reps"]
+      elsif mode.include?("pattern")
+        reps_new = h["pattern"]
+        reps_old = o["pattern"]
+      else
+        reps_new = h["breath"]
+        reps_old = o["breath"]
+      end
+      
+      if mode.include?("weight")
+        puts reps_new
+        puts reps_old
+        puts weight_new
+        puts weight_old
+
+        weight_new = h["weight"]
+        weight_old = o["weight"]
+        #given reps and weight
+        #mr = something
+        #mw = something
+        temp_r = t * (0.75 + (0.025 * i)) * mr
+        temp_w = t * (0.75 + (0.025 * i)) * mw
+        
+        shift = 0.1
+        total_shift = 1.0
+        shifting_up = true
+
+        test_r = 0.0
+        test_w = 0.0
+        test_reps = 0.0
+
+        while shift.abs > 0.0008 do
+          shifting = true
+          while shifting do
+            test_r = temp_r * total_shift
+            test_w = temp_w * total_shift
+            test_reps = (test_r) ** (((test_w**2) - (weight_new**2))/(test_w**2))
+            if((reps_new < test_reps) && shifting_up)
+              shifting = false
+              shifting_up = false
+            elsif((reps_new > test_reps) && !shifting_up)
+              shifting = false
+              shifting_up = true
+            else
+              total_shift += shift
+            end
+          end
+          shift = -0.5 * shift
+        end
+        
+        shifted_r = temp_r * total_shift
+        shifted_w = temp_w * total_shift
+
+        mr1 = nil
+        if(temp_w > weight_new)
+          mr1 = reps_new ** ((temp_w * temp_w)/((temp_w * temp_w) - (weight_new * weight_new)))
+        else
+          mr1 = shifted_r
+        end
+          
+        mr2 = temp_r
+        mr3 = shifted_r
+        
+        mw1 = nil
+        if(temp_r > reps_new)
+          mw1 = Math.sqrt((-1 * (weight_new * weight_new) * (Math.log(temp_r)))/(Math.log(reps_new/temp_r)))
+        else
+          mw1 =shifted_w
+        end
+        mw2 = temp_w
+        mw3 = shifted_w
+
+        mw = (mw1 + mw2 + mw3)/3
+        mw = mw / (t * (0.75 + (0.025 * i)))
+        mr = (mw1 + mw2 + mw3)/3
+        mr = mr / (t * (0.75 + (0.025 * i)))
+      else
+        #given just reps
+        #mr = something
+        #mw = something
+        bound = 1.0 / (t*(0.75 + (0.025 *i)))
+        mr = reps_new * bound
+      end
+    end
+    UserBodyAreaFactor.create(user: user, body_area: e.primary_body_area, mr: mr, mw: mw)
+  end
+end

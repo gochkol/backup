@@ -1,0 +1,35 @@
+<ion-view view-title="Generate Workout" hide-back-button="false">
+
+<form action="#" method="POST" name="quickWorkout" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="ng-show" ng-show="quick.step == 1" ui-view="type"></div>
+
+<div class="ng-show" ng-show="quick.step == 2" ui-view="locale"></div>
+
+<div class="ng-show" ng-show="quick.step == 2" ui-view="time"></div>
+
+<div class="ng-show" ng-show="quick.step == 2" ui-view="intensity"></div>
+
+<div class="ng-show" ng-show="quick.step == 1" ui-view="bodyAreas"></div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item ng-show" ng-show="quick.step == 2" ng-click="quick.step = quick.step-1">
+    <i class="icon calm ion-android-arrow-back"></i>
+    <span>Back to Type</span>
+  </a>
+  <a class="tab-item ng-show" ng-show="quick.step == 1" ng-disabled="quick.baMissing" ng-click="quick.submitRequest();quick.scrollTop()">
+    <i class="icon calm ion-play"></i>
+    <span>Next</span>
+  </a>
+  <a class="tab-item" ng-show="quick.step == 2" ng-disabled="quickWorkout.$invalid || quick.baMissing" ng-click="quick.submitRequest()">
+    <i class="icon calm ion-play"></i>
+    <span>Generate Workout</span>
+  </a>
+</div>
+
+</form>
+
+</ion-view>

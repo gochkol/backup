@@ -1,0 +1,15 @@
+<ion-view view-title="</i> View Workout" can-swipe-back="false">
+
+<ion-content>
+
+  <div class="ng-show" ng-show="workout.shower == 'customizeSimple'" ui-view="customizeSimple"></div>
+
+  <div class="ng-show" ng-show="workout.shower == 'customizeAdvance'" ui-view="customizeAdvance"></div>
+
+  <div class="ng-show" ng-show="workout.shower == 'exercise'" ui-view="exercise"></div>
+
+  <div class="ng-show" ng-show="workout.shower == 'summary'" ui-view="summary"></div>
+
+</ion-content>
+
+</ion-view>

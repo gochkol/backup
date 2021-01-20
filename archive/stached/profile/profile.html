@@ -1,0 +1,246 @@
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top ng-hide" ng-include="'partials/navbar.html'" ng-controller="NavCtrl" ng-hide="hideAll">
+</nav>
+    <div class="row padfornav">
+    </div>
+
+    <div class="row whitewell">
+        <div class="col-md-8 col-md-offset-2 text-center textheader">
+          <h2>Profile</h2>
+        </div>
+    </div>
+    <div class="row well">
+        <form action="#" method="POST" name="userForm" novalidate>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched}">
+                            <input ng-model="user.first_name" type="text" tooltip="Enter your first name." tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="!user.first_name" name="firstName" id="firstName" class="form-control field-bg" placeholder="First Name" required=""></input>
+                            <p ng-show="userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched" class="help-block">First name is required.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched}">
+                            <input ng-model="user.last_name" type="text" tooltip="Enter your last name." tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="!user.last_name" name="lastName" id="lastName" class="form-control field-bg" placeholder="Last Name" required=""></input>
+                            <p ng-show="userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched" class="help-block">Last name is required.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  Sex Option  -->
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="radio">
+                            <label>
+                                <input ng-model="user.gender" type="radio" name="optionsex" id="optionmale" value="male" required>
+                                    Male
+                                    </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="user.gender" type="radio" name="optionsex" id="optionfemale" value="female" required>
+                                    Female
+                                    </label>
+                        </div>
+                    </div>
+                    <!-- Birthdate Select -->
+                </div>
+                </br>
+		<div class="row">
+                    <div class="col-sm-12 col-xs-12 form-group-sm form-inline">
+                        <label>Birthdate:</label>
+                        
+                            <select ng-model="user.birth_month" class="field-bg" required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                            </select>
+                            <select ng-model="user.birth_day" class="field-bg" required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+                                <option>27</option>
+                                <option>28</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+                            </select>
+                            <select ng-model="user.birth_year" class="field-bg" required>
+                                <option>2002</option>
+                                <option>2001</option>
+                                <option>2000</option>
+                                <option>1999</option>
+                                <option>1998</option>
+                                <option>1997</option>
+                                <option>1996</option>
+                                <option>1995</option>
+                                <option>1994</option>
+                                <option>1993</option>
+                                <option>1992</option>
+                                <option>1991</option>
+                                <option>1990</option>
+                                <option>1989</option>
+                                <option>1988</option>
+                                <option>1987</option>
+                                <option>1986</option>
+                                <option>1985</option>
+                                <option>1984</option>
+                                <option>1983</option>
+                                <option>1982</option>
+                                <option>1981</option>
+                                <option>1980</option>
+                                <option>1979</option>
+                                <option>1978</option>
+                                <option>1977</option>
+                                <option>1976</option>
+                                <option>1975</option>
+                                <option>1974</option>
+                                <option>1973</option>
+                                <option>1972</option>
+                                <option>1971</option>
+                                <option>1970</option>
+                                <option>1969</option>
+                                <option>1968</option>
+                                <option>1967</option>
+                                <option>1966</option>
+                                <option>1965</option>
+                                <option>1964</option>
+                                <option>1963</option>
+                                <option>1962</option>
+                                <option>1961</option>
+                                <option>1960</option>
+                                <option>1959</option>
+                                <option>1958</option>
+                                <option>1957</option>
+                                <option>1956</option>
+                                <option>1955</option>
+                                <option>1954</option>
+                                <option>1953</option>
+                                <option>1952</option>
+                                <option>1951</option>
+                                <option>1950</option>
+                                <option>1949</option>
+                                <option>1948</option>
+                                <option>1947</option>
+                                <option>1946</option>
+                                <option>1945</option>
+                                <option>1944</option>
+                                <option>1943</option>
+                                <option>1942</option>
+                                <option>1941</option>
+				<option>1940</option>
+                                <option>1939</option>
+                                <option>1938</option>
+                                <option>1937</option>
+                                <option>1936</option>
+                                <option>1935</option>
+                                <option>1934</option>
+                                <option>1933</option>
+                                <option>1932</option>
+                                <option>1931</option>
+                                <option>1930</option>
+                            </select>
+                    </div>
+                </div>
+                </br>
+                
+                <div class="form-group" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+                <label for="usage">Fitness Goal: <a href="" class="help_link"><img src="images/infoicon.png" style="height:18px"></a> 
+                <span class="help">Choose your fitness goal. This will affect your workout parameters including number of reps and sets, rest duration, and amount of weight.</br>
+                  <ul>
+		    <li><i class="bluetext">Gaining strength.</i> Choose this option to develop size and raw strength. Low reps, Very high weight, Very high sets.</li>
+		    <li><i class="bluetext">General muscle.</i> Choose this option to build muscle. Medium reps, High weight, High sets.</li>
+                    <li><i class="bluetext">General fitness.</i> The appropriate option for most people. Medium reps, Medium weight, Low sets.</li>
+                    <li><i class="bluetext">Losing weight.</i> Choose this option to lose weight. High reps, Medium weight, Medium sets.</li>
+                    <li><i class="bluetext">Building endurance.</i> Choose this option to build muscular and cardiovascular endurance. Very high reps, Low weight, Medium sets.</li>
+                  </ul>
+		</span></label>
+                <select ng-options="obj.id as obj.name for obj in usages" ng-model="user.usage_id" name="fitnessGoal" class="form-control field-bg" required>
+                </select>
+                <p ng-show="userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched" class="help-block">A fitness goal is required.</p>
+                </div>
+                
+                <div class="form-group" ng-class="{ 'has-error' : userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched}">
+                <label for="experience">Fitness Experience: <a href="" class="help_link"><img src="images/infoicon.png" style="height:18px"></a> 
+                <span class="help">Choose your experience level. This will affect which exercises are in your workouts.
+                  <ul>
+                    <li><i class="bluetext">Beginner.</i> You are not very experienced with exercising or haven't exercised regularly in a long time. You consider yourself to be in poor or average shape.</li>
+                    <li><i class="bluetext">Intermediate.</i> You exercise with moderate frequency and could find your way around a gym. You consider yourself to be in decent shape.</li>
+                    <li><i class="bluetext">Advanced.</i> You are no stranger to the gym and you exercise regularly. You consider yourself to be in pretty good or excellent shape.</li>
+                  </ul>
+                </span></label>
+                <select ng-model="user.experience" name="fitnessExp" class="form-control field-bg" required>
+                    <option value="1">Beginner</option>
+                    <option value="2">Intermediate</option>
+                    <option value="3">Advanced</option>
+                    </select> 
+                <p ng-show="userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched" class="help-block">Fitness experience is required.</p>
+                </div>
+
+             <div class="row">
+                <div class="col-md-12">
+		<label for="intensity">Preferred Workout Intensity: <a href="" class="help_link"><img src="images/infoicon.png" style="height:18px"></a> 
+                <span class="help">Choose your preferred intensity level. This will affect the difficulty of your workouts.
+                  <ul>
+                  <li><i class="bluetext">1-3.</i> Light workouts. Barely break a sweat. Appropriate for beginners.</li>
+                  <li><i class="bluetext">4-6.</i> Average workouts. Appropriate for most people.</li>
+                  <li><i class="bluetext">7-8.</i> Hard workouts. You will definitely be sweating.</li>
+                  <li><i class="bluetext">9-10.</i> Extreme workouts. You will be pushed to exhaustion or near failure with each set.</li>
+                  </ul>
+                </span></label>
+                </div>
+                <div class="col-md-10">
+                <div class="form-inline">
+          	<input type="range" class="intensity-slider" id="intensity" name="intensity" ng-model="user.intensity" max="10" min="1">
+                </div>
+                
+                </div>
+                <div class="col-md-1 col-md-offset-0 col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 whitewell">
+                <h2 class="text-center whitetext">{{user.intensity}}</h2>
+                </div>
+             </div>
+            
+                
+            </div>
+    </div>
+    </form>  
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 topbottompad">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <button type="submit" id="backtohome" ng-disabled="userForm.$invalid" class="btn btn-warning btn-lg img-responsive center-block" ng-click="submit()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>

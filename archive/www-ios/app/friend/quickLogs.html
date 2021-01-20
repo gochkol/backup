@@ -1,0 +1,34 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedLogs = !friend.isCollapsedLogs">
+  {{friend.friend.first_name}}'s Logged Activities
+  <i class="icon ion-ios-list-outline"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedLogs">
+  <div class="row header">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col col-50">
+      <b>Activity</b>
+    </div>
+    <div class="col">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row item" dir-paginate="quick in friend.friend.quick_logs | orderBy:'finished_at':true | itemsPerPage: 10" pagination-id="quicklogs">
+    <div class="col col-33 item-text-wrap" style="font-size:10px">
+      {{friend.formatTime(quick.finished_at) || " "}}
+    </div>
+    <div class="col col-50 item-text-wrap">
+      {{quick.activity_name}}
+    </div>
+    <div class="col">
+      {{friend.timeString(quick.duration*60) || 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="quicklogs" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="modal-header text-center">
+  <h3 class="modal-title">Great Job!</h3>
+</div>
+<div class="modal-body text-center help-text">
+  {{data.sentence}}
+</div>
+<div class="modal-footer">
+  <button class="btn btn-lg center-block img-responsive btn-primary" ng-disabled="isReadonlytwo" ng-click="cancel(); isReadonlytwo =! isReadonlytwo">Close</button>
+  <a ng-click="fbShare(data)" style="padding:0px" class="btn btn-lg pull-right"><img src="content/images/share_on_facebook_button.png" style="width:100%"></img></a>
+</div>

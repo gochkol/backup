@@ -1,0 +1,55 @@
+<h3>Account Status</h3>
+
+<label>Account Status:</label>
+<p ng-show="account.user.content_level === 'plus'">Updown Plus Account</p>
+<p ng-show="account.user.content_level === 'free'">Free Account</p>
+
+<button class="btn img-responsive btn-primary" ng-click="account.showUpgrade =! account.showUpgrade">Upgrade Account</button>
+
+<form id="checkout" name="plusSignup" style="margin-top:20px" class="greywell" ng-show="account.showUpgrade" novalidate>
+  <div class="row" style="padding-top:20px">
+    <div class="col-md-12">
+	  <div class="form-group" ng-class="{ 'has-error' : plusSignup.plan.$invalid}">
+	    <label>* Subscription Plan:</label>
+	    <select name="plan" ng-init="account.billingPlanID = 1" ng-options="obj.id as obj.name for obj in account.billingPlans" ng-model="account.billingPlanID" class="form-control" required></select>
+	    <p ng-show="plusSignup.plan.$invalid && !plusSignup.plan.$pristine && plusSignup.plan.$touched" class="help-block">Subscription plan is required.</p>
+	  </div>
+	</div>
+    <div class="col-md-6">
+      <div class="form-group" ng-class="{ 'has-error' : plusSignup.number.$invalid && !plusSignup.number.$pristine && plusSignup.number.$touched}">
+        <label>* Card Number:</label>
+        <input data-braintree-name="number" pattern="[0-9]{12,19}" ng-model="account.number" name="number" type="text" maxlength="19" class="form-control" placeholder="1111 2222 3333 4444" required></input>
+        <p ng-show="plusSignup.number.$invalid && !plusSignup.number.$pristine && plusSignup.number.$touched" class="help-block">Enter a valid credit card number.</p>
+	  </div>
+    </div>
+	<div class="col-md-6">
+      <div class="form-group" ng-class="{ 'has-error' : plusSignup.cardHolder.$invalid && !plusSignup.cardHolder.$pristine && plusSignup.cardHolder.$touched}">
+        <label>* Cardholder Name:</label>
+        <input data-braintree-name="cardholder_name" ng-model="account.cardholder_name" name="cardHolder" type="text" maxlength="40" class="form-control" placeholder="John Doe" required></input>
+        <p ng-show="plusSignup.cardHolder.$invalid && !plusSignup.cardHolder.$pristine && plusSignup.cardHolder.$touched" class="help-block">Cardholder name is required.</p>
+	  </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group" ng-class="{ 'has-error' : plusSignup.cvv.$invalid && !plusSignup.cvv.$pristine && plusSignup.cvv.$touched}">
+        <label>* Security Code:</label>
+        <input data-braintree-name="cvv" pattern="[0-9]{3,4}" ng-model="account.cvv" name="cvv" type="number" maxlength="4" class="form-control" placeholder="NNN" required></input>
+        <p ng-show="plusSignup.cvv.$invalid && !plusSignup.cvv.$pristine && plusSignup.cvv.$touched" class="help-block">Enter a valid security code.</p>
+	  </div>
+    </div>
+	<div class="col-md-4">
+      <div class="form-group" ng-class="{ 'has-error' : plusSignup.expDate.$invalid && !plusSignup.expDate.$pristine && plusSignup.expDate.$touched}">
+        <label>* Expiration Date:</label>
+        <input data-braintree-name="expiration_date" pattern="[0-9]{2}/[0-9]{2}" ng-model="account.expDate" name="expDate" type="text" maxlength="5" class="form-control" placeholder="10/20" required></input>
+        <p ng-show="plusSignup.expDate.$invalid && !plusSignup.expDate.$pristine && plusSignup.expDate.$touched" class="help-block">Enter the card expiration date in the format MM/YY.</p>
+	  </div>
+    </div>
+	<div class="col-md-4">
+      <div class="form-group" ng-class="{ 'has-error' : plusSignup.postal.$invalid && !plusSignup.postal.$pristine && plusSignup.postal.$touched}">
+        <label>* Zip Code:</label>
+        <input data-braintree-name="postal_code" ng-model="account.postal" name="postal" type="text" maxlength="15" class="form-control" placeholder="12345" required></input>
+        <p ng-show="plusSignup.postal.$invalid && !plusSignup.postal.$pristine && plusSignup.postal.$touched" class="help-block">Enter the postal code associated with the card.</p>
+	  </div>
+    </div>
+  </div>
+   <button type="submit" ng-disabled="plusSignup.$invalid" id="submit" class="btn btn-primary img-responsive">Sign up for Updown Plus</button>
+</form>

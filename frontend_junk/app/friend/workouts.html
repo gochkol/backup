@@ -1,0 +1,60 @@
+<!--Finished Workouts-->
+
+<div class="row toppad">
+  <div class="col-md-5 col-md-offset-2" style="padding-left:0px;padding-right:5px">
+    <h4 style="padding-left:10px" class="orangetext">Finished Updown Workouts:</h4>
+	<p style="padding-left:10px" class="help-text">
+	  Hit the star icon to favorite a friend's workout.
+    </p>
+    <div style="max-height:400px;overflow:auto;">
+      <table class="table table-condensed well">
+        <tr>
+          <td><b>Completed</b></td>
+          <td><b>Name</b></td>
+          <td><b>Cals</b></td>
+          <td><b>Time</b></td>
+          <td></td>
+        </tr>
+        <tr style="padding-right:-50px" dir-paginate-start ="workout in friend.friend.workouts | itemsPerPage: 10" pagination-id="workouts">
+          <td style="font-size:14px">{{friend.formatTime(workout.finished_at) || " "}}</td>
+          <td><a style="cursor:pointer" ng-click="friend.expander(friend.workouts, workout)">{{workout.name ? workout.name : "Workout"}}</a></td>
+          <td>{{workout.calories_burned}}</td>
+          <td>{{friend.timeString(workout.total_time)}}</td>
+          <td><a style="cursor:pointer"><i class="fa fa-lg fa-star" ng-disabled="friend.isReadonly || friend.favorites.length == friend.favoritesMax" ng-init="friend.isReadonly = false" ng-click="friend.createFavorite(workout); friend.isReadonly = !friend.isReadonly"></i></a></td>
+        </tr>
+        <tr dir-paginate-end class="ng-hide" ng-hide="friend.workoutHidden[workout.id]">
+          <td colspan="5">
+            <table class='table table-condensed well' ng-repeat="block in friend.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+              <tr class="warning"><td colspan="3"><h5 style="display:inline">{{friend.exerciseLookup[block.block_sets[0].exercise_id].name}}</h5></tr>
+              <tr class='form-group-sm text-center form-inline warning' ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+                <td data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+                  <p>{{friend.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <dir-pagination-controls pagination-id="workouts" class="text-center img-responsive center-block" max-size="5"></dir-pagination-controls>  
+  </div>
+  <div class="col-md-3 col-sm-12">
+    <h4 class="orangetext">{{friend.friend.first_name}}'s Friends:</h4>
+    <p class="help-text">
+	  Hit the + icon to add a friend.
+    </p>
+    <div style="max-height:400px;overflow:auto;">
+      <table class="table table-condensed">
+        <tr ng-repeat="f in friend.friend.friends | orderBy:'first_name'">
+          <td>
+		    <img ng-src="{{f.avatar_url}}" ng-hide="!f.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+		    <img ng-src="content/images/profile_image.jpg" ng-hide="f.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+		  </td>
+          <td>{{f.first_name}} {{f.last_name}}</td>
+          <td><a><i style="cursor:pointer" class="fa fa-lg fa-plus-square-o ng-hide" ng-hide="f.hide" ng-init="f.hide = friend.friendsCheck(f)" ng-click="friend.createFriendRequest(f); f.hide=true"></i></a></td>
+        </tr>
+      </table>
+    </div>
+	<button class="btn btn-danger img-responsive center-block" ng-really-message="Are you sure you want to remove this friend?" ng-really-click="friend.deleteFriend(friend.friend)">Remove Friend</button>
+  </div>
+</div>

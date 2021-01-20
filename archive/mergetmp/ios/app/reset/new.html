@@ -1,0 +1,11 @@
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="content/images/upDownLogo.png" class="img-responsive center-block toppad" id="logo" style="width:200px">
+    <div class="form-group toppad">
+      <input ng-model="reset.email" type="email" name="email" id="email" class="form-control" placeholder="Email Address" required></input>
+      <input ng-model="reset.password" type="password" name="password" id="password" ng-minlength="5" maxlength="25" class="form-control" placeholder="New Password" required></input>
+      <input ng-model="reset.passwordConfirmation" type="password" name="confirmPassword" maxlength="25" id="confirmPassword" class="form-control" placeholder="Confirm Password" required></input>
+    </div>
+    <button type="submit" class="btn btn-warning btn-lg img-responsive center-block" ng-click="reset.newPassword()">Reset Password</button>
+  </div>
+</div>

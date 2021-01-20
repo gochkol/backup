@@ -1,0 +1,20 @@
+<div class="list">
+  <div class="item item-calm item-divider item-icon-left" style="height:50px;line-height:10px">
+    Select Location
+    <i class="icon ion-map"></i>
+  </div>
+  <div class="item item-text-wrap" ng-if="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Pick the location where you are working out.
+    </h4>
+  </div>
+  <label class="item item-radio" ng-repeat="location in quick.locations | orderBy:'name' track by location.id" style="height:50px">
+    <input type="radio" ng-model="quick.request.locationId" name="location" value="{{location.id}}">
+    <div class="radio-content">
+      <div class="item-content">
+        <span style="margin-left:10px">{{location.name}}</span>
+      </div>
+	  <i class="radio-icon calm ion-checkmark"></i>
+    </div>
+  </label>
+</div>

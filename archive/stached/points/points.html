@@ -1,0 +1,55 @@
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top ng-hide" ng-include="'partials/navbar.html'" ng-controller="NavCtrl" ng-hide="hideAll">
+</nav>
+
+<div class="row padfornav">
+</div>
+<div class="row whitewell">
+	<div class="col-md-6 col-md-offset-3 text-center textheader">
+	<h2>Points</h2>
+        </div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="row text-center">
+			<div class="col-sm-4">
+			<h3 class="text-center orangetext">Total points: <span class="blacktext">{{total_points}}</span></h3>
+			</div>
+			<div class="col-sm-4">
+                        <h3 class="text-center orangetext">Daily: <span class="blacktext">{{user.current_daily_points}}/{{max_day}}</span></h3>
+                          <progressbar value="dprogress"><span style="color:white; white-space:nowrap;">{{dprogress | number : 0}}%</span></progressbar>
+			</div>
+			<div class="col-sm-4">
+                        <h3 class="text-center orangetext">Monthly: <span class="blacktext">{{user.current_monthly_points}}/{{max_month}}</span></h3>
+                          <progressbar value="mprogress"><span style="color:white; white-space:nowrap;">{{mprogress | number : 0}}%</span></progressbar>
+			</div>
+		</div>
+        </div>
+</div>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div style="max-height:200px;overflow:auto;">
+		<table class="table">
+			<tr ng-repeat="point in points">
+       				<td>{{point.earned_at}}</td>
+        			<td>{{point.sentence}}</td>
+			</tr>
+		</table>
+		</div>
+	</div>	
+	
+</div>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3 topbottompad">
+		<div class="row">
+		<div class="col-sm-12 col-xs-12">
+		<button type="submit" id="backtohome" class="btn btn-warning btn-lg img-responsive center-block" ui-sref='home'>Home</button>
+		</div>
+		
+		</div>
+	</div>
+</div>
+

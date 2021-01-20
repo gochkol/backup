@@ -1,0 +1,48 @@
+
+A)Push start button
+  IF in Set
+  1)Start sound plays - then
+    a)Start becomes pause and complete
+    b)Set turns green
+    c)Set time counter starts counting down
+  If in Rest
+  1)No sound plays
+    a)Start becomes pause and complete
+    b)Set turns green
+    c)Set time counter starts counting down
+
+
+B)Push pause button
+  If in Set
+  1)No sound plays
+    a)
+    b)
+    c)
+    
+  If in rest
+  1)No sound plays
+    a)Start becomes pause and complete
+    b)Set turns green
+    c)Set time counter starts counting down
+
+C)Push complete button
+  If in Set
+  1)Rest sound plays
+  
+  
+  If in Rest
+  1)
+
+D) X seconds left
+  If in Set
+  1)Warning sound plays
+
+  If in Set
+  1)Warning sound plays
+
+E)Count Down timer Completes
+  If in Set
+  1)Rest sound plays
+
+  If in Rest
+  1)Start sound plays

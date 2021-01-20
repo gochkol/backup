@@ -1,0 +1,16 @@
+<div class="list">
+  <div class="item item-calm item-divider item-icon-left">
+    Select Intensity
+    <i class="icon ion-arrow-graph-up-right"></i>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Choose an intensity
+    </h4>
+  </div>
+  <div class="item padding-horizontal range range-calm">
+    <input type="range" class="range-calm" id="intensity" name="intensity" ng-model="quick.request.intensity" max="10" min="1">
+    <span class="padding-horizontal">{{quick.request.intensity}}</span>
+  </div>
+</div>
+

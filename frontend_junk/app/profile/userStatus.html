@@ -1,0 +1,26 @@
+<div class="row well" style="box-shadow: 2px 2px 4px 0px #888888;">
+      <div class="col-md-6">
+        <img ng-src="{{profile.user.avatar_url}}" ng-hide="!profile.user.avatar_url" class="img-thumbnail img-responsive center-block ng-hide" style="height:150px; width:150px;">
+        <img src="content/images/profile_image.jpg" ng-show="!profile.user.avatar_url" class="img-thumbnail img-responsive center-block ng-show" style="height:150px; width:150px;">
+      </div>
+      <div class="col-md-6 text-center">
+        <br>
+        <h4 class="ng-hide" ng-hide="!profile.user.current_status">"{{profile.user['current_status']}}"</h4>
+		<p class="help-text" ng-hide="profile.user.current_status">
+		  It's lonely here. Add a status and your friends will be able to see what's up with you.
+		</p>
+        <h5 class="ng-hide" ng-hide="!profile.user.current_status">Last updated {{profile.formatTime(profile.user['current_status_at'])}}</h5>
+		<form id="statusForm">
+		<div class="row">
+          <div class="col-md-8 col-sm-8 col-xs-8" style="padding-right:0px;padding-left:10px;">
+            <div class="form-group">
+              <input type="textarea" ng-model="profile.statusString" maxlength="80" style="margin-top:10px" placeholder="Current status." name="userStatus" id="userStatus" class="form-control"></input>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:10px;padding-right:0px;">
+            <button style="margin-top:13px" class="btn btn-primary btn-sm img-responsive center-block" ng-click="profile.updateStatus()" ng-disabled="profile.statusString === '' || profile.statusString === null">Post</button>
+          </div>
+		</div>
+		</form>
+      </div>
+</div>

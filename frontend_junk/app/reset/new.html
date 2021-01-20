@@ -1,0 +1,20 @@
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2">
+  <form name="newForm" novalidate>
+    <img src="content/images/upDownLogo.png" class="img-responsive center-block toppad" id="logo" style="width:200px">
+    <div class="form-group toppad" ng-class="{ 'has-error' : newForm.email.$invalid && !newForm.email.$pristine && newForm.email.$touched}">
+      <input ng-model="reset.email" type="email" name="email" id="email" class="form-control" placeholder="Email Address" required></input>
+      <p ng-show="newForm.email.$invalid && !newForm.email.$pristine && newForm.email.$touched" class="help-block">Enter the email address associated with your account.</p>
+    </div>
+    <div class="form-group toppad" ng-class="{ 'has-error' : newForm.password.$invalid && !newForm.password.$pristine && newForm.password.$touched}">
+      <input ng-model="reset.password" type="password" name="password" id="password" ng-minlength="5" maxlength="25" class="form-control" placeholder="New Password" required></input>
+      <p ng-show="newForm.password.$invalid && !newForm.password.$pristine && newForm.password.$touched" class="help-block">Password must be at least 5 characters.</p>
+    </div>
+    <div class="form-group toppad" ng-class="{ 'has-error' : newForm.confirmPassword.$invalid && !newForm.confirmPassword.$pristine && newForm.confirmPassword.$touched}">
+      <input ng-model="reset.passwordConfirmation" match="reset.password" type="password" name="confirmPassword" maxlength="25" id="confirmPassword" class="form-control" placeholder="Confirm Password" required></input>
+      <p ng-show="newForm.confirmPassword.$invalid && !newForm.confirmPassword.$pristine && newForm.confirmPassword.$touched" class="help-block">Passwords do not match.</p>
+    </div>
+    <button type="submit" ng-disabled="newForm.$invalid" class="btn btn-primary btn-lg img-responsive center-block" ng-click="reset.newPassword()">New Password</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<ion-view view-title="<i class='icon ion-star'></i> Favorites" hide-back-button="true">
+  
+<ion-content>
+  
+<div class="list ng-hide" ng-hide="favorites.favorites.length > 0">
+  <div class="item item-text-wrap">
+    <h4 class="help-text">
+	  Looks like you don't have any favorite workouts yet! Tap "Generate Workout" and use the "Favorite" button to add a favorite.
+    </h4>
+	<h4 class="help-text">
+	  Or, create and favorite your own workout with the custom workout tool.
+    </h4>
+  </div>
+</div>  
+
+<div class="list">
+  <div class="item item-calm item-icon-left item-divider ng-hide" ng-hide="favorites.favorites.length == 0">
+    <i class="icon ion-star"></i>
+	Favorites: {{favorites.favorites.length}} / {{favorites.favoritesMax}}
+  </div>
+  <div class="row item calm item-text-wrap" ng-repeat="favorite in favorites.favorites | orderBy:'name' track by $index">
+    <div class="col-80 col col-center " ng-click="favorites.doWorkout(favorite)" style="cursor:pointer">
+      {{favorite.name}}
+    </div>
+    <div class="col text-right">
+      <i class="icon button button-icon ion-backspace-outline" ng-really-message="Really, you want to delete me?" ng-really-click="favorites.deleteFavorite($index)"></i>
+    </div>
+  </div>
+</div>
+
+</ion-content>
+
+</ion-view>

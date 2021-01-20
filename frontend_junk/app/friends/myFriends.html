@@ -1,0 +1,19 @@
+    <h4 class="orangetext">My Friends ({{friends.friends.length > 0 ? friends.friends.length-1 : 0}})</h4>
+    <p class="help-text ng-show" ng-show="friends.friends.length - 1 == 0">
+	  Add friends to view and share workouts and activity. Also, compete with them for points and levels!
+    </p>
+	<p class="help-text ng-hide" ng-hide="friends.friends.length < 2">
+	  Click on a friend to see more details.
+    </p>
+    <div style="max-height:300px;overflow:auto;">
+      <table class="table table-condensed well">
+        <tr style="cursor:pointer" class="ng-hide" ng-hide="friend.id == friends.user.id" ng-repeat="friend in friends.friends | filter:friends.invert | orderBy:'first_name'" ng-click="friends.showFriend(friend)">
+          <td>
+		    <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+			<img ng-src="content/images/profile_image.jpg" ng-hide="friend.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+		  </td>
+          <td>{{friend.first_name}} {{friend.last_name}}</td>
+		  <td>Lv {{friends.level[friend.level_id].value}} {{friends.level[friend.level_id].name}}</td>
+        </tr>
+      </table>
+    </div>

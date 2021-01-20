@@ -1,0 +1,60 @@
+<div class="list ng-show" ng-show="quick.show.l0">
+  <div class="item item-calm item-divider item-icon-left">
+    Select Body Areas
+    <i class="icon ion-ios-body"></i>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Choose body areas to exercise.
+    </h4>
+  </div>
+  <div class="ng-show row" ng-show="quick.show.l0" ng-repeat="body_area_l0 in quick.bodyAreasNested track by body_area_l0.id">
+    <div class="col item-text-wrap">
+      <label class="checkbox checkbox-calm">
+        <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l0.id) > -1" name="body_areas_l0" value="{{body_area_l0.id}}" ng-click="quick.toggleBodyArea(body_area_l0, 0)">
+      </label>
+      <span>{{body_area_l0.name}}</span>
+      <div class="row">
+        <div class="ng-show col" ng-show="quick.show.l1" ng-repeat="body_area_l1 in body_area_l0.children track by body_area_l1.id">
+          <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l1.id) > -1" name="body_areas_l1" value="{{body_area_l1.id}}" ng-click="quick.toggleBodyArea(body_area_l1, 1)">
+          </label>
+          <span>{{body_area_l1.name}}</span>
+          <div class="ng-show item item-checkbox" ng-show="quick.show.l2" ng-repeat="body_area_l2 in body_area_l1.children | orderBy:'name' track by body_area_l2.id">
+            <label class="checkbox checkbox-calm">
+              <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l2.id) > -1" name="body_areas_l2" value="{{body_area_l2.id}}" ng-click="quick.toggleBodyArea(body_area_l2, 2)">
+            </label>
+            <span style="font-size:11px">{{body_area_l2.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="row" class="ng-show" ng-show="quick.show.l2">
+  <div style="col" class="ng-show" ng-show="quick.show.l0">
+    <img src="content/images/model_FB.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:10px;
+      width: 80vmin;
+      height: 30vmax;
+      z-index: 10;">
+    <img ng-repeat="b_a_id in quick.request.bodyAreaIds | BAnotAvailable_B" ng-src="content/images/{{b_a_id}}_B.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:10px;
+      width: 80vmin;
+      height: 30vmax;
+      z-index: 10;">
+	<img ng-repeat="b_a_id in quick.request.bodyAreaIds | BAnotAvailable_F" ng-src="content/images/{{b_a_id}}_F.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:10px;
+      width: 80vmin;
+      height: 30vmax;
+      z-index: 10;">
+  </div>
+</div>
+

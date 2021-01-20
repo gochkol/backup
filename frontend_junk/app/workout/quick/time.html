@@ -1,0 +1,15 @@
+<form action="#" method="POST" name="quickWorkout" novalidate>
+    <div class="row">
+      <h4 class="text-center"><b class="orangetext">3. Select Length:</b></h4>
+	  <p class="help-text text-center ng-show" ng-show="quick.userHistory.workouts.length === 0">  
+        Pick the duration of the workout.
+      </p>  
+      <div class="col-md-2 col-md-offset-3">
+        <label style="padding-top:7px">Time (mins):</label>
+      </div>
+      <div class="col-md-4 form-group" ng-class="{ 'has-error' : quickWorkout.workoutTime.$invalid}">
+        <input type="number" onfocus="if(this.value == '20') {this.value = ''; }" name="workoutTime" tooltip="Enter the duration of your workout (minimum 5 minutes)." tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="!quick.request.workoutTime" min="5" max="180" step="5" id="inputworkouttime" ng-model="quick.request.workoutTime" class="form-control" required>
+        <p ng-show="quickWorkout.workoutTime.$invalid" class="help-block">Time is required. Minimum: 5 minutes. Maximum: 180 minutes. If left blank, Updown will use 20 minutes.</p>
+      </div>
+    </div>
+    </form>

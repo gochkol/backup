@@ -1,0 +1,213 @@
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Create Account</h2>
+  </div>
+</div>
+
+<div class="row">
+  <form action="#" method="POST" name="userForm" novalidate>
+    <div class="col-md-8 col-md-offset-2">
+      <div class="thinpurplewell text-center">Please complete the form below. This will allow us to tailor your experience to your individual needs and goals. Note that you will be able to change these options later in your user preferences at any time. Items with an * are required.
+      </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine && userForm.email.$touched}">
+          <label>* Email Address: </label>
+          <input ng-model="signup.user['email']" type="email" maxlength="75" name="email" id="email" class="form-control" placeholder="Email Address" required></input>
+          <p ng-show="userForm.email.$invalid && !userForm.email.$pristine && userForm.email.$touched" class="help-block">Enter a valid email.</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$touched}">
+          <label>* Password: </label>
+          <input ng-model="signup.user['password']" type="password" maxlength="25" name="password" id="password" ng-minlength="5" class="form-control" placeholder="Password" required></input>
+          <p ng-show="userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$touched" class="help-block">Password must be at least 5 characters.</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine && userForm.confirmPassword.$touched}">
+          <label>* Confirm Password: </label>
+          <input ng-model="signup.user['password_confirmation']" match="signup.user['password']" type="password" maxlength="25" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm Password" required></input>
+          <p ng-show="userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine && userForm.confirmPassword.$touched" class="help-block">Passwords do not match.</p>
+        </div>
+        <!--  Name  -->
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched}">
+              <label>* First Name: </label>
+              <input ng-model="signup.user['first_name']" type="text" maxlength="20" name="firstName" id="firstName" class="form-control" placeholder="First Name" required></input>
+              <p ng-show="userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched" class="help-block">First name is required.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched}">
+              <label>* Last Name: </label>
+              <input ng-model="signup.user['last_name']" type="text" maxlength="20" name="lastName" id="lastName" class="form-control" placeholder="Last Name" required></input>
+              <p ng-show="userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched" class="help-block">Last name is required.</p>
+            </div>
+          </div>
+        </div>
+        <!--  Sex Option  -->
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <label>* Sex: </label>
+            <div class="radio">
+              <label><input ng-model="signup.user['gender']" type="radio" name="optionsex" id="optionmale" value="male" required>Male</label>
+            </div>
+            <div class="radio">
+              <label><input ng-model="signup.user['gender']" type="radio" name="optionsex" id="optionfemale" value="female" required>Female</label>
+            </div>
+          </div>
+        </div><br />
+        <!-- Birthdate Select -->
+
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 form-group-sm form-inline">
+            <label>* Birthdate: </label>
+            <form class="form-inline">
+              <select ng-model="signup.user.birth_month"
+                      ng-options="month.value as month.name for month in signup.months"
+                      ng-init="signup.user.birth_month = signup.months[0].value"
+                      ng-change="signup.updateDays()"
+                      name="birthMonth"
+                      required>
+              </select>
+              <select ng-model="signup.user.birth_day"
+                      ng-options="day.value as day.value for day in signup.days"
+                      ng-init="signup.user.birth_day = signup.days[0].value"
+                      name="birthDay"
+                      required>
+              </select>
+              <select ng-model="signup.user.birth_year"
+                      ng-options="year.value as year.value for year in signup.years"
+                      ng-init="signup.user.birth_year = signup.years[1].value"
+                      ng-change="signup.updateMonths()"
+                      name="birthYear"
+                      required>
+              </select>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group">
+                <label>Country (optional): </label>
+                <select ng-model="signup.user['country_code']" ng-options="country['country_code'] as country['name'] for country in signup.constants.COUNTRIES" ng-init="signup.user['country_code'] = signup.constants.COUNTRIES[0]['country_code']" type="text" name="country" id="country" class="form-control" placeholder="Country"></select>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group">
+                <label>City (optional): </label>
+                <input ng-model="signup.user['city']" type="text" maxlength="25" name="city" id="city" class="form-control" placeholder="City"></input>
+              </div>
+            </div>
+          </div>
+          <br />
+          <!-- Profile Pic -->
+		  <!--
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <label>Profile Picture (optional): </label>
+              <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+              <a class="btn btn-primary" style="text-decoration:none;" ng-click="signup.pickFile()">Add new image</a>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <img ng-src="{{signup.user['avatar_url']}}" ng-hide="!signup.user['avatar_url']" class="img-thumbnail img-responsive center-block ng-hide" style="height:200px; width:200px;">
+              <img src="content/images/profile_image.jpg" ng-show="!signup.user['avatar_url']" class="img-thumbnail img-responsive center-block ng-show" style="height:200px; width:200px;">
+            </div>
+          </div>
+          <br />
+		  -->
+          <!-- Fitness Goal -->
+          <div class="form-group" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+            <label for="usage">* Fitness Goal: <a class="help_link" href=""><i class="fa fa-info-circle"></i></a>
+              <span class="help">Choose your fitness goal. This will affect your workout parameters including number of reps and sets, rest duration, and amount of weight.
+                <ul style="font-size:14px">
+                  <li><i class="bluetext">Building endurance.</i> Choose this option to build muscular and cardiovascular endurance. Very high reps, Low weight, Medium sets.</li>
+                  <li><i class="bluetext">Gaining strength.</i> Choose this option to develop size and raw strength. Low reps, Very high weight, Very high sets.</li>
+                  <li><i class="bluetext">General fitness.</i> The appropriate option for most people. Medium reps, Medium weight, Low sets.</li>
+                  <li><i class="bluetext">General muscle.</i> Choose this option to build muscle. Medium reps, High weight, High sets.</li>
+                  <li><i class="bluetext">Losing weight.</i> Choose this option to lose weight. High reps, Medium weight, Medium sets.</li>
+                </ul>
+              </span>
+            </label>
+            <select ng-options="obj.id as obj.name for obj in signup.usages | orderBy:'name'" ng-init="signup.user['usage_id']=1" ng-model="signup.user['usage_id']" name="fitnessGoal" class="form-control" required></select>
+            <p ng-show="userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched" class="help-block">A fitness goal is required.</p>
+          </div>
+          <!-- Fitness Category -->
+          <div class="form-group" ng-class="{ 'has-error' : userForm.category.$invalid && !userForm.category.$pristine && userForm.category.$touched}">
+            <label for="category">* Favorite Exercise Type: <a class="help_link" href=""><i class="fa fa-info-circle"></i></a>
+              <span class="help">Choose your favorite exercise type.
+                <ul style="font-size:14px">
+                  <li><i class="bluetext">Cardio.</i> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+                  <li><i class="bluetext">Core.</i> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel. Or trim that beer belly.</li>
+                  <li><i class="bluetext">Cross.</i> Workout that engages multiple muscles and gets the heart rate up. Combo of strength and cardio, really.</li>
+                  <li><i class="bluetext">Strength.</i> Workout focused on isolating and working specific muscles to build strength and make you Hulk without the anger issues.</li>
+                  <li><i class="bluetext">Stretch.</i> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+                </ul>
+              </span>
+            </label>
+            <select ng-options="obj.id as obj.name for obj in signup.categories | filter:'!Yoga' | filter:'!All' | orderBy:'name'" ng-init="signup.user.category_id=2" ng-model="signup.user.category_id" name="category" class="form-control" required></select>
+            <p ng-show="userForm.category.$invalid && !userForm.category.$pristine && userForm.category.$touched" class="help-block">A fitness category is required.</p>
+          </div>
+          <!-- Fitness Experience -->
+          <div class="form-group" ng-class="{ 'has-error' : userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched}">
+            <label for="experience">* Fitness Experience: <a class="help_link" href=""><i class="fa fa-info-circle"></i></a>
+              <span class="help">Choose your experience level. This will affect which exercises are in your workouts.
+                <ul style="font-size:14px">
+                  <li><i class="bluetext">Beginner.</i> You are not very experienced with exercising or haven't exercised regularly in a long time. You consider yourself to be in poor or average shape.</li>
+                  <li><i class="bluetext">Intermediate.</i> You exercise with moderate frequency and could find your way around a gym. You consider yourself to be in decent shape.</li>
+                  <li><i class="bluetext">Advanced.</i> You are no stranger to the gym and you exercise regularly. You consider yourself to be in pretty good or excellent shape.</li>
+                </ul>
+              </span>
+            </label>
+            <select ng-model="signup.user['experience']" ng-init="signup.user['experience']=1" name="fitnessExp" class="form-control" required>
+              <option value="1">Beginner</option>
+              <option value="2">Intermediate</option>
+              <option value="3">Advanced</option>
+            </select>
+            <p ng-show="userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched" class="help-block">Fitness experience is required.</p>
+          </div>
+          <!-- Fitness Intensity -->
+          <div class="row">
+            <div class="col-md-12">
+              <label for="intensity">* Preferred Workout Intensity: <a class="help_link" href=""><i class="fa fa-info-circle"></i></a>
+                <span class="help">Choose your preferred intensity level. This will affect the difficulty of your workouts.
+                  <ul style="font-size:14px">
+                    <li><i class="bluetext">1-3.</i> Light workouts. Barely break a sweat. Appropriate for beginners.</li>
+                    <li><i class="bluetext">4-6.</i> Average workouts. Appropriate for most people.</li>
+                    <li><i class="bluetext">7-8.</i> Hard workouts. You will definitely be sweating.</li>
+                    <li><i class="bluetext">9-10.</i> Extreme workouts. You will be pushed to exhaustion or near failure with each set.</li>
+                  </ul>
+                </span>
+              </label>
+            </div>
+            <div class="col-md-10">
+              <div class="form-inline">
+                <input type="range" class="intensity-slider" id="intensity" name="intensity" ng-model="signup.user['intensity']" ng-init="signup.user['intensity'] = 5" max="10" min="1" required>
+              </div>
+            </div>
+            <div class="col-md-1 col-md-offset-0 col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 whitewell">
+              <h2 class="text-center orangetext">{{signup.user['intensity']}}</h2>
+            </div>
+          </div>
+          <!-- Company Code -->
+          <div class="form-group">
+            <label>Company Signup Code (optional): </label>
+              <input ng-model="signup.user['signup_code']" type="text" maxlength="25" name="signup_code" id="signup_code" class="form-control" placeholder="Company Signup Code"></input>
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+              <h6>By clicking submit, I am agreeing to the <a target="_blank" href="javascript:void window.open('https://www.updowntech.com/#/terms','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><b>Terms of Service</b></a> and the <a target="_blank" href="javascript:void window.open('https://www.updowntech.com/#/privacy','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><b>Privacy Policy.</b></a></h6>
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>
+
+<div class="row padfornav">
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container">
+     <button class="btn btn-primary navbar-btn btn-lg img-responsive center-block" ng-disabled="userForm.$invalid || isProcessing || signup.user['password'] != signup.user['password_confirmation']" ng-click="signup.submit()">Signup</button>
+  </div>
+</nav>

@@ -1,0 +1,22 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Friends</h2>
+  </div>
+</div>
+
+<div class="row bottompad">
+  <div class="col-md-5 col-sm-12 col-md-offset-2">
+    <!--Leaderboard-->
+    <div ui-view="leaderboard"></div>
+	<!-- My Friends -->
+    <div ui-view="myFriends"></div>
+  </div>
+  <div class="col-md-3 col-sm-12">
+    <!-- Friend Search -->
+    <div ui-view="search"></div>
+    <!-- Incoming Friend Requests -->
+    <div ui-view="incoming"></div>
+    <!-- Pending Outgoing Friend Requests -->
+    <div ui-view="pending"></div>
+  </div>
+</div>

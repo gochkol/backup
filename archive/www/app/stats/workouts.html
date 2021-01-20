@@ -1,0 +1,119 @@
+<ion-scroll direction="y" style="right: 0;top: 0;bottom:65px;left: 0;height:80vh;max-height:100vh">
+
+<div class="item item-icon-right item-calm item-icon-left item-divider" ng-click="stats.isCollapsedWorkouts = !stats.isCollapsedWorkouts">
+  <i class="icon ion-arrow-graph-up-right"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Finished Workouts
+</div>
+<div class="ng-show item item-text-wrap text-center" ng-show="stats.userHistory.workouts.length > 0 && !stats.isCollapsedWorkouts">
+  <h4 class="help-text">
+    Tap on a workout to see the details.
+  </h4>
+</div>
+<div class="item item-text-wrap" ng-if="stats.userHistory.workouts.length === 0">
+  <h4 class="help-text">
+    You haven't completed any Updown Workouts yet! Tap "Workout" on the Home page to get started.
+  </h4>
+</div>
+<div class="list ng-show" ng-show="!stats.isCollapsedWorkouts">
+  <div class="row header" style="background-color:white">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col">
+      <b>Name</b>
+    </div>
+    <div class="col col-20">
+      <b>Cals / Time</b>
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate-start ="workout in stats.userHistory['workouts'] | itemsPerPage: 10" pagination-id="workouts" ng-click="stats.expander(stats.userHistory['workouts'], workout); stats.getWorkout(workout.id)">
+    <div class="col col-25" style="font-size:10px">
+      {{stats.formatTime(workout['finished_at']) || " "}}
+    </div>
+    <div class="col" style="font-size:10px">
+      {{workout['name'] ? workout['name'] : "Workout"}}
+    </div>
+    <div class="col col-20">
+      {{workout['calories_burned']}} / {{stats.timeString(workout['total_time'])}}
+    </div>
+    <div class="col col-10 text-right" style="cursor:pointer">
+      <i style="font-size:30px" class="icon button button-icon ion-android-arrow-dropdown"></i>
+    </div>
+  </div>
+  <ion-item class="energized-bg ng-hide" style="padding:0px" ng-hide="stats.workoutHidden[workout.id]" dir-paginate-end>
+  <div class="card row grey-bg ng-hide" ng-hide="stats.workoutHidden[workout.id]" ng-repeat="block in stats.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+    <div class="col">
+      <div class="row header item-text-wrap">
+        <h4 style="margin: 0 0 4px 0;font-size: 12px;">{{stats.exerciseLookup[block.block_sets[0].exercise_id].name}} </h4>
+      </div>
+      <div class="row" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+        <div class="col" data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+          {{stats.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}
+        </div>
+      </div>
+    </div>
+  </div>
+  </ion-item>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="workouts" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-calm item-icon-left item-divider" ng-click="stats.isCollapsedLogs = !stats.isCollapsedLogs">
+  <i class="icon ion-ios-list-outline"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Logged Activities
+</div>
+<div class="item item-text-wrap" ng-if="stats.userHistory.quick_logs.length === 0">
+  <h4 class="help-text">
+    You haven't logged any activity yet! Tap "Log Activity" on the Home page to record activity and earn points.
+  </h4>
+</div>
+<div class="list ng-show" ng-show="!stats.isCollapsedLogs" style="background-color:white">
+  <div class="row header">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col col-50">
+      <b>Activity</b>
+    </div>
+    <div class="col">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row item" dir-paginate-start="quick in stats.userHistory['quick_logs'] | itemsPerPage: 10" pagination-id="quicklogs">
+    <div class="col col-33 item-text-wrap" style="font-size:10px">
+      {{stats.formatTime(quick['finished_at']) || " "}}
+    </div>
+    <div class="col col-50 item-text-wrap">
+      <a class="ng-show button-clear" ng-show="quick['desc'] || quick['calories_burned'] || quick['distance_miles']" ng-init="quick.showDesc = true" style="color:#11c1f3;cursor:pointer" ng-click="quick.showDesc = !quick.showDesc">{{quick['activity_name']}}</a>
+      <a class="ng-hide" ng-hide="quick['desc'] || quick['calories_burned'] || quick['distance_miles']">{{quick['activity_name']}}</a>
+    </div>
+    <div class="col">
+      {{stats.timeString(quick['duration']*60) || 0}}
+    </div>
+  </div>
+  <ion-item class="ng-hide energized-bg" style="padding:0px" ng-hide="quick.showDesc" dir-paginate-end>
+    <div class="card row calm-light-bg item-text-wrap">
+      <div class="row calm-light-bg item-text-wrap">
+	      <div class="col">
+        <h4 class="ng-show" ng-show="quick['desc']">Description: {{quick['desc']}}<br/></h4>
+        <h4 class="ng-show" ng-show="quick['calories_burned']">Cals Burned: {{quick['calories_burned']}}<br/></h4>
+        <h4 class="ng-show" ng-show="quick['distance_miles']">Distance {{(stats.metric === "standard" ? "(miles)" : "(km)")}}: {{stats.metric !== "standard" ? stats.helpers.mi_to_km(quick.distance_miles) : stats.helpers.round(quick.distance_miles, -2) | number:2}}</h4>
+        </div>
+      </div>
+    </div>
+  </ion-item>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="quicklogs" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+</ion-scroll>

@@ -1,0 +1,107 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Blog</h2>
+  </div>
+</div>
+<!--
+<div id="wrapper">
+  <div id="bio">
+    <h1><a href="/">MAX LYNCH</a></h1>
+    <p>Thoughts from the co-founder of <a href="http://drifty.com/">Drifty</a> and co-creator of <a href="http://ionicframework.com/">Ionic</a></p>
+  </div>
+</div>
+-->
+<!--
+<ul class="contents">
+  <li ng-repeat="post in main.blog">
+    <a ng-href="{{'#'+post.name}}">{{post.name}}</a>
+  </li>
+</ul>
+
+<div class="post" ng-repeat="post in main.blog">
+  <div class="post-info">
+    <h2><a name="{{post.name}}">{{post.name}}</a></h2>
+    <time>{{post.time}}</time>
+  </div>
+  <div class="post-content">
+    <div ng-repeat="content in post.contents">
+      <h3 class="ng-hide" ng-hide="content.type !== 'title'">{{content.info}}</h3>
+      <p class="ng-hide" ng-hide="content.type !== 'text'">{{content.info}}</p>
+      <img ng-src="{{content.src}}" class="ng-hide" ng-hide="content.type !== 'img'">
+      <a ng-href="{{content.href}}" class="ng-hide" ng-hide="content.type !== 'link'">{{content.info}}</a>
+    </div>
+  </div>
+</div>
+-->
+<!--
+<div class="post">
+  <div class="post-info">
+    <h3><a href="/blog/new-kind-of-startup">A New Kind of Startup</a></h3>
+    <time>November 02, 2014</time>
+  </div>
+  <div class="post-content">
+    <p>Most people know I'm a huge fan of bootstrapping. I find the model intriguing because by many measures bootstrapping is considered folly by the larger startup ecosystem, primarily from the VC world that doesn't benefit from a cap table that doesn't have their name on it. And yet there have been some <a href="http://github.com/">huge</a> <a href="http://mailchimp.com/">successes</a> from following that model. It defies the conventional wisdom, and I love that.</p>
+    <p>To me, bootstrapping represents a possible future of startups for many people, because capital costs have dropped sufficiently such that companies can create great value for little cost. Many founders will choose this route because it maximizes many things they care about (independence, control, ownership, etc.) while minimizing things they don't care about (growth at all costs, loss of control, focus on exits, etc.).</p>
+    <h3>The "Lab"</h3>
+    <p>But I'm starting to think there might be an even better startup model out there for certain types of founders. One which maximizes parts of the startup experience they value, and minimizes the rest. This format is called the "lab."</p>
+    <p>Kevin Rose is pretty much the poster child for this new startup format. His two companies <a href="http://www.crunchbase.com/organization/milk">Milk</a> and now <a href="http://techcrunch.com/2014/08/15/kevin-rose-google-ventures-north/">North</a> are essentially "startup labs": they are focusing on building new apps and social products to see what takes off. If something works, it's assumed the team will focus on that or will spin off the product into a separate company with a new team to grow and scale the product.</p>
+    <p>While Kevin's team has only shipped <a href="http://mashable.com/2012/03/14/kevin-roses-oink-folds/">one failed app</a>, I'm sure they learned a ton about how to make the system work.</p>
+    <p>Another interesting example is the Samwer brothers' <a href="https://www.rocket-internet.com/">Rocket Internet</a>. Billed as the "world's largest incubator," they have found success cloning successful startups and tailoring them for a non-US userbase. While I don't like their approach, they've shown the model can be wildly successful.</p>
+    <p>One fascinating difference between a lab and a bootstrapped startup is while bootstrappers keep everything they make (including the responsibilities of the products they create), the "lab" does not, almost as a rule.</p>
+    <p>For many technical founders, the goal isn't to work on one thing forever. Rather, it's to create lots of new products and have a diversity of problem spaces they attack. These founders find scaling a business a lot less interesting than starting up new ones, but when they raise VC money they are left with the choice of focusing only on this one space for the next 5-10 years (and moving from product into executive management), or leaving and doing something else (and probably losing a good chunk of potential upside).</p>
+    <p>And even if they pick the long road of building and scaling a working business, with standard VC financing rounds and assuming the probable case that your startup isn't a <a href="http://paulgraham.com/swan.html">black swan or "unicorn"</a>, founder take-home might be the same whether you work 10 years, raise 5 rounds, and sell for $200M vs working a few years, raising little capital, and selling for $20M.</p>
+    <h3>Upside</h3>
+    <p>A Lab has a different ownership structure and upside opportunities are a bit murkier. At first glance, the two sweet spots for Labs to make as much money as possible is to build a product quickly, see rapid adoption, and sell it to someone else or spin it out to a new team to scale it up (while retaining some equity ownership over it). Since the lab team is intentionally small, the upside on even a small sale can be large.</p>
+    <p>In the case of a spin-out, perhaps this new team can raise VC and scale the product, with the lab taking some liquidity.</p>
+    <p>The problem is that both acquirers and investors usually want the team often more than the product. Labs are going to have to figure out how to retain the independence of the product team while enabling the sale or growth of the products they create.</p>
+    <h3>A new future</h3>
+    <p>In the face of so few startup choices, the Lab represents something new. It's the joy of creating new products, the lack of responsibility VC-scale requires, the self-sufficiency of bootstrapping, the ability to keep great teams together, but the ability to grow and scale and retain upside on things that work (along with sharing in the impact of your creation).</p>
+    <p>I think there is a crucial caveat to the Lab model: you <em>have</em> to have an incredible product team. A developer/designer/marketing duo or triplet is probably best. I don't think it will work with a ragtag team.</p>
+    <p>This is probably why we see so few Lab startups. It turns out that combo is pretty rare. I have a hunch it can be engineered but we will have to wait and see.</p>
+    <p>For now I'm eagerly watching this new model evolve, because it represents something exciting to me: the ability to rapidly change the world in as many problem spaces as possible, while still being able to find financial success.</p>
+    <p>Teams that pull this off will find themselves working on more interesting problems, for less investment in time, and with potentially greater upside for the individuals creating the first versions of the product.</p>
+    <p>And as a strange side-effect, VCs might find more interesting companies to put money into as more products solving more problems built by teams that know how to make things people want enter the market.</p>
+  </div>
+  <hr>
+</div>
+
+
+<div class="post">
+  <div class="post-info">
+    <h3><a href="/blog/twitter-tips">Simple Twitter Tips</a></h3>
+    <time>October 17, 2014</time>
+  </div>
+  <div class="post-content">
+    <p>I notice far too many startups that just plain get Twitter wrong. They spam, they follow way too many people, and they don't produce interesting content.</p>
+    <p>It's a tragedy because if done well, Twitter can be one of the best sources for <em>free</em>, <em>high quality</em> and <em>viral</em> traffic for your new product.</p>
+    <p>While Twitter isn't right for every startup, depending on the target market it can be a huge advantage for new startups just getting off the ground. Here are some things to avoid, and some things to focus on:</p>
+    <h2>1. Don't spam</h2>
+    <p>Don't tweet random accounts telling them about your product. Certainly don't tweet celebrities or tweet at random people following a certain trending topic that has nothing to do with your business.</p>
+    <p>I've seen too many startups do this. It makes you look desperate, but worst of all it pisses off the organic follows you've already gotten as it fills their stream with your spam!</p>
+    <h2>2. Mind the dot</h2>
+    <p>When tweeting at someone, use a "." before if you want others to see it. If you just do <code>@maxlynch hey Max! Check out my new product</code> only those who follow both you and I will see that. Change it to <code>.@maxlynch</code> to avoid that.</p>
+    <p>But, minding #1, don't just tweet me random crap unless you think I'll really like it :)</p>
+    <h2>3. Don't mass follow</h2>
+    <p>A lot of people do "mass follows" in attempt to get follows back. It doesn't really work and there is a limit to how many you can follow anyways.</p>
+    <h2>4. Don't buy follows</h2>
+    <p>Buying follows seems like an easy way to increase your importance. But you'll have no engagement on any of your content and you will actually <em>lose</em> followers over time. It's dishonest and lame, but might impress someone who is too stupid or careless to check into the validity of your audience.</p>
+    <h2>5. Create unique content</h2>
+    <p>The best way to get followers and grow a popular twitter account is by blogging unique content and getting important people to see it and retweet it. Often that means just mentioning other accounts. I think this is totally okay to do and can work well, but might not the first time. An example:</p>
+    <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>Install <a href="https://twitter.com/Android">@android</a>, <a href="https://twitter.com/apachecordova">@apachecordova</a>, <a href="https://twitter.com/Ionicframework">@Ionicframework</a>, and <a href="https://twitter.com/nodejs">@nodejs</a> in <a href="https://twitter.com/ubuntu">@ubuntu</a> 14.04 x64 and x86 with a single script. <a href="http://t.co/KaVgWOGEQd">http://t.co/KaVgWOGEQd</a> RT</p>&mdash; Nic Raboy (@nraboy) <a href="https://twitter.com/nraboy/status/513695876045225984">September 21, 2014</a></blockquote>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <p>This is an Ionic community member that consistently creates quality content. Because he mentions us each time, we often retweet his stuff and he's happy with the additional traffic and is growing his own audience.</p>
+    <h2>6. Do encourage follows externally</h2>
+    <p>If you are able to do like Nic does above and generate quality content that drives traffic, make sure you are encouraging those visitors to follow. An example from Ionic is our mailing list signup thank you page. Every visitor that signs up for our mailing list is encouraged to share, follow, and star us:</p>
+    <p><img src="https://s3.amazonaws.com/maxlynch.com/follows.png" style="max-width: 100%"></p>
+    <h2>7. Be patient</h2>
+    <p>The <a href="http://twitter.com/ionicframework">@ionicframework</a> account has grown from 0 followers to 12,000 at the time of this writing, in a year.</p>
+    <p>Some days it feels like growth has completely stopped. Other days we gain hundreds of followers overnight.</p>
+    <p>Looking at a graph of our followers over time, we are growing better than linearlly, so each new engaged follower helps expand the network and increase the rate of growth in follows.</p>
+    <p>Best of luck!</p>
+  </div>
+  <hr>
+</div>
+
+<div class="row padfornav">
+</div>
+-->

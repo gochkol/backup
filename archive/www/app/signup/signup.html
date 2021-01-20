@@ -1,0 +1,201 @@
+<ion-view view-title="Signup">
+  
+<form name="userForm" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="list">
+  <div class="item item-calm item-divider">
+    * Basic
+  </div>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine && userForm.email.$touched}">
+    <span class="input-label">Email Address</span>
+    <input ng-model="signup.user['email']" ng-keydown="signup.blur($event)" type="email" maxlength="75" name="email" id="email" placeholder="Email Address" required></input>
+    <span ng-show="userForm.email.$invalid && !userForm.email.$pristine && userForm.email.$touched" class="help-block">Enter a valid email.</span>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$touched}">
+    <span class="input-label">Password</span>
+    <input ng-model="signup.user['password']" ng-keydown="signup.blur($event)" type="password" maxlength="25" name="password" id="password" ng-minlength="5" placeholder="Password" required></input>
+    <span ng-show="userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$touched" class="help-block">Password must be at least 5 characters.</span>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine && userForm.confirmPassword.$touched}">
+    <span class="input-label">Confirm Password</span>
+    <input ng-model="signup.user['password_confirmation']" match="signup.user['password']" ng-keydown="signup.blur($event)" type="password" maxlength="25" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required></input>
+    <span ng-show="userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine && userForm.confirmPassword.$touched" class="help-block">Passwords do not match.</span>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched}">
+    <span class="input-label">First Name</span>
+    <input ng-model="signup.user['first_name']" ng-keydown="signup.blur($event)" type="text" maxlength="20" name="firstName" id="firstName" placeholder="First Name" required></input>
+    <span ng-show="userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched" class="help-block">First name is required.</span>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched}">
+    <span class="input-label">Last Name</span>
+    <input ng-model="signup.user['last_name']" ng-keydown="signup.blur($event)" type="text" maxlength="20" name="lastName" id="lastName" placeholder="Last Name" required></input>
+    <span ng-show="userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched" class="help-block">Last name is required.</span>
+  </label>
+  <div class="item item-calm item-divider">
+    * Sex
+  </div>
+  <label class="item item-radio">
+    <input ng-model="signup.user['gender']" type="radio" name="optionsex" id="optionmale" value="male" required>
+    <div class="radio-content">
+      <div class="item-content">
+        Male
+      </div>
+    </div>
+  </label>
+  <label class="item item-radio">
+    <input ng-model="signup.user['gender']" type="radio" name="optionsex" id="optionfemale" value="female" required>
+    <div class="radio-content">
+      <div class="item-content">
+        Female
+      </div>
+    </div>
+  </label>
+  <div class="item item-calm item-divider">
+    * Birthdate
+  </div>
+  <div class="row text-center">
+    <div class="col">
+      <select ng-model="signup.user['birth_month']"
+                      ng-options="month.value as month.name for month in signup.months"
+                      ng-init="signup.user['birth_month'] = signup.months[0].value"
+                      ng-change="signup.updateDays()"
+                      name="birthMonth"
+                      required>
+      </select>
+    </div>
+    <div class="col">
+      <select ng-model="signup.user['birth_day']"
+                      ng-options="day.value as day.value for day in signup.days"
+                      ng-init="signup.user['birth_day'] = signup.days[0].value"
+                      name="birthDay"
+                      required>
+      </select>
+    </div>
+    <div class="col">
+      <select ng-model="signup.user['birth_year']"
+                      ng-options="year.value as year.value for year in signup.years"
+                      ng-init="signup.user.birth_year = signup.years[1].value"
+                      ng-change="signup.updateMonths()"
+                      name="birthYear"
+                      required>
+      </select>
+    </div>
+  </div>
+  <div class="item item-calm item-divider">
+    Location
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Country
+    </div>
+    <select ng-model="signup.user['country_code']" ng-options="country['country_code'] as country['name'] for country in signup.constants.COUNTRIES" ng-init="signup.user['country_code'] = signup.constants.COUNTRIES[0]['country_code']" type="text" tooltip="Select your country." tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="!signup.user['country_code']" name="country" id="country" placeholder="Country"></select>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">City</span>
+    <input ng-model="signup.user['city']" ng-keydown="signup.blur($event)" type="text" maxlength="25" name="city" id="city" placeholder="City"></input>
+  </label>
+</div>
+<div class="list">
+  <div class="item item-calm item-icon-right item-divider">
+    * Fitness
+    <i class="icon ion-ios-information button button-small button-icon" style="color:white" ng-click="signup.isCollapsedInfo = !signup.isCollapsedInfo"></i>
+  </div>
+  <div class="ng-show list" ng-show="!signup.isCollapsedInfo">
+    <div class="card item item-text-wrap">
+      <b class="help-text">Fitness Goal.</b> This affects your workout parameters including number of reps and sets, rest duration, and amount of weight.
+      <ul style="font-size:12px">
+        <li><b>-Building endurance.</b> Choose this option to build muscular and cardiovascular endurance. Very high reps, Low weight, Medium sets.</li>
+        <li><b>-Gaining strength.</b> Choose this option to develop size and raw strength. Low reps, Very high weight, Very high sets.</li>
+        <li><b>-General fitness.</b> The appropriate option for most people. Medium reps, Medium weight, Low sets.</li>
+        <li><b>-General muscle.</b> Choose this option to build muscle. Medium reps, High weight, High sets.</li>
+        <li><b>-Losing weight.</b> Choose this option to lose weight. High reps, Medium weight, Medium sets.</li>
+      </ul>
+    </div>
+    <div class="card item item-text-wrap">
+      <b class="help-text">Favorite Exercise Type.</b> This affects settings for creating custom workouts. 
+      <ul style="font-size:12px">
+        <li><b>-Cardio.</b> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+        <li><b>-Core.</b> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel. Or trim that beer belly.</li>
+        <li><b>-Cross.</b> Workout that engages multiple muscles and gets the heart rate up. Combo of strength and cardio, really.</li>
+        <li><b>-Strength.</b> Workout focused on isolating and working specific muscles to build strength and make you Hulk without the anger issues.</li>
+        <li><b>-Stretch.</b> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+        <!--<li><b>-Yoga.</b> A workout that soothes both the body and mind.</li>-->
+      </ul>
+    </div>
+    <div class="card item item-text-wrap">
+      <b class="help-text">Fitness Experience.</b> This affects which exercises are in your workouts.
+      <ul style="font-size:12px">
+        <li><b>-Beginner.</b> You are not very experienced with exercising or haven't exercised regularly in a long time. You consider yourself to be in poor or average shape.</li>
+        <li><b>-Intermediate.</b> You exercise with moderate frequency and could find your way around a gym. You consider yourself to be in decent shape.</li>
+        <li><b>-Advanced.</b> You are no stranger to the gym and you exercise regularly. You consider yourself to be in pretty good or excellent shape.</li>
+      </ul>
+    </div>
+    <div class="card item item-text-wrap">
+      <b class="help-text">Intensity.</b> This controls the default difficulty of your workouts.
+      <ul style="font-size:12px">
+        <li><b>-1-3.</b> Light workouts. Barely break a sweat. Appropriate for beginners.</li>
+        <li><b>-4-6.</b> Average workouts. Appropriate for most people.</li>
+        <li><b>-7-8.</b> Hard workouts. You will definitely be sweating.</li>
+        <li><b>-9-10.</b> Extreme workouts. You will be pushed to exhaustion or near failure with each set.</li>
+      </ul>
+    </div>
+  </div>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+    <div class="input-label">
+      Fitness Goal
+    </div>
+    <select ng-options="obj.id as obj.name for obj in signup.usages" ng-init="signup.user['usage_id']=1" ng-model="signup.user['usage_id']" name="fitnessGoal" required></select>
+    <span ng-show="userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched" class="help-block">A fitness goal is required.</span> 
+  </label>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+    <div class="input-label">
+      Favorite Exercise Type
+    </div>
+    <select ng-options="obj.id as obj.name for obj in signup.categories | filter:'!Yoga' | filter:'!All'" ng-init="signup.user['category_id']=2" ng-model="signup.user['category_id']" name="category" required></select>
+    <span ng-show="userForm.category.$invalid && !userForm.category.$pristine && userForm.category.$touched" class="help-block">A fitness category is required.</span>
+  </label>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessExp.$invalid}">
+    <div class="input-label">
+      Fitness Experience
+    </div>
+    <select ng-options="exp.value as exp.name for exp in signup.experiences" ng-init="signup.user.experience = 1" ng-model="signup.user.experience" name="fitnessExp" required>
+    </select>
+    <span ng-show="userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched" class="help-block">Fitness experience is required.</span>
+  </label>
+  <div class="item range range-calm">
+    <label class="input-label" style="padding-left:5px;padding-right:0px">Intensity
+    </label>
+    <input type="range" name="intensity" style="padding-left:0px;padding-right:0px;margin-left:-20px" ng-model="signup.user['intensity']" ng-init="signup.user['intensity'] = 5" max="10" min="1" required>
+    </br>
+    <h2>{{signup.user['intensity']}}</h2>
+  </div>
+  <div class="item item-calm item-divider">
+    Company Signup Code (optional)
+  </div>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Signup Code</span>
+    <input ng-model="signup.user['signup_code']" ng-keydown="signup.blur($event)" type="text" maxlength="25" name="signup_code" id="signup_code" placeholder="Company Signup Code"></input>
+  </label>
+</div>
+<div class="row">
+  <div class="col">
+    <h5>By signing up, I am agreeing to the <a class="calm" href="#" onclick="window.open('https://www.updowntech.com/#/terms', '_system', 'location=yes'); return false;">Terms of Service</a> and the <a class="calm" href="#" onclick="window.open('https://www.updowntech.com/#/privacy', '_system', 'location=yes'); return false;">Privacy Policy.</a></h5>
+  </div>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="login">
+    <i class="icon calm ion-android-arrow-back"></i>
+    Back
+  </a>
+  <a class="tab-item" ng-disabled="userForm.$invalid || isProcessing || signup.user['password'] != signup.user['password_confirmation']" ng-click="signup.submit()">
+    <i class="icon calm ion-ios-checkmark"></i>
+    Signup
+  </a>
+</div>
+</form>
+
+</ion-view>

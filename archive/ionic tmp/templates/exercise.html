@@ -1,0 +1,166 @@
+<ion-view view-title="Name of Workout">
+  
+
+<ion-content>
+    
+
+<!--FAKE DATA VERSION-->
+
+<div class="row">
+  <div class="col text-center">
+    <h5>Current exercise:<b> Crunchy Frogs Set 3/4</b></h5>
+  </div>
+</div>
+
+
+<div class="row">
+      <div class="col">
+        <label class="item-input-wrapper input-sm">
+          <span class="input-label input-label-sm">Wt(lb):</span>
+          <input type="number" class="item-input-wrapper">
+        </label>
+      </div>
+      <div class="col">
+        <label class="item-input-wrapper input-sm">
+          <span class="input-label input-label-sm">Reps:</span>
+          <input type="number" class="item-input-wrapper">
+        </label>
+      </div>
+</div>
+<div class="row">
+      <div class="col">
+        <label class="item-input-wrapper input-sm">
+          <span class="input-label input-label-sm">Wt(lb):</span>
+          <input type="number" class="item-input-wrapper">
+        </label>
+      </div>
+      <div class="col">
+        <label class="item-input-wrapper input-sm">
+          <span class="input-label input-label-sm">Reps:</span>
+          <input type="number" class="item-input-wrapper">
+        </label>
+      </div>
+</div>
+<div class="row">
+      <div class="col">
+        <label class="item-input-wrapper input-sm">
+          <span class="input-label input-label-sm">Wt(lb):</span>
+          <input type="number" class="item-input-wrapper">
+        </label>
+      </div>
+      <div class="col">
+        <label class="input-sm item-input-wrapper">
+          <span class="input-label input-label-sm">Reps:</span>
+          <input type="number" class="item-input-wrapper">
+        </label>
+      </div>
+</div>
+
+<div class="row item-image" style="margin-top:-10px">
+  <img src="img/profile_image.jpg" style="height:250px">
+</div>
+<div class="row" style="margin-top:-20px">
+  <div class="col col-30">
+    <button class="button button-small button-energized button-block">Image</button>
+  </div>
+  <div class="col col-center text-center">
+    <h5>Exercise 2/9</h5>
+  </div>
+  <div class="col col-30">
+    <button class="button button-small button-energized button-block">Move to Last</button>
+  </div>
+</div>
+<div class="row" style="margin-top:-20px">
+  <div class="col text-center">
+    <progressbar value="22" type="info"><span style="color:white; white-space:nowrap;">22%</span></progressbar>
+  </div>
+</div>
+<div class="row" style="margin-top:-20px; margin-bottom:60px;">
+  <div class="col text-center">
+    <h4>
+      <i class="icon energized ion-ios-flame"></i> Cals: 42.3
+    </h4>
+  </div>
+  <div class="col text-center">
+    <h4>
+      <i class="icon ion-clock"></i> Total: 15:34
+    </h4>
+  </div>
+</div>
+
+
+
+<!--*******REAL DATA VERSION*****-->
+
+<!--
+
+<div class="row">
+  <div class="col text-center">
+    <h4 class="ng-hide" ng-hide="cur_or_next"><b class="{{color}}">Current exercise:</b><b> {{workout_name}}/{{sets.length}}</b></h4>
+    <h4 class="ng-show" ng-show="cur_or_next"><b class="bluetext">Next exercise:</b><b> {{next_exercise}}</b></h4>
+  </div>
+</div>
+
+<div class="row {{setBG[$setIndex]}}" ng-repeat='set in sets track by $index' ng-init="$setIndex = $index">
+  <div class="col" ng-repeat="(criteria, value) in set.criterion | ex_modeFilter as results track by $index">
+    <label class="item-input-wrapper input-sm">
+      <span class="input-label input-label-sm">{{modeDisplay(c_v[workout.current_block][$setIndex][$index][0])}}</span>
+      <input type="number" class="item-input-wrapper" onfocus="this.value='';" ng-model="c_v[workout.current_block][$setIndex][$index][1]">
+    </label>
+  </div> 
+</div>
+
+<div class="row item-image" style="margin-top:-10px">
+  <img ng-src="{{photo}}" ng-init="photo_start()" style="height:250px">
+</div>
+<div class="row" style="margin-top:-20px">
+  <div class="col">
+    <button class="button button-small button-energized button-block" ng-click="isCollapsed = !isCollapsed">Image</button>
+  </div>
+  <div class="col col-center center-text">
+    <h5>Exercise {{workout.current_block + 1}}/{{workout.blocks.length}}</h5>
+  </div>
+  <div class="col ng-hide" ng-hide="skip_available">
+    <button class="button button-small button-energized button-block ng-hide" ng-hide="skip_available" ng-click="skip()">Move to Last</button>
+  </div>
+</div>
+<div class="row" style="margin-top:-20px">
+  <div class="col text-center">
+    <progressbar value="cur_progress" type="info"><span style="color:white; white-space:nowrap;">{{cur_progress | number : 0}}%</span></progressbar>
+  </div>
+</div>
+<div class="row" style="margin-top:-20px; margin-bottom:60px;">
+  <div class="col text-center">
+    <h4>
+      <i class="icon energized ion-ios-flame"></i> Cals: {{calories_burned | number : 1}}
+    </h4>
+  </div>
+  <div class="col text-center">
+    <h4>
+      <i class="icon ion-clock"></i> Total: {{total_time_string}}
+    </h4>
+  </div>
+</div>
+
+
+-->
+
+</ion-content>
+
+<div class="tabs tabs-icon-top" style="height:55px">
+  <a class="tab-item col" ng-click="s_p_click()">
+    <i class="icon ion-play {{button.color}}"></i>
+    Start
+  </a>
+  <a class="tab-item col col-67">
+    <h1>Rest 3:35</h1>
+    <h1 class="{{color}}">{{set_or_rest}}: {{current_time_string}}</h1>
+  </a>
+  <a class="tab-item col" ng-click="complete()">
+    <i class="icon ion-skip-forward"></i>
+    Skip
+  </a>
+</div>v\
+
+
+</ion-view>

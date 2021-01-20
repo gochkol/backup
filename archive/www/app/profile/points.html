@@ -1,0 +1,51 @@
+<ion-content scroll="true">
+
+<div class="item item-text-wrap" ng-if="profile.totalPoints == 0">
+  <h4 class="help-text text-center">
+    No points yet. Earn points by completing workouts and logging activity. Try to hit the cap each month!
+  </h4>
+</div>
+<div class="list">
+  <div class="list card" style="margin-top:15px">
+    <h3 class="text-center">Total points: <span class="energized">{{profile.totalPoints}}</span></h3>
+  </div>
+  <div class="row item">
+    <div class="col">
+      <div class="list card" style="padding-top:10px;margin-bottom:0px;margin-top:0px">
+        <h4 class="text-center">Daily: {{profile.user['current_daily_points']}}/{{profile.maxDay}}</h4>
+        <progressbar style="margin-left:10px;margin-right:10px" value="profile.dProgress" type="danger"><span style="color:white; white-space:nowrap;">{{profile.dProgress | number : 0}}%</span></progressbar>
+        <h4 class="text-center">Weekly: {{profile.user['current_weekly_points']}}/{{profile.user.current_weekly_points_goal_value}}</h4>
+        <progressbar style="margin-left:10px;margin-right:10px" value="profile.wProgress" type="{{profile.weeklyColor}}"><span style="color:white; white-space:nowrap;">{{profile.wProgress | number : 0}}%</span></progressbar>
+      </div>
+    </div>
+  </div>
+  <div class="row header" style="padding-top:5px">
+    <div class="col col-20">
+      <b>Points</b>
+    </div>
+    <div class="col">
+      <b>Points Event</b>
+    </div>
+    <div class="col col-25">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate="point in profile.points | itemsPerPage: 10">
+    <div class="col col-20 text-center">
+      {{point.number_of}}
+    </div>
+    <div class="col" style="font-size:12px">
+      {{profile.helpers.pointSentence(point)}}
+    </div>
+    <div class="col col-25" style="font-size:10px">
+      {{profile.formatTime(point.earned_at)}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+</ion-content>

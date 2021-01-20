@@ -1,0 +1,90 @@
+<ion-view view-title="{{workout.workout.name}}" hide-back-button="true">
+
+<ion-content scroll="false" overflow-scroll="false">
+<div class="item item-text-wrap">
+  <div class="row">
+    <div class="col text-left">
+      <h3><i class="icon assertive ion-ios-flame"></i> Cals: {{workout.caloriesBurned | number : 1}}</h3>
+    </div>
+    <div class="col text-center">
+      <h3>workout {{workout.getCurrentBlock() + 1}}/{{workout.workout.blocks.length}}</h3>
+    </div>
+    <div class="col text-right">
+      <h3><i class="icon ion-clock"></i> Total: {{workout.timeString(workout.workout.workout_total_time)}}</h3>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom:-25px">
+    <div class="col text-center">
+      <progressbar value="workout.curProgress" type="warning"><span style="color:white; white-space:nowrap;">{{workout.curProgress | number : 0}}%</span></progressbar>
+    </div>
+  </div>
+</div>
+</ion-content>
+
+<ion-content style="margin-bottom:110px;margin-top:100px">
+<div class="item item-text-wrap" style="margin-bottom:15px">
+  <div class="col text-center">
+    <h3 class="ng-hide" ng-hide="workout.curOrNext"><b class="{{workout.color}}"></b> {{workout.workoutName}}/{{workout.workout.blocks[workout.getCurrentBlock()].block_sets.length}}</h3>
+    <h3 class="ng-show" ng-show="workout.curOrNext"><b class="calm">Next:</b> {{workout.nextworkout}}</h3>
+    <h4 class="ng-show" ng-show="workout.workoutName.indexOf('(ISO)') != -1">Perform the given number of reps on each side.</h4>
+    <h4 class="ng-show" ng-show="workout.workoutName.indexOf('(ALT)') != -1">Alternate sides after each rep.</h4>
+  </div>
+</div>
+
+<div class="row" style="margin-top:-15px;margin-bottom:-15px" ng-repeat='set in workout.workout.blocks[workout.getCurrentBlock()].block_sets track by $index' ng-init="$setIndex = $index">
+  <div class="col col-20" style="padding-right:0px;padding-left:0px">
+    <h5 class="text-center">Set {{$setIndex + 1}}</h5>
+  </div>
+  <div class="col" ng-repeat="name in set.criterion | criterionDisplay as results">
+    <label class="item-input-wrapper {{workout.setBG[$setIndex]}} input-sm" style="padding-left:4px; padding-right:0px">
+      <span style="padding-right:0px" class="input-label input-label-sm">{{workout.criterionDisplayInfo[name].name}}</span>
+      <input type="number" style="padding-right:0px" class="item-input-wrapper {{workout.setBG[$setIndex]}}" onfocus="this.value='';" pattern="[0-9]*" min='0' max='999' ng-keydown="workout.blur($event)" ng-model="set.criterion[name]">
+      <i class="icon ion-edit" style="font-size:12px;color:grey;padding-right:2px;"></i>
+    </label>
+  </div>
+</div>
+
+<div class="item item-text-wrap" style="margin-top:10px">
+  <div id="flash" style="padding-top:10px;padding-bottom:10px">
+    <h2 class="text-center help-text">{{workout.message}}</h2>
+  </div>
+</div>
+
+<div collapse="workout.isCollapsed" class="row item-image" style="margin-top:-10px;">
+  <div class="col">
+    <img collapse="workout.isCollapsed" ng-src="{{workout.getSource()}}" ng-init="workout.workout.blocks[workout.getCurrentBlock()].animationInfo.photoStart()" style="height:200px"></img>
+  </div>
+</div>
+
+</ion-content>
+
+<div class="row" style="position:absolute;bottom:60px;">
+  <div class="col text-center">
+    <h4><a class="calm" style="cursor:pointer" ng-click="workout.show()">Additional Workout Options</a></h4>
+  </div>
+</div>
+
+<div class="tab-striped {{workout.navcolor}} tabs-color-light">
+  <div class="tabs tabs-icon-top" style="height:70px">
+    <a class="tab-item active col" style="opacity:1.0;margin-top:10px;" ng-click="workout.shower = 'customizeAdvance'">
+      <i class="icon ion-edit"></i>
+      Edit Workout
+    </a>
+    <a class="tab-item active col" style="opacity:1.0;margin-top:10px;" ng-click="workout.startPauseClick(workout)">
+      <i class="icon {{workout.button.text}}"></i>
+      {{workout.button.textTwo}}
+    </a>
+    <a class="tab-item col col-67" style="margin-top:10px;">
+      <h1 style="color:white;">{{workout.setOrRest}}: {{workout.timeString(workout.currentTime)}}</h1>
+    </a>
+    <a class="tab-item active col ng-hide" style="opacity:1.0;margin-top:10px;" ng-hide="workout.cyclerStopped" ng-click="workout.complete(workout)">
+      <i ng-hide="workout.cyclerStopped" class="ng-hide icon ion-ios-fastforward"></i>
+      <p class="ng-hide" ng-hide="workout.cyclerStopped">{{workout.doneOrSkip}}</p>
+    </a>
+    <a class="tab-item active col ng-show" style="opacity:1.0;margin-top:10px;" ng-show="workout.cyclerStopped">
+      <p class="ng-hide" ng-hide="workout.cyclerStopped">.</p>
+    </a>
+  </div>
+</div>
+
+</ion-view>

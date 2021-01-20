@@ -1,0 +1,68 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Locations</h2>
+  </div>
+</div>
+
+<form>
+  <div class="row topbottompad">
+    <div ng-repeat="location in locations.locations track by $index" ng-init="locationIndex = $index" class="col-md-6 col-md-offset-3 well-round" style="padding:0px; box-shadow: 1px 1px 2px 0px #888888;">
+      <button type="button" class="btn btn-center btn-primary btn-lg img-responsive center-block" ng-click="locations.hiding['location'][locationIndex]['hidden'] = !locations.hiding['location'][locationIndex]['hidden']">{{location.name}}</button>
+      <div class="col-md-8 col-md-offset-2 ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+        <div class="form-group ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+          <div class="checkbox ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <label><b>Name:</b></label>
+                  <input ng-model="location.name" ng-change="locations.evalName()" maxlength="20" type="text" class="form-control ng-hide" id="name" placeholder="Location Name" ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-2 col-md-8 col-col-sm-12 col-xs-12">
+                <label for="spaceHome" ng-hide="locations.hiding['location'][locationIndex]['hidden']"><b>Space Available:</b></label>
+                <select ng-options="obj.id as obj.name for obj in locations.spaces" ng-model="location.space_id" class="form-control" name="spaceHome" ng-hide="locations.hiding['location'][locationIndex]['hidden']"></select>
+              </div>
+            </div>
+            <br />
+			<p class="help-text text-center">Check the equipment you have at this location.</p>
+            <div class="text-center">
+              <label><b>Available Equipment:</b></label>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                <div ng-repeat="equipmentGroup in locations.equipmentGroups track by $index | orderBy:'name'" ng-init="groupIndex = $index" class="form-group">
+                  <button class="btn btn-primary btn-block" type="button" ng-click="locations.hiding['location'][locationIndex]['hider'][groupIndex] = !locations.hiding['location'][locationIndex]['hider'][groupIndex]"><b>{{equipmentGroup.name}}</b></button>
+                  <div ng-repeat="equipment in equipmentGroup['equipments'] | orderBy:'name'" class="ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hider'][groupIndex]">
+                    <div class="checkbox">
+                      <label ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+                        <input ng-checked="location.equipment_ids.indexOf(equipment.id) > -1" ng-click="locations.toggleEquipment(location, equipment['id'])" type="checkbox" name="equipmenthome" value="{{equipment.id}}" ng-hide="locations.hiding['location'][locationIndex]['hider'][groupIndex]">
+                      </label>
+                      <a href="" class="help_link">{{equipment.name}}</a>
+                      <span class="help">
+                        <img class="img-responsive center-block hidden-lg" ng-src="{{locations.equipmentLookup[equipment.id].image_url}}" width="100px">
+                        <img class="img-responsive center-block hidden-xs hidden-sm hidden-md" ng-src="{{locations.equipmentLookup[equipment.id].image_url}}" width="250px">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-center btn-warning btn-md img-responsive center-block" ng-click="locations.hiding['location'][locationIndex]['hidden'] = !locations.hiding['location'][locationIndex]['hidden']">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row padfornav">
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container">
+    <ud-animated-button class="btn btn-primary btn-lg navbar-btn img-responsive center-block" options="{submitText: 'Save', submittingText: 'Saving.. '}" ng-click="locations.submit()"></ud-animated-button>
+  </div>
+</nav>
+

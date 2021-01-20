@@ -1,0 +1,334 @@
+<ion-view view-title="Signup">
+  
+
+<ion-content>
+    
+
+<form action="#" method="POST" name="userForm" novalidate>
+
+<div class="list">
+  <div class="item item-divider">
+    Basic
+  </div>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Email Address</span>
+    <input ng-model="user.email" type="email" maxlength="75" name="email" id="email" placeholder="Email Address" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Password</span>
+    <input ng-model="user.password" type="password" maxlength="25" name="password" id="password" ng-minlength="5" placeholder="Password" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Confirm Password</span>
+    <input ng-model="user.password_confirmation" type="password" maxlength="25" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">First Name</span>
+    <input type="text" placeholder="First Name">
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Last Name</span>
+    <input type="text" placeholder="Last Name">
+  </label>
+  <div class="item item-divider">
+    Sex
+  </div>
+  <label class="item item-radio">
+    <input type="radio" name="optionsex">
+    <div class="item-content">
+      Male
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <label class="item item-radio">
+    <input type="radio" name="optionsex">
+    <div class="item-content">
+      Female
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <div class="item item-divider">
+    Birthdate
+  </div>
+  <div class="row text-center">
+    <div class="col">
+      <select>
+      <option>01</option>
+      <option selected>02</option>
+      <option>03</option>
+      </select>
+    </div>
+    <div class="col">
+      <select>
+      <option>01</option>
+      <option selected>02</option>
+      <option>03</option>
+      </select>
+    </div>
+    <div class="col">
+      <select>
+      <option>2001</option>
+      <option selected>2002</option>
+      <option>2003</option>
+      </select>
+    </div>
+  </div>
+  <div class="item item-divider">
+    Location
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Country
+    </div>
+    <select>
+      <option>America</option>
+      <option selected>China</option>
+      <option>Antarctica</option>
+    </select>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">City</span>
+    <input type="text" placeholder="City">
+  </label>
+</div>
+<div class="item item-divider">
+  Profile Picture
+</div>
+<div class="list card">
+  <label class="text-center item item-button">
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+    <button class="button" ng-click="pickFile()">Add new image</button>
+  </label>
+  <div class="item item-image">
+    <img src="img/profile_image.jpg" style="padding:50px" class="item-thumbnail" ng-show="!user.avatar_url">
+  </div>
+</div>
+<div class="list">
+  <div class="item item-divider">
+    Fitness
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Fitness Goal
+    </div>
+    <select>
+      <option>Strength</option>
+      <option selected>Weight Loss</option>
+      <option>Muscle</option>
+    </select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Fitness Experience
+    </div>
+    <select>
+      <option>1</option>
+      <option selected>2</option>
+      <option>3</option>
+    </select>
+  </label>
+  <div class="item range">
+    <label class="input-label">Intensity</label>
+    <input type="range" name="intensity">
+    <h2 class="text-center">{{user.intensity}}</h2>
+  </div>
+  <div class="item item-divider">
+    Signup Code (optional)
+  </div>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Signup Code</span>
+    <input ng-model="user.signup_code" type="text" maxlength="25" name="signup_code" id="signup_code" placeholder="Company Signup Code"></input>
+  </label>
+</div>
+<div class="row">
+  <div class="col text-center">
+    <h4>By clicking submit, I am agreeing to the <a target="_blank" href="javascript:void window.open('http://www.updowntech.com/terms','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><b><u>Terms of Service</b></u></a> and the <a target="_blank" href="javascript:void window.open('http://www.updowntech.com/privacy','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><b><u>Privacy Policy.</b></u></a></h4>
+    <button class="button button-block button-energized" ng-disabled="userForm.$invalid || isReadonly" ng-hide="isReadonly" ng-click="submit()">Signup</button>            
+  </div>
+</div>
+
+  
+<!--********REAL CONTENT*****-->
+
+<!--
+
+<form action="#" method="POST" name="userForm" novalidate>
+
+<div class="list">
+  <div class="item item-divider">
+    Basic
+  </div>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Email Address</span>
+    <input ng-model="user.email" type="email" maxlength="75" name="email" id="email" placeholder="Email Address" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Password</span>
+    <input ng-model="user.password" type="password" maxlength="25" name="password" id="password" ng-minlength="5" placeholder="Password" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Confirm Password</span>
+    <input ng-model="user.password_confirmation" type="password" maxlength="25" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">First Name</span>
+    <input ng-model="user.first_name" type="text" maxlength="20" name="firstName" id="firstName" placeholder="First Name" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Last Name</span>
+    <input ng-model="user.last_name" type="text" maxlength="20" name="lastName" id="lastName" placeholder="Last Name" required></input>
+  </label>
+  <div class="item item-divider">
+    Sex
+  </div>
+  <label class="item item-radio">
+    <input ng-model="user.gender" type="radio" name="optionsex" id="optionmale" value="male" required>
+    <div class="item-content">
+      Male
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <label class="item item-radio">
+    <input ng-model="user.gender" type="radio" name="optionsex" id="optionfemale" value="female" required>
+    <div class="item-content">
+      Female
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <div class="item item-divider">
+    Birthdate
+  </div>
+  <div class="row text-center">
+    <div class="col">
+      <select ng-model="user.birth_month" name="birthMonth" required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+      </select>
+    </div>
+    <div class="col">
+      <select ng-model="user.birth_day" name="birthDay" required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+                                <option>27</option>
+                                <option>28</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+      </select>
+    </div>
+    <div class="col">
+      <select ng-model="user.birth_year" name="birthYear" required>
+                                <option>2002</option>
+                                <option>2001</option>
+                                <option>2000</option>
+                                <option>1999</option>
+      </select>
+    </div>
+  </div>
+  <div class="item item-divider">
+    Location
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Country
+    </div>
+    <select ng-model="user.country_code" type="text" name="country" id="country" placeholder="Country"></input>
+        <option value="US">United States</option>
+        <option value="AF">Afghanistan</option>
+    </select>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">City</span>
+    <input ng-model="user.city" type="text" maxlength="25" name="city" id="city" placeholder="City"></input>
+  </label>
+</div>
+<div class="item item-divider">
+  Profile Picture
+</div>
+<div class="list card">
+  <label class="text-center item item-button">
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+    <button class="button" ng-click="pickFile()">Add new image</button>
+  </label>
+  <div class="item item-image">
+    <img ng-src="{{user.avatar_url}}" style="padding:50px" class="item-thumbnail ng-hide" ng-hide="!user.avatar_url">
+  </div>
+</div>
+<div class="list">
+  <div class="item item-divider">
+    Fitness
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Fitness Goal
+    </div>
+    <select ng-options="obj.id as obj.name for obj in usages" ng-init="user.usage_id=1" ng-model="user.usage_id" name="fitnessGoal" required>
+    </select> 
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Fitness Experience
+    </div>
+    <select ng-model="user.experience" ng-init="user.experience=1" name="fitnessExp" required>
+    </select>
+  </label>
+  <div class="item range">
+    <label class="input-label">Intensity</label>
+    <input type="range" name="intensity" ng-model="user.intensity" ng-init="user.intensity = 5" max="10" min="1" required>
+    <h2 class="text-center">{{user.intensity}}</h2>
+  </div>
+  <div class="item item-divider">
+    Signup Code (optional)
+  </div>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Signup Code</span>
+    <input ng-model="user.signup_code" type="text" maxlength="25" name="signup_code" id="signup_code" placeholder="Company Signup Code"></input>
+  </label>
+</div>
+<div class="row">
+  <div class="col text-center">
+    <h4>By clicking submit, I am agreeing to the <a target="_blank" href="javascript:void window.open('http://www.updowntech.com/terms','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><b><u>Terms of Service</b></u></a> and the <a target="_blank" href="javascript:void window.open('http://www.updowntech.com/privacy','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><b><u>Privacy Policy.</b></u></a></h4>
+    <button class="button button-block button-energized" ng-disabled="userForm.$invalid || isReadonly" ng-hide="isReadonly" ng-click="submit()">Signup</button>            
+  </div>
+</div>
+
+-->
+
+</ion-content>
+
+
+</ion-view>

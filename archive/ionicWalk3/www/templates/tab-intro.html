@@ -1,0 +1,108 @@
+<ion-view hide-side-menu="false" hide-back-button="true" hide-nav-bar="true">
+
+  <ion-content class="intro padding">
+    <ion-slide-box on-slide-changed="slideChanged(index)" ng-class="{ 'first': first }">
+    <ion-slide>
+      <div class="main intro_title">
+        <h1 class="animated fadeIn">Welcome!</h1>
+        <p class="intro animated fadeIn">
+          This awesome new <br>
+          app will help you cook <br>
+          and save you money. <br>
+          #score
+        </p>
+        <div class="demacate animated fadeInRight">
+          <div class="row">
+            <div class="col col-33">
+              <span class="arrow left"></span>
+            </div>
+            <div class="col col-33">
+              <p>Take a Tour</p>
+            </div>
+            <div class="col col-33">
+              <span class="arrow right"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="title">
+        <h3>Amazing App</h3>
+        <p>5 star "Excellent" rating from customers.</p>
+        <img ng-src="./img/phone1.png" class="animated bounceInRight">
+      </div>
+    </ion-slide>
+    
+    <ion-slide>
+      <div class="title">
+        <h3>Store Circulars</h3>
+        <p>We got 'em wanting more</p>
+        <img src="img/phone2.png">
+      </div>
+    </ion-slide>
+    
+    <ion-slide>
+      <div class="title">
+        <h3>Shopping List</h3>
+        <p>Boom! Done</p>
+        <img src="img/phone3.png">
+      </div>
+    </ion-slide>
+    
+    <ion-slide>
+      <div class="title">
+        <h3>Reading List</h3>
+        <p>Find something new, or add your own</p>
+        <img src="img/phone4.png">
+      </div>
+    </ion-slide>
+
+  </ion-slide-box>
+
+  <ion-footer-bar class="animated fadeInUp">
+    <div class="row">
+      <div class="col col-50">
+        <a href="#">Get Started</a>
+      </div>
+      <div class="col col-50">
+        <a href="#" ng-click="openModal()">Log In</a>
+      </div>
+    </div>
+  </ion-footer-bar>
+</ion-content>
+  
+
+</ion-view>
+
+<!-- login -->
+<script id="login.html" type="text/ng-template">
+  <ion-modal-view>
+    <div class="bar bar-header">
+      <h1 class="title" style="color:#444;">Log In</h1>
+      <button class="button icon ion ion-close-round" style="border:none;color:#444;background:transparent" ng-click="closeModal()"></button>
+    </div>
+    <ion-content style="background:#fff;margin-top:100px;">
+      <p>
+        Your styled login form will come here.
+      </p>
+      <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="text" ng-model="user.username">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="user.password">
+            </label>
+          </div>
+          <div class="padding">
+            <button nav-clear class="button button-block button-positive" ng-click="LogIn(user)">
+              Sign-In
+            </button>
+         
+          </div>
+    </ion-content>
+  </ion-modal-view>
+</script>

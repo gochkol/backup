@@ -1,0 +1,792 @@
+diff --git a/app/app.module.js b/app/app.module.js
+index cdb1ab1..8de6e40 100644
+--- a/app/app.module.js
++++ b/app/app.module.js
+@@ -39,7 +39,7 @@
+       'app.nav',
+       'app.workout',
+       'app.main',
+-      'app.billing'
++      'app.account'
+ 
+     ]);
+ })();
+diff --git a/app/billing/basicInfo.html b/app/billing/basicInfo.html
+deleted file mode 100644
+index 242f210..0000000
+--- a/app/billing/basicInfo.html
++++ /dev/null
+@@ -1,13 +0,0 @@
+-<h3>Account Overview</h3>
+-
+-<label>Name:</label>
+-<p>{{billing.user.first_name}} {{billing.user.last_name}}</p>
+-<label>Email:</label>
+-<p>{{billing.user.email}}</p>
+-<label>Date of Birth:</label>
+-<p>{{billing.user.birthdate}}</p>
+-<label>Country:</label>
+-<p>{{billing.user.country_code}}</p>
+-<label>City:</label>
+-<p>{{billing.user.city}}</p>
+-<button class="btn img-responsive btn-primary" ng-click="billing.showEditBasic =! billing.showEditBasic">Update Info</button>
+\ No newline at end of file
+diff --git a/app/billing/billing.controller.js b/app/billing/billing.controller.js
+deleted file mode 100644
+index 7d0f49a..0000000
+--- a/app/billing/billing.controller.js
++++ /dev/null
+@@ -1,76 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  angular
+-    .module('app.billing')
+-    .controller('BillingController', BillingController);
+-
+-  BillingController.$inject = ['$state', 'globalData', 'globalDataSet', 'userData', 'userDataSet', 'constants', 'config', 'infoFactory', 'modalUtils'];
+-
+-  function BillingController($state, globalData, globalDataSet, userData, userDataSet, constants, config, infoFactory, modalUtils) {
+-    var vm = this;
+-    vm.user = userDataSet.user;
+- /* vm.billingPlans = globalDataSet.billingPlans;
+-    vm.subscription = userDataSet.subscription;
+-    vm.cancelSubscription = cancelSubscription; */
+-    vm.submit = submit;
+-    vm.constants = constants();
+-    vm.showCancel = false;
+-    vm.showUpgrade = false;
+-    vm.showEditBasic = false;
+-    vm.showBillEdit = false;
+-    vm.showPW = false;
+-
+-//    console.log(JSON.stringify(vm.subscription));
+-
+-/*    if ($state.current.name == 'billingNew'){
+-      braintree.setup(userDataSet.paymentToken.client_token, "custom", {
+-        id: 'checkout',
+-        onPaymentMethodReceived: function (obj) {
+-          submitPaymentInfoToBackend(obj.nonce);
+-        }
+-      });
+-    }
+-
+-    if ($state.current.name == 'billingUpdate'){
+-      braintree.setup(userDataSet.paymentToken.client_token, "custom", {
+-        id: 'checkout',
+-        onPaymentMethodReceived: function (obj) {
+-          updatePaymentInfo(obj.nonce);
+-        }
+-      });
+-    }
+-
+-    function submitPaymentInfoToBackend(obj){
+-      var params = {nonce: obj, billing_plan_id: vm.billingPlanID};
+-      userData.submitPaymentInfoToBackend(vm, params, finishPayment);
+-    }
+-
+-    function updatePaymentInfo(obj){
+-      var params = {nonce: obj};
+-      userData.updatePaymentInfo(vm, params, finishPayment);
+-    }
+-
+-    function cancelSubscription(){
+-      userData.cancelSubscription(vm, {}, cancelled);
+-    }
+-
+-    function cancelled(){
+-      modalUtils.launch('greatJob', 'Your subscription has been cancelled');
+-      $state.go('home');
+-    }
+-
+-    function finishPayment(){
+-      modalUtils.launch('greatJob', 'You have paid');
+-      $state.go('home');
+-    }
+-*/
+-	
+-    function submit(){
+-      userData.updateUser(vm);
+-    }
+-
+-  }
+-
+-})();
+-
+diff --git a/app/billing/billing.module.js b/app/billing/billing.module.js
+deleted file mode 100644
+index 4d4b0bb..0000000
+--- a/app/billing/billing.module.js
++++ /dev/null
+@@ -1,9 +0,0 @@
+-(function () {
+-  'use strict';
+-
+-  angular
+-    .module('app.billing', []);
+-
+-})();
+-
+-
+diff --git a/app/billing/cancel.html b/app/billing/cancel.html
+deleted file mode 100644
+index 293f224..0000000
+--- a/app/billing/cancel.html
++++ /dev/null
+@@ -1,8 +0,0 @@
+-<p>Would you like to <a style="cursor:pointer" ng-click="billing.showCancel =! billing.showCancel">cancel your subscription?</a></p>
+-<div class="row greywell" ng-show="billing.showCancel">
+-  <div class="col-md-12">
+-    <p>Your account will remain an Updown Plus Account through your remaining subscription period. At the end of this period, your subscription will expire and your account will become a free account.</p>
+-    <button class="btn btn-primary" ng-click="billing.showCancel =! billing.showCancel">Not now</button>
+-    <button class="btn btn-warning" ng-click="billing.cancelSubscription()">Cancel account</button>
+-  </div>
+-</div>
+\ No newline at end of file
+diff --git a/app/billing/editBasicInfo.html b/app/billing/editBasicInfo.html
+deleted file mode 100644
+index 21f8179..0000000
+--- a/app/billing/editBasicInfo.html
++++ /dev/null
+@@ -1,41 +0,0 @@
+-<form id="basicInfo" name="basicInfo" style="margin-top:20px" class="greywell" novalidate>
+-  <div class="row" style="padding-top:20px">
+-    <div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : basicInfo.firstName.$invalid}">
+-        <label>* First Name:</label>
+-        <input ng-model="billing.user.first_name" type="text" maxlength="20" name="firstName" id="firstName" class="form-control" placeholder="First Name" required></input>
+-        <p ng-show="basicInfo.firstName.$invalid" class="help-block">First name is required.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : basicInfo.lastName.$invalid}">
+-        <label>* Last Name:</label>
+-        <input ng-model="billing.user.last_name" type="text" maxlength="20" name="lastName" id="lastName" class="form-control" placeholder="Last Name" required></input>
+-		<p ng-show="basicInfo.lastName.$invalid" class="help-block">Last name is required.</p>
+-      </div>
+-    </div>
+-    <div class="col-md-6">
+-      <div class="form-group">
+-        <label>Country:</label>
+-        <select ng-model="billing.user['country_code']" ng-options="country['country_code'] as country['name'] for country in billing.constants.COUNTRIES" 
+-              ng-init="billing.user['country_code'] = billing.user['country_code'] || billing.constants.COUNTRIES[0]['country_code']" type="text" 
+-               name="country" id="country" class="form-control" placeholder="Country">
+-        </select>
+-      </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group">
+-        <label>City:</label>
+-        <input ng-model="billing.user.city" type="text" maxlength="25" name="city" id="city" class="form-control" placeholder="City"></input>
+-      </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : basicInfo.email.$invalid}">
+-        <label>* Email:</label>
+-        <input ng-model="billing.user.email" type="email" maxlength="75" name="email" id="email" placeholder="Email" class="form-control" required></input>
+-		<p ng-show="basicInfo.email.$invalid" class="help-block">Enter a valid email.</p>
+-      </div>
+-    </div>
+-  </div>
+-  <button class="btn btn-warning" ng-disabled="basicInfo.$invalid" ng-click="billing.submit(); billing.showEditBasic =! billing.showEditBasic">Save</button>
+-</form>
+\ No newline at end of file
+diff --git a/app/billing/new.html b/app/billing/new.html
+deleted file mode 100644
+index 7ad9809..0000000
+--- a/app/billing/new.html
++++ /dev/null
+@@ -1,27 +0,0 @@
+-<div class="row padfornav">
+-  <div class="col-md-8 col-md-offset-2 text-center">
+-    <h2>My Account</h2>
+-  </div>
+-</div>
+-<div class="row" style="padding-bottom:50px">
+-  <div class="col-md-8 col-md-offset-2">
+-    <!--Basic-->
+-    <div ui-view="basicInfo"></div>
+-	<!--Edit Basic-->
+-    <div ui-view="editBasicInfo" style="padding-top:15px" ng-show="billing.showEditBasic"></div>
+-	<!--Plus Signup-->
+-	<!--
+-    <div ui-view="plusSignup" style="padding-top:15px"></div>
+-	-->
+-	<!--PW Change-->
+-    <div ng-show="billing.user['auth_type'] == 'updown'" ui-view="passwordChange" style="padding-top:15px"></div>
+-  </div>
+-</div>
+-
+-<!--
+-<input data-braintree-name="number" value="4111111111111111"
+-<input data-braintree-name="cardholder_name" value="John Smith"
+-<input data-braintree-name="cvv" value="100"
+-<input data-braintree-name="expiration_date"
+-<input data-braintree-name="postal_code"
+--->
+diff --git a/app/billing/passwordChange.html b/app/billing/passwordChange.html
+deleted file mode 100644
+index 3d85639..0000000
+--- a/app/billing/passwordChange.html
++++ /dev/null
+@@ -1,30 +0,0 @@
+-<h3>Change Password</h3>
+-
+-<button class="btn img-responsive btn-primary" ng-click="billing.showPW =! billing.showPW">Change Password</button>
+-
+-<form name="pwChange" style="margin-top:20px" class="greywell" ng-show="billing.showPW" novalidate>
+-  <div class="row" style="padding-top:20px">
+-    <div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : pwChange.current_password.$invalid && !pwChange.current_password.$pristine && pwChange.current_password.$touched}">
+-        <label>* Current Password:</label>
+-        <input ng-model="billing.user.current_password" type="password" maxlength="25" ng-minlength="5" name="current_password" id="current_password" class="form-control" placeholder="Current Password" required></input>
+-        <p ng-show="pwChange.current_password.$invalid && !pwChange.current_password.$pristine && pwChange.current_password.$touched" class="help-block">Current password is at least 5 characters.</p>
+-      </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : pwChange.password.$invalid && !pwChange.password.$pristine && pwChange.password.$touched}">
+-        <label>* New Password:</label>
+-        <input ng-model="billing.user.password" ng-minlength="5" type="password" maxlength="25" name="password" id="password" class="form-control" placeholder="New Password" required></input>
+-        <p ng-show="pwChange.password.$invalid && !pwChange.password.$pristine && pwChange.password.$touched" class="help-block">Password must be at least 5 characters.</p>
+-      </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : pwChange.password_confirmation.$invalid && !pwChange.password_confirmation.$pristine && pwChange.password_confirmation.$touched}">
+-        <label>* New Password Confirmation:</label>
+-        <input ng-model="billing.user.password_confirmation" match="billing.user.password" ng-minlength="5" type="password" maxlength="25" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="New Password Confirmation" required></input>
+-        <p ng-show="pwChange.password_confirmation.$invalid && !pwChange.password_confirmation.$pristine && pwChange.password_confirmation.$touched" class="help-block">Passwords do not match.</p>
+-      </div>
+-    </div>
+-  </div>
+-   <button type="submit" ng-disabled="pwChange.$invalid" ng-click="billing.submit(); billing.showPW =! billing.showPW" class="btn btn-warning img-responsive">Save Password Change</button>
+-</form>
+diff --git a/app/billing/plusSignup.html b/app/billing/plusSignup.html
+deleted file mode 100644
+index 3e0a3ca..0000000
+--- a/app/billing/plusSignup.html
++++ /dev/null
+@@ -1,55 +0,0 @@
+-<h3>Account Status</h3>
+-
+-<label>Account Status:</label>
+-<p ng-show="billing.user.content_level === 'plus'">Updown Plus Account</p>
+-<p ng-show="billing.user.content_level === 'free'">Free Account</p>
+-
+-<button class="btn img-responsive btn-primary" ng-click="billing.showUpgrade =! billing.showUpgrade">Upgrade Account</button>
+-
+-<form id="checkout" name="plusSignup" style="margin-top:20px" class="greywell" ng-show="billing.showUpgrade" novalidate>
+-  <div class="row" style="padding-top:20px">
+-    <div class="col-md-12">
+-	  <div class="form-group" ng-class="{ 'has-error' : plusSignup.plan.$invalid}">
+-	    <label>* Subscription Plan:</label>
+-	    <select name="plan" ng-init="billing.billingPlanID = 1" ng-options="obj.id as obj.name for obj in billing.billingPlans" ng-model="billing.billingPlanID" class="form-control" required></select>
+-	    <p ng-show="plusSignup.plan.$invalid && !plusSignup.plan.$pristine && plusSignup.plan.$touched" class="help-block">Subscription plan is required.</p>
+-	  </div>
+-	</div>
+-    <div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : plusSignup.number.$invalid && !plusSignup.number.$pristine && plusSignup.number.$touched}">
+-        <label>* Card Number:</label>
+-        <input data-braintree-name="number" pattern="[0-9]{12,19}" ng-model="billing.number" name="number" type="text" maxlength="19" class="form-control" placeholder="1111 2222 3333 4444" required></input>
+-        <p ng-show="plusSignup.number.$invalid && !plusSignup.number.$pristine && plusSignup.number.$touched" class="help-block">Enter a valid credit card number.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : plusSignup.cardHolder.$invalid && !plusSignup.cardHolder.$pristine && plusSignup.cardHolder.$touched}">
+-        <label>* Cardholder Name:</label>
+-        <input data-braintree-name="cardholder_name" ng-model="billing.cardholder_name" name="cardHolder" type="text" maxlength="40" class="form-control" placeholder="John Doe" required></input>
+-        <p ng-show="plusSignup.cardHolder.$invalid && !plusSignup.cardHolder.$pristine && plusSignup.cardHolder.$touched" class="help-block">Cardholder name is required.</p>
+-	  </div>
+-    </div>
+-    <div class="col-md-4">
+-      <div class="form-group" ng-class="{ 'has-error' : plusSignup.cvv.$invalid && !plusSignup.cvv.$pristine && plusSignup.cvv.$touched}">
+-        <label>* Security Code:</label>
+-        <input data-braintree-name="cvv" pattern="[0-9]{3,4}" ng-model="billing.cvv" name="cvv" type="number" maxlength="4" class="form-control" placeholder="NNN" required></input>
+-        <p ng-show="plusSignup.cvv.$invalid && !plusSignup.cvv.$pristine && plusSignup.cvv.$touched" class="help-block">Enter a valid security code.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-4">
+-      <div class="form-group" ng-class="{ 'has-error' : plusSignup.expDate.$invalid && !plusSignup.expDate.$pristine && plusSignup.expDate.$touched}">
+-        <label>* Expiration Date:</label>
+-        <input data-braintree-name="expiration_date" pattern="[0-9]{2}/[0-9]{2}" ng-model="billing.expDate" name="expDate" type="text" maxlength="5" class="form-control" placeholder="10/20" required></input>
+-        <p ng-show="plusSignup.expDate.$invalid && !plusSignup.expDate.$pristine && plusSignup.expDate.$touched" class="help-block">Enter the card expiration date in the format MM/YY.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-4">
+-      <div class="form-group" ng-class="{ 'has-error' : plusSignup.postal.$invalid && !plusSignup.postal.$pristine && plusSignup.postal.$touched}">
+-        <label>* Zip Code:</label>
+-        <input data-braintree-name="postal_code" ng-model="billing.postal" name="postal" type="text" maxlength="15" class="form-control" placeholder="12345" required></input>
+-        <p ng-show="plusSignup.postal.$invalid && !plusSignup.postal.$pristine && plusSignup.postal.$touched" class="help-block">Enter the postal code associated with the card.</p>
+-	  </div>
+-    </div>
+-  </div>
+-   <button type="submit" ng-disabled="plusSignup.$invalid" id="submit" class="btn btn-primary img-responsive">Sign up for Updown Plus</button>
+-</form>
+diff --git a/app/billing/show.html b/app/billing/show.html
+deleted file mode 100644
+index 6258b2e..0000000
+--- a/app/billing/show.html
++++ /dev/null
+@@ -1,17 +0,0 @@
+-<div class="row padfornav">
+-  <div class="col-md-8 text-center">
+-    <h2>Billing</h2>
+-  </div>
+-</div>
+-
+-<div class="row toppad">
+-  <p>Show</p>
+-        <div>
+-          <button type="button" style="margin-bottom:10px" class="btn center-block img-responsive btn-primary" ui-sref="billingUpdate">Update Billing Information</button>
+-        </div>
+-        <div>
+-          <button type="button" style="margin-bottom:10px" class="btn center-block img-responsive btn-primary" ng-click="billing.cancelSubscription()">Cancel Subscription</button>
+-        </div>
+-</div>
+-
+-
+diff --git a/app/billing/update.html b/app/billing/update.html
+deleted file mode 100644
+index 44ace97..0000000
+--- a/app/billing/update.html
++++ /dev/null
+@@ -1,20 +0,0 @@
+-<div class="row padfornav">
+-  <div class="col-md-6 col-md-offset-3 text-center">
+-    <h2>My Account</h2>
+-  </div>
+-</div>
+-<div class="row" style="padding-bottom:50px">
+-  <div class="col-md-6 col-md-offset-3">
+-    <!--Basic-->
+-    <div ui-view="basicInfo"></div>
+-	<!--Edit Basic-->
+-    <div ui-view="editBasicInfo" style="padding-top:15px" ng-show="billing.showEditBasic"></div>
+-	<!--Billing-->
+-    <div ui-view="viewBillingInfo" style="padding-top:15px"></div>
+-	<!--Cancel-->
+-    <div ui-view="cancel" style="padding-top:15px"></div>
+-	<!--PW Change-->
+-    <div ui-view="passwordChange" style="padding-top:15px"></div>
+-  </div>
+-</div>
+-
+diff --git a/app/billing/viewBillingInfo.html b/app/billing/viewBillingInfo.html
+deleted file mode 100644
+index 9a662fa..0000000
+--- a/app/billing/viewBillingInfo.html
++++ /dev/null
+@@ -1,74 +0,0 @@
+-<h3>Account Status</h3>
+-
+-<label>Account Status:</label>
+-<p ng-show="billing.user.content_level === 'plus'">Updown Plus Account</p>
+-<p ng-show="billing.user.content_level === 'free'">Free Account</p>
+-<label>Subscription Status</label>
+-<p>{{billing.subscription.subscription_status}}</p>
+-<label>Subscription Plan</label>
+-<p>{{billing.subscription.billing_plan_name}}</p>
+-<label>Next Automatic Renewal Date:</label>
+-<p>{{billing.subscription.next_billing_date}}</p>
+-<label>Next Automatic Renewal Amount:</label>
+-<p>{{billing.subscription.next_billing_period_amount}} + tax</p>
+-<label>Payment Details:</label>
+-<p>
+-  <i ng-show="billing.subscription.card_type === 'Visa'" class="fa fa-lg fa-cc-visa"></i>
+-</p>
+-<p>{{billing.subscription.masked_number}}</p>
+-<button class="btn img-responsive btn-primary" ng-hide="billing.showBillEdit" ng-click="billing.showBillEdit =! billing.showBillEdit">Update Payment Info</button>
+-
+-<form style="margin-top:15px" name="editBilling" id="checkout" class="greywell" ng-show="billing.showBillEdit" novalidate>
+-  <div class="row" style="padding-top:20px">
+-    <div class="col-md-6">
+-	  <div class="form-group" ng-class="{ 'has-error' : editBilling.number.$invalid && !editBilling.number.$pristine && editBilling.number.$touched}">
+-        <label>* Card Number:</label>
+-        <input data-braintree-name="number" pattern="[0-9]{12,19}" ng-model="billing.number" name="number" type="text" maxlength="19" class="form-control" placeholder="1111 2222 3333 4444" required></input>
+-        <p ng-show="editBilling.number.$invalid && !editBilling.number.$pristine && editBilling.number.$touched" class="help-block">Enter a valid credit card number.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-6">
+-      <div class="form-group" ng-class="{ 'has-error' : editBilling.cardHolder.$invalid && !editBilling.cardHolder.$pristine && editBilling.cardHolder.$touched}">
+-        <label>* Cardholder Name:</label>
+-        <input data-braintree-name="cardholder_name" ng-model="billing.cardholder_name" name="cardHolder" type="text" maxlength="40" class="form-control" placeholder="John Doe" required></input>
+-        <p ng-show="editBilling.cardHolder.$invalid && !editBilling.cardHolder.$pristine && editBilling.cardHolder.$touched" class="help-block">Cardholder name is required.</p>
+-	  </div>
+-    </div>
+-    <div class="col-md-4">
+-      <div class="form-group" ng-class="{ 'has-error' : editBilling.cvv.$invalid && !editBilling.cvv.$pristine && editBilling.cvv.$touched}">
+-        <label>* Security Code:</label>
+-        <input data-braintree-name="cvv" pattern="[0-9]{3,4}" ng-model="billing.cvv" name="cvv" type="text" maxlength="4" class="form-control" placeholder="NNN" required></input>
+-        <p ng-show="editBilling.cvv.$invalid && !editBilling.cvv.$pristine && editBilling.cvv.$touched" class="help-block">Enter a valid security code.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-4">
+-      <div class="form-group" ng-class="{ 'has-error' : editBilling.expDate.$invalid && !editBilling.expDate.$pristine && editBilling.expDate.$touched}">
+-        <label>* Expiration Date:</label>
+-        <input data-braintree-name="expiration_date" pattern="[0-9]{2}/[0-9]{2}" ng-model="billing.expDate" name="expDate" type="text" maxlength="5" class="form-control" placeholder="10/20" required></input>
+-        <p ng-show="editBilling.expDate.$invalid && !editBilling.expDate.$pristine && editBilling.expDate.$touched" class="help-block">Enter the card expiration date in the format MM/YY.</p>
+-	  </div>
+-    </div>
+-	<div class="col-md-4">
+-      <div class="form-group" ng-class="{ 'has-error' : editBilling.postal.$invalid && !editBilling.postal.$pristine && editBilling.postal.$touched}">
+-        <label>* Zip Code:</label>
+-        <input data-braintree-name="postal_code" ng-model="billing.postal" name="postal" type="text" maxlength="15" class="form-control" placeholder="12345" required></input>
+-        <p ng-show="editBilling.postal.$invalid && !editBilling.postal.$pristine && editBilling.postal.$touched" class="help-block">Enter the postal code associated with the card.</p>
+-	  </div>
+-    </div>
+-  </div>
+-  <button class="btn btn-warning" ng-click="billing.showBillEdit =! billing.showBillEdit">Cancel</button>
+-  <button type="submit" id="submit" ng-disabled="editBilling.$invalid" value="Update" class="btn btn-primary img-responsive">Change Details</button>
+-</form>
+-  <!--
+-  <input data-braintree-name="number" value="4111111111111111">
+-  <input data-braintree-name="cvv" value="100">
+-
+-  <input data-braintree-name="expiration_date" value="10/20">
+-
+-  <input data-braintree-name="postal_code" value="94107">
+-  <input data-braintree-name="cardholder_name" value="John Smith">
+-
+-  <input type="submit" id="submit" value="Update">
+-  -->
+-
+-
+diff --git a/app/components/authsFactory.js b/app/components/authsFactory.js
+index 23d8f7d..2711317 100644
+--- a/app/components/authsFactory.js
++++ b/app/components/authsFactory.js
+@@ -21,6 +21,7 @@
+       facebookLogin: facebookLogin,
+       setOAuthData: setOAuthData,
+       getOAuthData: getOAuthData,
++      linkFacebookUser: linkFacebookUser
+     }
+ 
+     return factory;
+@@ -69,6 +70,24 @@
+           $state.go('home');
+         },
+         function(response){
++          modalUtils.launch('error', response.data.errors);
++        }
++      );
++    }
++
++
++    function facebookLogin(){
++      var user = {facebook_signed_request: facebookResponse.authResponse.signedRequest}
++      injectUserAppData(user);
++      userData.facebookLogin(user).then(
++        function(response){
++          var data = response.data;
++          check_for_warning_message(data);
++          userData.setAuthToken(data.auth_token);
++          userData.setGuestStatus(false);
++          $state.go('home');
++        },
++        function(response){
+           if (response.status == 499){
+             // sign this user up!
+             setOAuthData(response.data.oauth_data);
+@@ -79,6 +98,24 @@
+           }
+         }
+       );
++      facebookResponse = facebookResponse = {status: 'unknown', authResponse: {}};
++    }
++
++    function linkFacebookUser(user){
++      user['facebook_signed_request'] = facebookResponse.authResponse.signedRequest;
++      injectUserAppData(user);
++      userData.facebookLink(user).then(
++        function(response){
++          var data = response.data;
++          userData.setAuthToken(data.auth_token);
++          userData.setGuestStatus(false);
++          $state.go('home');
++        },
++        function(response){
++          modalUtils.launch('error', response.data.errors);
++        }
++      );
++      facebookResponse = facebookResponse = {status: 'unknown', authResponse: {}};
+     }
+ 
+ 
+@@ -107,16 +144,10 @@
+       return (facebookResponse.status == 'connected') ? true : false;
+     }
+ 
+-    function facebookLogin(){
+-      var user = {facebook_signed_request: facebookResponse.authResponse.signedRequest}
+-      login(user);
+-      facebookResponse = facebookResponse = {status: 'unknown', authResponse: {}};
+-    }
+-
+     function getOAuthData(){
+       return dataOAuth;
+     }
+-    
++
+     function setOAuthData(data){
+       dataOAuth = data;
+     }
+diff --git a/app/components/configProvider.js b/app/components/configProvider.js
+index e4b88b6..406942b 100644
+--- a/app/components/configProvider.js
++++ b/app/components/configProvider.js
+@@ -71,6 +71,7 @@
+         else if (url.indexOf("staging") != -1) {
+           env = 'staging';
+         }
++        env = 'localhost';
+       }
+ 
+       function setUrls(){
+diff --git a/app/components/stateConfigProvider.js b/app/components/stateConfigProvider.js
+index 001e2d7..7d13eda 100644
+--- a/app/components/stateConfigProvider.js
++++ b/app/components/stateConfigProvider.js
+@@ -631,6 +631,23 @@
+         }
+       });
+ 
++      $stateProvider.state('linkFacebook', {
++        url: '/linkFacebook',
++        data: {loginNotRequired: true, isOAuth: true, authType: 'facebook'},
++        views: {
++          content: {
++            controller: 'SignupController',
++            controllerAs: 'signup',
++            templateUrl: 'app/signup/linkFacebook.html',
++            resolve: {
++              globalDataSet: ['globalData', function(globalData){
++                return globalData.getAll();
++              }]
++            }
++          }
++        }
++      });
++
+       $stateProvider.state('exercise', {
+         url: '/workout/exercise',
+         data: {guestAccessOK: true},
+@@ -686,14 +703,14 @@
+         }
+       });
+ 
+-      $stateProvider.state('billingNew', {
+-        url: '/billingNew',
++      $stateProvider.state('account', {
++        url: '/account',
+         views: {
+           nav: getNavView(),
+           content: {
+-            controller: 'BillingController',
+-            controllerAs: 'billing',
+-            templateUrl: 'app/billing/new.html',
++            controller: 'AccountController',
++            controllerAs: 'account',
++            templateUrl: 'app/account/account.html',
+             resolve: {
+               userDataSet: ['userData', function(userData){
+                 return userData.getDataSet(['user']);
+@@ -703,74 +720,22 @@
+               }]
+             }
+           },
+-		  "basicInfo@billingNew": {
+-            templateUrl: 'app/billing/basicInfo.html'
+-          },
+-		  "editBasicInfo@billingNew": {
+-            templateUrl: 'app/billing/editBasicInfo.html'
+-          },
+-		  "plusSignup@billingNew": {
+-            templateUrl: 'app/billing/plusSignup.html'
+-          },
+-		  "passwordChange@billingNew": {
+-            templateUrl: 'app/billing/passwordChange.html'
+-          }
+-        }
+-      });
+-
+-      $stateProvider.state('billingUpdate', {
+-        url: '/billingUpdate',
+-        views: {
+-          nav: getNavView(),
+-          content: {
+-            controller: 'BillingController',
+-            controllerAs: 'billing',
+-            templateUrl: 'app/billing/update.html',
+-            resolve: {
+-              userDataSet: ['userData', function(userData){
+-                return userData.getDataSet(['user', 'paymentToken', 'subscription']);
+-              }],
+-              globalDataSet: ['globalData', function(globalData){
+-                return globalData.getAll();
+-              }]
+-            }
+-          },
+-		  "basicInfo@billingUpdate": {
+-            templateUrl: 'app/billing/basicInfo.html'
++		  "basicInfo@account": {
++            templateUrl: 'app/account/basicInfo.html'
+           },
+-		  "editBasicInfo@billingUpdate": {
+-            templateUrl: 'app/billing/editBasicInfo.html'
++		  "editBasicInfo@account": {
++            templateUrl: 'app/account/editBasicInfo.html'
+           },
+-		  "viewBillingInfo@billingUpdate": {
+-            templateUrl: 'app/billing/viewBillingInfo.html'
++		  "plusSignup@account": {
++            templateUrl: 'app/account/plusSignup.html'
+           },
+-		  "cancel@billingUpdate": {
+-            templateUrl: 'app/billing/cancel.html'
+-          },
+-		  "passwordChange@billingUpdate": {
+-            templateUrl: 'app/billing/passwordChange.html'
++		  "passwordChange@account": {
++            templateUrl: 'app/account/passwordChange.html'
+           }
+-		}
+-      });
+-
+-      $stateProvider.state('billingShow', {
+-        url: '/billingShow',
+-        views: {
+-          nav: getNavView(),
+-          content: {
+-            controller: 'BillingController',
+-            controllerAs: 'billing',
+-            templateUrl: 'app/billing/show.html',
+-            resolve: {
+-              userDataSet: ['userData', function(userData){
+-                return userData.getDataSet(['user', 'subscription']);
+-              }],
+-              globalDataSet: ['globalData', function(globalData){
+-                return globalData.getAll();
+-              }]
+-            }
++        },
++		  "viewBillingInfo@account": {
++            templateUrl: 'app/account/viewBillingInfo.html'
+           }
+-        }
+       });
+     }
+ 
+diff --git a/app/components/userDataProvider.js b/app/components/userDataProvider.js
+index 53421b8..9e7ec35 100644
+--- a/app/components/userDataProvider.js
++++ b/app/components/userDataProvider.js
+@@ -53,6 +53,8 @@
+         isLoggedIn: isLoggedIn,
+         isGuest: isGuest,
+         login: login,
++        facebookLink: facebookLink,
++        facebookLogin: facebookLogin,
+ 
+         create: create,
+         createQuickLog: createQuickLog,
+@@ -101,6 +103,8 @@
+         dataInfo = [
+           {name: 'user', target: 'user', store: true, transform: helpers.mergeDefaultSettings},
+           {name: 'auth', target: 'auth', store: false},
++          {name: 'facebook_auth', target: 'facebook_auth', store: false},
++          {name: 'facebook_link', target: 'facebook_link', store: false},
+           {name: 'events', target: 'users/events', store: true},
+           {name: 'favorites', target: 'users/favorites', store: false},
+           {name: 'eventComments', target: 'users/event_comments', store: false},
+@@ -196,6 +200,13 @@
+         return data.postLogin(dataInfoLookup['auth'], params);
+       }
+ 
++      function facebookLogin(params){
++        return data.postLogin(dataInfoLookup['facebook_auth'], params);
++      }
++
++      function facebookLink(params){
++        return data.postLogin(dataInfoLookup['facebook_link'], params);
++      }
+ 
+       function update(dataName, params){
+         return data.patchData(dataInfoLookup[dataName], params);
+diff --git a/app/nav/userNav.html b/app/nav/userNav.html
+index 4dc8934..ba17c3a 100644
+--- a/app/nav/userNav.html
++++ b/app/nav/userNav.html
+@@ -14,9 +14,9 @@
+         width: 60px;
+         max-width: 60px;">
+     </a>
+-    <p class="navbar-text"><a ui-sref="billingNew">{{nav.user.first_name}} {{nav.user.last_name}} <i class="fa fa-lg fa-angle-down"></i></a></p>
++    <p class="navbar-text"><a ui-sref="account">{{nav.user.first_name}} {{nav.user.last_name}} <i class="fa fa-lg fa-angle-down"></i></a></p>
+ 	<!--use this for above when implementing premium  ng-show="nav.user.content_level === 'free'"-->
+-	<!--<p class="navbar-text ng-show" ng-show="nav.user.content_level === 'plus'"><a ui-sref="billingUpdate">{{nav.user.first_name}} {{nav.user.last_name}} <i class="fa fa-lg fa-angle-down"></i></a></p>-->
++	<!--<p class="navbar-text ng-show" ng-show="nav.user.content_level === 'plus'"><a ui-sref="Update">{{nav.user.first_name}} {{nav.user.last_name}} <i class="fa fa-lg fa-angle-down"></i></a></p>-->
+   </div>
+ 
+   <!-- Collect the nav links, forms, and other content for toggling -->
+diff --git a/app/signup/signup.controller.js b/app/signup/signup.controller.js
+index 70d946c..68cb0c0 100644
+--- a/app/signup/signup.controller.js
++++ b/app/signup/signup.controller.js
+@@ -20,6 +20,7 @@
+     vm.updateMonths = updateMonths;
+     vm.pickFile = pickFile;
+     vm.submit = submit;
++    vm.linkFacebook = linkFacebook;
+ 
+     var authType = $state.current.data.authType || 'updown';
+     var isOAuth = (authType == 'updown') ? false : true;
+@@ -51,6 +52,22 @@
+     function submit(){
+       auth.createUser(vm.user);
+     }
++
++    function linkFacebook(){
++      var status = auth.getFacebookLoginStatus();
++      if (status){
++        auth.linkFacebookUser(vm.user);
++      }
++      else
++      {
++        FB.login(function(response){
++          auth.setFacebookResponse(response);
++          if (response.status == 'connected'){
++            auth.linkFacebookUser(vm.user);
++          }
++        }, {scope: 'public_profile, email'});
++      }
++    }
+   }
+ 
+ })();
+diff --git a/app/signup/signupFacebook.html b/app/signup/signupFacebook.html
+index 3a1b287..edd4303 100644
+--- a/app/signup/signupFacebook.html
++++ b/app/signup/signupFacebook.html
+@@ -13,6 +13,7 @@
+           <label>Email Address: {{signup.user['email']}}</label>
+         </div>
+         <!--  Name  -->
++        <button class="btn btn-primary navbar-btn btn-lg img-responsive center-block" ui-sref="linkFacebook">Link</button>
+         <div class="row">
+           <div class="col-sm-6">
+             <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched}">
+diff --git a/index.html b/index.html
+index 8f81632..f7d8c7b 100644
+--- a/index.html
++++ b/index.html
+@@ -189,8 +189,8 @@
+     <script type="text/javascript" src="app/exercise/exercise.module.js"></script>
+     <script type="text/javascript" src="app/exercise/exercise.controller.js"></script>
+ 
+-    <script type="text/javascript" src="app/billing/billing.module.js"></script>
+-    <script type="text/javascript" src="app/billing/billing.controller.js"></script>
++    <script type="text/javascript" src="app/account/account.module.js"></script>
++    <script type="text/javascript" src="app/account/account.controller.js"></script>
+ 
+     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+ 

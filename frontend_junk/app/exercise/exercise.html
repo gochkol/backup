@@ -1,0 +1,151 @@
+<div class="row" style="padding-top:50px">
+</div>
+<div class="row whitebg toppad hidden-sm hidden-xs">
+</div>
+
+<!--WORKOUT PROGRESS-->
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row text-center">
+      <div class="col-xs-12 col-sm-12">
+        <h5><b>Exercise {{exercise.getCurrentBlock() + 1}}/{{exercise.workout.blocks.length}}</b></h5>
+        <progressbar value="exercise.curProgress" type="warning"><span style="color:white; white-space:nowrap;">{{exercise.curProgress | number : 0}}%</span></progressbar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EXERCISE NAME-->
+
+<div class="row whitebg hidden-xs hidden-sm">
+  <div class="col-md-2 col-md-offset-2 text-center">
+    <h5>
+      <img src="content/images/fireIcon.png" style="height:20px; margin-bottom:4px">Cals: {{exercise.caloriesBurned | number : 1}}
+    </h5>
+  </div>
+  <div class="col-md-4 text-center">
+    <h4 class="ng-hide" ng-hide="exercise.curOrNext"><b class="{{exercise.color}}">Current exercise:</b><b> {{exercise.workoutName}}/{{exercise.workout.blocks[exercise.getCurrentBlock()].block_sets.length}}</b></h4>
+    <h4 class="ng-show" ng-show="exercise.curOrNext"><b class="bluetext">Next exercise:</b><b> {{exercise.nextExercise}}</b></h4>
+    <h5 class="ng-show" ng-show="exercise.workoutName.indexOf('(ISO)') != -1">Perform the given number of reps on each side.</h5>
+    <h5 class="ng-show" ng-show="exercise.workoutName.indexOf('(ALT)') != -1">Alternate sides after each rep.</h5>
+  </div>
+  <div class="col-md-2 text-center">
+    <h5>
+      <img src="content/images/stopwatchWhite.png" style="height:20px; margin-bottom:4px">Total: {{exercise.timeString(exercise.workout.workout_total_time)}}
+    </h5>
+  </div>
+</div>
+
+<div class="row whitebg hidden-md hidden-lg">
+  <div class="col-sm-12 text-center">
+    <h5 class="ng-hide" ng-hide="exercise.curOrNext"><b class="{{exercise.color}}">Current exercise:</b><b> {{exercise.workoutName}}/{{exercise.workout.blocks[exercise.getCurrentBlock()].block_sets.length}}</b></h5>
+    <h5 class="ng-show" ng-show="exercise.curOrNext"><b class="bluetext">Next exercise:</b><b> {{exercise.nextExercise}}</b></h5>
+    <h6 class="ng-show" ng-show="exercise.workoutName.indexOf('(ISO)') != -1">For each set, perform the full number of reps on one side. Then, perform the same number of reps on the other side.</h6>
+    <h6 class="ng-show" ng-show="exercise.workoutName.indexOf('(ALT)') != -1">For each set, perform the full number of reps, alternating sides after each rep.</h6>
+  </div>
+  <div class="col-sm-6 col-xs-6">
+    <h5 class="pull-left">
+      <img src="content/images/fireIcon.png" style="height:20px; margin-bottom:4px">Cals: {{exercise.caloriesBurned | number : 1}}
+    </h5>
+  </div>
+  <div class="col-sm-6 col-xs-6">
+    <h5 class="pull-right">
+      <img src="content/images/stopwatchWhite.png" style="height:20px; margin-bottom:4px">Total: {{exercise.timeString(exercise.workout.workout_total_time)}}
+    </h5>
+  </div>
+</div>
+
+<!--EXERCISE BLOCK-->
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2">
+    <p class="help-text text-center ng-show" ng-show="exercise.userHistory.workouts.length < 2 && exercise.getCurrentBlock() < 2">
+	  If you do more or less than the given values, you can modify them below.
+    </p>
+    <table class="table table-condensed">
+      <tr class="{{exercise.setBG[$setIndex]}} form-group-sm form-inline" ng-repeat='set in exercise.workout.blocks[exercise.getCurrentBlock()].block_sets track by $index' ng-init="$setIndex = $index">
+        <td>
+          <img src="content/images/pencil_icon.png" style="height:10px; margin-bottom:1px; margin-right:-2px">
+        </td>
+		<td>
+		  <span>Set {{$setIndex + 1}}</span>
+		</td>
+        <td class="form-inline" ng-repeat="name in set.criterion | criterionDisplay as results">
+          <label class="small">{{exercise.criterionDisplayInfo[name].name}}</label>
+          <input type="number" onfocus="this.value='';" class="form-control" ng-model="set.criterion[name]">
+        </td>
+      </tr>
+    </table>
+    <div id="flash">
+      <h5 class="text-center">{{exercise.message}}</h5>
+    </div>
+  </div>
+</div>
+
+<!--EXERCISE ANIMATION-->
+
+<div class="row whitebg">
+  <div collapse="exercise.isCollapsed">
+    <div class="col-md-8 col-md-offset-2 well-round hidden-lg">
+      <img ng-src="{{exercise.getSource()}}" ng-init="exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()" class="img-responsive center-block" style="width: 300px;"></img>
+    </div>
+    <div class="col-md-8 col-md-offset-2 well-round hidden-xs hidden-sm hidden-md">
+      <img ng-src="{{exercise.getSource()}}" ng-init="exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()" class="img-responsive center-block" style="width: 600px;"></img>
+    </div>
+  </div>
+</div>
+
+<!--OTHER BUTTONS-->
+
+<div class="row whitebg toppad" style="padding-bottom:110px">
+  <div class="col-md-4 col-xs-4" style="padding:0px">
+    <button type="button" style="padding: 6px 6px;" class="btn btn-primary text-center img-responsive center-block ng-hide" ng-hide="!exercise.skipAvailable || exercise.getCurrentBlock() == (exercise.workout.blocks.length-1)" ng-really-message="This will move this exercise to the end of the workout. Are you sure?" ng-really-click="exercise.skip()">Move to End</button>
+  </div>
+  <div class="col-md-4 col-xs-4" style="padding:0px">
+    <button style="padding: 6px 6px;" class="btn center-block img-responsive btn-primary ng-hide" ng-hide="exercise.isCollapsed" ng-click="exercise.isCollapsed = !exercise.isCollapsed; exercise.isCollapsed ? exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoEnd() : exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()">Hide Image</button>
+    <button style="padding: 6px 6px;" class="btn center-block img-responsive btn-primary ng-hide" ng-hide="!exercise.isCollapsed" ng-click="exercise.isCollapsed = !exercise.isCollapsed; exercise.isCollapsed ? exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoEnd() : exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()">Show Image</button>
+  </div>
+  <div class="col-md-4 col-xs-4" style="padding:0px">
+    <button type="button" style="padding: 6px 6px;" class="btn btn-primary text-center img-responsive center-block" ng-really-message="This will end the current workout, and all uncompleted progress will be lost. Only use this button if you wish to finish early. Are you sure?" ng-really-click="exercise.finishWorkout(exercise)" ng-hide="exercise.getCurrentBlock() == 0">End Workout</button>
+  </div>
+</div>
+
+<!--BOTTOM NAV-->
+
+<nav class="navbar-fixed-bottom navbar hidden-xs {{exercise.navcolor}}">
+  <div class="container-fluid text-center row">
+    <div class="col-sm-4">
+      <button type="button" style="padding: 10px 2px;" class="btn {{exercise.button.color}} active navbar-btn btn-lg img-responsive pull-right" ng-click="exercise.startPauseClick(exercise)">
+        <img style="height:38px;" ng-src="content/images/{{exercise.button.text}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+    <div class="col-sm-4">
+      <h1 class="text-center hidden-sm" style="color:white">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h1>
+      <h2 class="text-center hidden-md hidden-lg" style="color:white">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h2>
+    </div>
+    <div class="col-sm-4">
+      <button ng-hide="exercise.cyclerStopped" type="button" style="padding: 10px 2px;" class="btn btn-primary active navbar-btn btn-lg img-responsive ng-hide pull-left" ng-click="exercise.complete(exercise)">
+        <img style="height:38px;" ng-src="content/images/{{exercise.doneOrSkip}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar-fixed-bottom navbar hidden-sm hidden-md hidden-lg {{exercise.navcolor}}">
+  <div class="container-fluid text-center row">
+    <div class="col-xs-3" style="padding-right:0px">
+      <button type="button" style="padding: 7px 10px; width:80px;" class="btn {{exercise.button.color}} active navbar-btn" ng-click="exercise.startPauseClick(exercise)">
+        <img style="height:30px;" ng-src="content/images/{{exercise.button.text}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+    <div class="col-xs-6" style="padding-right:0px; padding-left:0px; margin-right:-23px">
+      <h3 class="text-center" style="color:white">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h3>
+    </div>
+    <div class="col-xs-3" style="padding-right:0px">
+      <button ng-hide="exercise.cyclerStopped" type="button" style="padding: 7px 10px; width:80px;" class="btn pull-left btn-primary active navbar-btn ng-hide" ng-click="exercise.complete(exercise)">
+        <img style="height:30px;" ng-src="content/images/{{exercise.doneOrSkip}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,27 @@
+<div ng-show="company.company" class="ng-show">
+<div class="item item-calm item-icon-right item-text-wrap item-divider" ng-click="company.isCollapsedPer = !company.isCollapsedPer">
+  Department Points/Member Leaderboard
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedPer">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.departmentsTwo.daily}}" ng-click="company.orderDepartmentsTwo('dailyPointsPerMember')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.departmentsTwo.monthly}}" ng-click="company.orderDepartmentsTwo('monthlyPointsPerMember')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.departmentsTwo.total}}" ng-click="company.orderDepartmentsTwo('totalPointsPerMember')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <div class="item row row-center" ng-repeat="department in company.departments | orderBy:company.departmentsTwoPredicate:company.departmentsTwoReverse">
+    <div class="col item-text-wrap">
+      <h2>{{department.name}} ({{department.members.length}} <span class="ng-hide" ng-hide="department.members.length == 1">members)</span><span class="ng-hide" ng-hide="department.members.length > 1">member)</span></h2>
+    </div>
+	<div class="col text-center">
+	  <h1 class="ng-hide" ng-hide="company.departmentsTwoShowDay">{{department.dailyPointsPerMember | number:0}}</h1>
+      <h1 class="ng-hide" ng-hide="company.departmentsTwoShowMonth">{{department.monthlyPointsPerMember | number:0}}</h1>
+      <h1 class="ng-hide" ng-hide="company.departmentsTwoShowTotal">{{department.totalPointsPerMember | number:0}}</h1>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>
+</div>

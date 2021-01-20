@@ -1,0 +1,29 @@
+<div class="list">
+  <div class="item item-calm item-icon-right item-divider" style="height:50px;line-height:10px">
+    Workout Type
+    <i class="icon ion-ios-information button button-small button-icon" style="color:white" ng-click="quick.isCollapsedInfoTwo = !quick.isCollapsedInfoTwo"></i>  
+  </div>
+  <div class="ng-show list" ng-show="!quick.isCollapsedInfoTwo">
+    <div class="card item item-text-wrap">
+      <ul style="font-size:12px">
+          <li><b>-Cardio.</b> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+          <li><b>-Core.</b> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel. Or trim that beer belly.</li>
+          <li><b>-Cross.</b> Workout that engages multiple muscles and gets the heart rate up. Combo of strength and cardio, really.</li>
+          <li><b>-Strength.</b> Workout focused on isolating and working specific muscles to build strength and make you Hulk without the anger issues.</li>
+          <li><b>-Stretch.</b> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+          <!--<li><b>-Yoga.</b> A workout that soothes both the body and mind.</li>-->
+        </ul>    
+    </div>
+  </div>
+  <label class="item item-radio" ng-repeat="category in quick.categories | filter:'!Yoga' | filter:'!All' | orderBy:'name' track by category.id" style="padding:0px;margin:0px;height:15vmax">
+    <input type="radio" style="padding:0px;margin:0px" ng-model="quick.request.categoryId" name="exercise_type" ng-change="quick.toggleCategory(category.id)" value="{{category.id}}">
+    <div class="radio-content" style="padding:0px;margin:0px">
+	    <div class="item-content" style="padding:0px;margin:0px">
+	      <h1 class="small" style="color:#FF7F00;position:absolute;margin-left:5%">{{category.name}}</h1>
+        <img style="width:100%;height:17vmax;margin-bottom:-10px;padding:0px" ng-src="content/images/{{category.name | lowercase}}.png">
+      </div>
+    </div>
+  </label>
+</div>
+
+

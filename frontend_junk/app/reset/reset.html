@@ -1,0 +1,16 @@
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2">
+  <form name="resetForm" novalidate>
+    <img src="content/images/upDownLogo.png" class="img-responsive center-block toppad" id="logo" style="width:200px">
+    <p style="padding-top:25px" class="help-text">Enter the email address associated with your account, and then hit "Reset."
+    <div class="form-group toppad" ng-class="{ 'has-error' : resetForm.email.$invalid && !resetForm.email.$pristine && resetForm.email.$touched}">
+      <input type="email" name="email" maxlength="75" id="email" class="form-control" ng-model="reset.email" placeholder="Enter Email Address" required></input>
+      <p ng-show="resetForm.email.$invalid && !resetForm.email.$pristine && resetForm.email.$touched" class="help-block">Enter the email address associated with your account.</p>
+    </div>
+    <div ng-show="reset.emailSent">
+      You should be receiving an email shortly with instructions. Thank you for your patience. Please contact support@updowntech.com if you experience any issues.
+    </div>
+    <button type="submit" ng-disabled="reset.emailSent || resetForm.$invalid" class="btn btn-primary btn-lg img-responsive center-block" ng-click="reset.reset()">Reset</button>
+  </form>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+<ion-view view-title="Locations">
+  
+
+<ion-content>
+  
+
+<!--FAKE DATA-->
+
+<div class="list">
+  <div class="item item-divider">
+    Location Name
+  </div>
+  <div class="row">
+    <div class="col">
+      Name:
+    </div>
+    <div class="col">
+      <input type="text" placeholder="Location Name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      Space:
+    </div>
+    <div class="col">
+      <select>
+        <option>Small</option>
+        <option selected>Medium</option>
+        <option>Large</option>
+      </select>
+    </div>
+  </div>
+  <div class="list list-inset">
+    <div class="item item-divider">
+      Weightlifting
+    </div>
+    <ul class="list">
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Barbell
+      </li>
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Dumbbell
+      </li>
+    </ul>
+  </div>
+  <div class="list list-inset">
+    <div class="item item-divider">
+      Agility
+    </div>
+    <ul class="list">
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Bouncy ball
+      </li>
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Bands
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="list" style="margin-bottom:55px">
+  <div class="item item-divider">
+    Location Name
+  </div>
+  <div class="row">
+    <div class="col">
+      Name:
+    </div>
+    <div class="col">
+      <input type="text" placeholder="Location Name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      Space:
+    </div>
+    <div class="col">
+      <select>
+        <option>Small</option>
+        <option selected>Medium</option>
+        <option>Large</option>
+      </select>
+    </div>
+  </div>
+  <div class="list list-inset">
+    <div class="item item-divider">
+      Weightlifting
+    </div>
+    <ul class="list">
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Barbell
+      </li>
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Dumbbell
+      </li>
+    </ul>
+  </div>
+  <div class="list list-inset">
+    <div class="item item-divider">
+      Agility
+    </div>
+    <ul class="list">
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Bouncy ball
+      </li>
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Bands
+      </li>
+    </ul>
+  </div>
+</div>
+    
+
+
+<!--REAL DATA-->
+
+<!--
+
+<ion-list ng-repeat="location in locations">
+  <div class="item item-divider" ng-click="expanded(location)">
+    {{location.name}}
+  </div>
+  <div class="row ng-hide" ng-hide="location.hidden">
+    <div class="col">
+      Name:
+    </div>
+    <div class="col">
+      <input ng-change="evalName()" maxlength="20" ng-model="location.name" type="text" placeholder="Location Name">
+    </div>
+  </div>
+  <div class="row ng-hide" ng-hide="location.hidden">
+    <div class="col">
+      Space:
+    </div>
+    <div class="col">
+      <select ng-options="obj.id as obj.name for obj in spaces" ng-model="location.space_id" name="spaceHome"></select>>
+    </div>
+  </div>
+  <div ng-repeat="equipment_group in equipments" class="list list-inset ng-hide" ng-hide="location.hidden">
+    <div class="item item-divider" ng-click="hider = !hider">
+      {{equipment_group.name}}
+    </div>
+    <ul class="list">
+      <li ng-repeat="equipment in equipment_group.equipments" class="item item-checkbox ng-hide" ng-hide="hider">
+        <label class="checkbox">
+        <input type="checkbox" ng-checked="location.equipment_ids.indexOf(equipment.id) > -1" ng-click="toggleEquipment(location, equipment.id)" value="{{equipment.id}}">
+        </label>
+        {{equipment.name}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

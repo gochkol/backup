@@ -1,0 +1,36 @@
+<h4 class="orangetext">My Points:</h4>
+	<div class="row ng-show" ng-show="points.totalPoints == 0">
+      <div class="col-md-8 col-md-offset-2">
+        <p class="help-text text-center">
+          No points yet. Earn points by completing workouts and logging activity. Try to hit the cap each month!
+        </p>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-sm-4">
+        <h4 class="text-center orangetext">Total points: <span class="blacktext">{{profile.totalPoints}}</span></h4>
+      </div>
+      <div class="col-sm-4">
+        <h4 class="text-center orangetext">Daily: <span class="blacktext">{{profile.user['current_daily_points']}}/{{profile.maxDay}}</span></h4>
+        <progressbar value="profile.dProgress" type="danger"><span style="color:white; white-space:nowrap;">{{profile.dProgress | number : 0}}%</span></progressbar>
+      </div>
+      <div class="col-sm-4">
+        <h4 class="text-center orangetext">Weekly: <span class="blacktext">{{profile.user['current_weekly_points']}}/{{profile.user.current_weekly_points_goal_value}}</span></h4>
+        <progressbar value="profile.wProgress" type="{{profile.weeklyColor}}"><span style="color:white; white-space:nowrap;">{{profile.wProgress | number : 0}}%</span></progressbar>
+      </div>
+    </div>
+<div style="height:300px;overflow:auto;">
+      <table class="table table-striped table-condensed well">
+        <tr>
+          <td><b>Points</b></td>       
+          <td><b>Points Event</b></td>
+          <td><b>Time</b></td>
+        </tr>
+        <tr dir-paginate="point in profile.points | itemsPerPage: 10">
+          <td style="font-size:14px">{{point.number_of}}</td>
+          <td style="font-size:14px">{{profile.helpers.pointSentence(point)}}</td>
+          <td style="font-size:14px">{{profile.formatTime(point.earned_at)}}</td>
+        </tr>
+      </table>
+    </div>
+    <dir-pagination-controls class="text-center img-responsive center-block" max-size="5"></dir-pagination-controls>

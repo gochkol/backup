@@ -1,0 +1,71 @@
+<ion-view view-title="Review Workout" hide-back-button="true">
+  
+<form action="#" method="POST" name="WorkoutReview" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="list">
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Name:</span>
+    <input type="text" style="margin-left:-45px" maxlength="45" ng-model="summary.workout.name">
+  </label>
+</div>
+
+<div class="list" style="margin-top:-10px">
+  <div class="item ng-show item-text-wrap" ng-show="summary.userHistory.workouts.length < 3 && !summary.isGuest">
+    <h4 class="help-text text-center">Here's what you just did! Edit values as needed (except rest times - we recorded those for you). Then, tap "Finish" to get your points!</h4>
+  </div>
+  <div class="item ng-show item-text-wrap" ng-show="summary.isGuest">
+    <h4 class="help-text text-center">Here's what you just did! Tap "Finish" when done. If you create an account, Updown will learn from your workouts and adjust future routines!</h4>
+  </div>
+  <div class="item ng-show item-text-wrap" ng-show="customize.userHistory.workouts.length > 2 && customize.userHistory.workouts.length < 6">
+    <h4 class="help-text text-center">Upon completion of each workout, Updown learns from what you did and adjusts future workouts!</h4>
+  </div>
+</div>
+
+<div class="list card" style="margin-top:-10px">
+  <h3 class="text-center">Workout Summary</h3>
+  <div class="row row-center">
+    <div class="col">
+  <h5 style="padding-left:10px">Time: {{summary.helpers.timeString(summary.workout.total_time_seconds)}}</h5>
+  <h5 style="padding-left:10px">Calories Burned: {{summary.workout.calories_burned | number:0}}</h5>
+  </div>
+  <div class="col" style="padding-left:15px;padding-right:15px">
+    <button ng-disabled="WorkoutReview.$invalid || summary.workout['blocks'].length < 1" ng-click="summary.finish();window.plugins.insomnia.allowSleepAgain();" class="button button-calm button-block">Finish</button>
+  </div>
+  </div> 
+</div>
+
+<ion-list style="margin-top:-15px">
+  <ion-item class="card" style="padding:0px;margin-right:-10px;margin-left:-10px" ng-repeat="block in summary.workout.blocks track by $index" ng-init="$blockIndex = $index">
+    <div class="row item item-calm">
+      <div class="col item-text-wrap">
+        <h3 style="color:white;margin-left:10px">{{$blockIndex + 1}}. {{block.exercise.name}}</h3>
+      </div>
+    </div>
+    <div class="row calm-light-bg" style="padding-left:15px;padding-right:15px;padding-top:0px;padding-bottom:0px;margin-top:-10px;margin-bottom:-10px" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+      <div class="col" ng-repeat="name in blockSet.criterion | criterionDisplay as results" ng-class="{ 'has-error' : WorkoutReview.workoutParams.$invalid}">
+        <label class="item-input-wrapper calm-light-bg input-sm" style="padding-left:3px; padding-right:0px">
+          <span style="padding-right:0px" class="input-label input-label-sm">{{summary.criterionDisplayInfo[name].name}}</span>
+          <input class="item-input-wrapper calm-light-bg" style="padding-right:0px;margin-left:-3px" ng-model="blockSet.criterion[name]" ng-readonly="name==='rest'" name="workoutParams" id="workoutParams" ng-model-options="{ updateOn: 'change' }" ng-change="summary.updateBlockSet(name, blockSet, block)" type='number' min='0' ng-keydown="summary.blur($event)" max='999' required>
+          <i class="icon ion-edit" style="font-size:12px;color:grey;padding-right:2px;padding-left:0px"></i>
+        </label>
+      </div>
+    </div>
+  </ion-item>
+</ion-list>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item ng-hide" ng-hide="summary.isGuest" ng-disabled="summary.isReadonly || summary.favorites.length == summary.favoritesMax" ng-click="summary.createFavorite()">
+    <i id="favoriteIconSummary" ng-class="{'assertive':summary.favorites.length == summary.favoritesMax}" class="icon ion-star"></i>
+    Favorite
+  </a>
+  <a class="tab-item" ng-disabled="WorkoutReview.$invalid || summary.workout['blocks'].length < 1" ng-click="summary.finish();window.plugins.insomnia.allowSleepAgain();">
+    <i class="icon calm ion-checkmark"></i>
+    Finish
+  </a>
+</div>
+</form>
+
+</ion-view>

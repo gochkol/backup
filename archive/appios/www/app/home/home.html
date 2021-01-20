@@ -1,0 +1,210 @@
+<ion-view view-title="<i class='icon ion-home'></i> Home" hide-back-button="true" cache-view="false">
+
+<ion-content style="margin-bottom:65px;">
+
+<!--Home Header with no profile pic-->
+<div class="row ng-show" ng-show="!home.user['avatar_url']">
+  <div class="col">
+    <div class="list card">
+      <div class="item item-text-wrap item-thumbnail-left">
+	    <img ng-src="content/images/profile_image.jpg" class="item-thumbnail">	
+        <h2 style="font-size:22px">{{home.user.first_name}} {{home.user.last_name}}</h2>
+        <h2 ng-hide="!home.user.current_status">
+		  "{{home.user.current_status}}"
+		</h2>
+		<h4 class="help-text" ng-hide="home.user.current_status">
+		  Add a status below and your friends will be able to see what's up with you.
+		</h4>
+		<p class="ng-hide" ng-hide="!home.user['current_status']">Last updated {{home.formatTime(home.user['current_status_at'])}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Home Header with profile pic-->
+<div class="row ng-hide" ng-hide="!home.user['avatar_url']">
+  <div class="col">
+    <div class="list card">
+      <div class="item item-text-wrap item-thumbnail-left">
+        <img ng-src="{{home.user['avatar_url']}}" class="item-thumbnail">
+        <h2 style="font-size:22px">{{home.user.first_name}} {{home.user.last_name}}</h2>
+        <h2 ng-hide="!home.user.current_status">
+		  "{{home.user.current_status}}"
+		</h2>
+		<h4 class="help-text" ng-hide="home.user.current_status">
+		  Add a status below and your friends will be able to see what's up with you.
+		</h4>
+		<p class="ng-hide" ng-hide="!home.user['current_status']">Last updated {{home.formatTime(home.user['current_status_at'])}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list ng-hide" ng-hide="!home.randomTip" style="margin-top:-20px">
+  <div class="item item-text-wrap text-center item-divider">
+    <h4 class="help-text" style="padding-bottom:10px">{{home.randomTip}}</h4>
+  </div>
+</div>
+
+<div class="list" style="margin-top:-30px">
+  <div class="item item-text-wrap row">
+    <div class="col">
+      <div class="container-progress">	  
+        <div class="progress-wrapper">
+		  <div class="progress-style ng-cloak" ng-style="home.getStyle()">
+            <img ng-src="{{home.level.icon_url}}" style="height:65x; width:65px;">
+		  </div>
+		  <div
+			round-progress	
+			max="home.levelInfo.range"
+			current="home.levelInfo.progress"
+			color="#0000ff"
+			bgcolor="#eaeaea"
+			radius="60"
+			stroke="10"
+			semi="false"
+			rounded="true"
+			clockwise="true"
+			responsive="false"
+			duration="800"
+			animation="easeInOutQuart">
+		    <div
+		      round-progress	
+			  max="home.maxMonth"
+			  current="home.user.current_monthly_points"
+			  color="#5bc0de"
+			  bgcolor="#eaeaea"
+			  radius="60"
+			  stroke="10"
+			  semi="false"
+			  rounded="true"
+			  clockwise="true"
+			  responsive="false"
+			  duration="800"
+			  animation="easeInOutQuart"
+			  offset="inherit">
+		   	  <div
+				round-progress	
+				max="home.maxDay"
+				current="home.user.current_daily_points"
+				color="#ec971f"
+				bgcolor="#eaeaea"
+				radius="60"
+				stroke="10"
+				semi="false"
+				rounded="true"
+				clockwise="true"
+				responsive="false"
+				duration="800"
+				animation="easeInOutQuart"
+				offset="inherit">
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="col">
+	  <h2 style="color:#0000ff">Level {{home.level.value}} {{home.level.name}}</h2>
+	  <h4 style="color:#0000ff">{{home.levelInfo.progress}}/{{home.levelInfo.range}} to level {{home.level.value + 1}}</h4>
+	  <br>
+	  <h3 style="color:#5bc0de">Monthly Points: {{home.user.current_monthly_points}}/{{home.maxMonth}}</h3>
+	  <h3 style="color:#ec971f">Daily Points: {{home.user.current_daily_points}}/{{home.maxDay}}</h3>
+	</div>
+  </div>
+  <div class="item item-text-wrap ng-show" ng-show="home.totalPoints == 0">
+    <h4 class="help-text text-center">
+	  Earn points by completing workouts and logging activity. Try to hit the cap each month and watch as you level up!
+    </h4>
+  </div>	
+</div>
+
+<form id="statusForm">
+<div class="list" style="margin-top:-30px">
+  <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input type="text" style="width:100%;" ng-model="home.statusString" maxlength="80" placeholder="Status" name="userStatus" id="userStatus" class="item-input"></input>
+    </label>
+    <i class="icon button button-icon ion-ios-compose-outline" ng-click="home.updateStatus()" ng-disabled="home.statusString === '' || home.statusString === null"></i>
+  </div>
+</div>
+</form>
+
+<div class="item item-icon-left item-divider">
+  <i class="icon ion-earth"></i>
+  What's Going On
+</div>
+
+<ion-list>
+  <ion-item class="ng-show item item-text-wrap" ng-show="home.events.length === 0">
+    <h4 class="help-text">
+      This feed displays activity for you and your friends. It's lonely here. Complete a workout or add some friends to populate the feed!
+	</h4>  
+  </ion-item>
+  <ion-item ng-repeat-start="event in home.events" class="item item-text-wrap item-avatar item-button-right">
+    <img ng-src="{{event['user']['avatar_url']}}">
+    <h4>{{home.formatTime(event['created_at'])}}</h4>
+    <p class="ng-hide" ng-hide="event.event_type === 'finish_workout'">{{home.helpers.eventSentence(event)}}</p> <i class="ng-show icon ion-information-circled" style="font-size:16px" ng-init="event.showDesc = true" ng-show="event.event_data.quick_log.desc || event.event_data.quick_log.calories_burned || event.event_data.quick_log.distance_miles" ng-click="event.showDesc = !event.showDesc"></i>
+    <p class="ng-show calm" ng-show="event.event_type === 'finish_workout'"><a style="cursor:pointer" class="calm" ng-click="home.expander(home.workouts, event.event_data.workout)">{{home.helpers.eventSentence(event)}}</a></p>
+    <button class="button button-clear button-dark" style="background-color:white;border-color:white;" ng-click="home.showComments(event)"><img src="content/images/comments.png" style="position:absolute;height:30px;right:0px;opacity:0.6;"><span style="position:absolute;right:18px;font-size:14px;bottom:-15px;">{{event.comments.length ? event.comments.length : event.comment_count}}</span></button>
+  </ion-item>
+
+
+  <ion-item class="ng-hide" style="padding:0px" ng-hide="event.event_data.workout.id && !home.workoutHidden[event.event_data.workout.id]">
+  <div class="card row calm-light-bg ng-hide" ng-hide="event.event_data.workout.id && !home.workoutHidden[event.event_data.workout.id]" ng-repeat="block in home.workouts[event.event_data.workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+    <div class="col">
+      <div class="row header item-text-wrap">
+        <h4>{{home.exerciseLookup[block.block_sets[0].exercise_id].name}}</h4>
+      </div>
+      <div class="row" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+        <div class="col" data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+          {{home.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}
+        </div>
+      </div>
+    </div>
+  </div>
+  </ion-item>
+
+  <ion-item class="item item-text-wrap ng-hide calm-light-bg" ng-hide="event.showDesc">
+    <span class="ng-show" ng-show="event.event_data.quick_log.desc">Description: {{event.event_data.quick_log.desc}}<br></span>
+    <span class="ng-show" ng-show="event.event_data.quick_log.calories_burned">Cals Burned: {{event.event_data.quick_log.calories_burned}}<br></span>
+	<span class="ng-show" ng-show="event.event_data.quick_log.distance_miles">Distance (miles): {{event.event_data.quick_log.distance_miles}}</span>
+  </ion-item>
+  <div class="list-inset" ng-repeat-end ng-show="event.show" style="padding-left:10px">
+    <ion-item ng-repeat="comment in event.comments | orderBy:comment.created_at:true" class="item item-text-wrap item-avatar item-button-right">
+      <img ng-src="{{comment['user']['avatar_url']}}">
+      <h4>{{home.formatTime(comment['created_at'])}}</h4>
+      {{comment['comment_text']}} -{{comment['user']['first_name']}} {{home.helpers.firstLetter(comment['user']['last_name'])}}
+      <i class="button button-icon ion-backspace-outline" ng-show="home.user['id'] == comment['user']['id']" ng-click="home.removeComment(event, comment)"></i>
+    </ion-item>
+    <form id="commentForm">
+    <ion-item class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" style="width:100%;" maxlength="80" class="ng-hide item-input" ng-hide="event.hide" ng-model="event.commentText" placeholder="Enter comment here."></input>
+      </label>
+      <i ng-hide="event.hide" style="padding-right:0px;padding-left:0px" class="icon button button-icon ion-ios-compose-outline" ng-click="home.submitComment(event)" ng-disabled="event.commentText === '' || event.commentText === null"></i>
+    </ion-item>
+    </form>
+  </div>
+</ion-list>
+
+
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="nav.quickLog">
+    <i class="icon calm ion-clipboard"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="nav.quickWorkout">
+    <i class="icon calm ion-android-walk"></i>
+    Generate Workout
+  </a>
+  <a class="tab-item" ng-click="home.customWorkout()">
+    <i class="icon calm ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

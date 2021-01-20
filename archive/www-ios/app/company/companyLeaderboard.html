@@ -1,0 +1,26 @@
+<div ng-show="company.company" class="ng-show">
+<div class="item item-calm item-text-wrap item-icon-right item-divider" ng-click="company.isCollapsedCompany = !company.isCollapsedCompany">
+  {{company.company.name}} ({{company.members.length}} members)
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedCompany">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.company.daily}}" ng-click="company.orderCompany('daily_points')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.company.monthly}}" ng-click="company.orderCompany('monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.company.total}}" ng-click="company.orderCompany('total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <div class="item row row-center" ng-repeat="member in company.members | orderBy:company.companyPredicate:company.companyReverse">
+    <div class="col item-text-wrap">
+      <h2>{{member.first_name}} {{member.last_name}}</h2>
+	  </div>
+	  <div class="col text-center">
+      <h1 class="ng-hide" ng-hide="company.companyShowDay">{{member.daily_points}}</h1>
+      <h1 class="ng-hide" ng-hide="company.companyShowMonth">{{member.monthly_points}}</h1>
+      <h1 class="ng-hide" ng-hide="company.companyShowTotal">{{member.total_points}}</h1>
+	  </div>
+  </div>
+</div>
+</ion-scroll>
+</div>

@@ -1,0 +1,189 @@
+<ion-view view-title="{{friend.friend.first_name}} {{friend.friend.last_name}}">
+  
+
+<ion-content style="margin-bottom:65px;">
+
+<div class="row" style="margin-top:15px">
+  <div class="col">
+    <div class="list card">
+      <a class="item item-text-wrap item-thumbnail-left">
+        <img ng-src="{{friend.friend.avatar_url}}">
+        <h2 style="font-size:22px">{{friend.friend.first_name}} {{friend.friend.last_name}}</h2>
+        <h2>{{friend.friend.current_status}}</h2>
+        <p>Last updated {{friend.formatTime(friend.friend.current_status_at)}}</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedStats = !friend.isCollapsedStats">
+  Workout Stats
+  <i class="icon ion-stats-bars"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="friend.isCollapsedStats" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedStats">
+  <div class="row item">
+    <div class="col col-75">
+      Total Workout Time
+    </div>
+    <div class="col">
+      {{friend.friend.total_workout_time ? friend.timeString(friend.friend.total_workout_time) : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Calories Burned
+    </div>
+    <div class="col">
+      {{friend.friend.total_calories_burned ? friend.friend.total_calories_burned : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Workouts Completed
+    </div>
+    <div class="col">
+      {{friend.friend.total_workouts ? friend.friend.total_workouts : 0}}
+    </div>
+  </div>
+  <div class="row item" ng-repeat="count in friend.friend.total_count_of_workouts">
+    <div class="col">
+    </div>
+    <div class="col col-50">
+      {{count.category_name}}
+    </div>
+    <div class="col">
+      {{count.count ? count.count : 0}}
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedWorkouts = !friend.isCollapsedWorkouts">
+  Finished Updown Workouts
+  <i class="icon ion-arrow-graph-up-right"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="friend.isCollapsedWorkouts" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedWorkouts">
+  <div class="row header">
+    <div class="col col-25">
+      <b>Completed</b>
+    </div>
+    <div class="col">
+      <b>Name</b>
+    </div>
+    <div class="col col-20">
+      <b>Cals / Time</b>
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate-start="workout in friend.friend.workouts | itemsPerPage: 10" pagination-id="workouts">
+    <div class="col col-25" style="font-size:10px">
+      {{friend.formatTime(workout.finished_at) || " "}}
+    </div>
+    <div class="col">
+      {{workout.name ? workout.name : "Workout"}}
+    </div>
+    <div class="col col-20">
+      {{workout.calories_burned}} / {{friend.timeString(workout.total_time)}}
+    </div>
+    <div class="col col-10" style="cursor:pointer" ng-click="friend.expander(friend.workouts, workout)">
+      <i style="font-size:30px" class="icon ion-android-arrow-dropdown"></i>
+    </div>
+    <div class="col col-10 text-right">
+      <i class="button button-icon energized ion-star" ng-disabled="workout.isReadonly" ng-init="workout.isReadonly = false" ng-click="friend.createFavorite(workout); workout.isReadonly = true"></i>
+    </div>
+  </div>
+  <div class="card row calm-light-bg ng-hide" dir-paginate-end ng-repeat="block in friend.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index" ng-hide="friend.workoutHidden[workout.id]">
+    <div class="col">
+      <div class="row header item-text-wrap">
+        <h4>{{friend.exerciseLookup[friend.workouts[workout.id].exercise_ids[$blockIndex]].name}}</h4>
+      </div>
+      <div class="row" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+        <div class="col" data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+          {{friend.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="row">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="workouts" max-size="5"></dir-pagination-controls> 
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedLogs = !friend.isCollapsedLogs">
+  Quick Log Activities
+  <i class="icon ion-ios-list-outline"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="friend.isCollapsedLogs" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedLogs">
+  <div class="row header">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col col-50">
+      <b>Activity</b>
+    </div>
+    <div class="col">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row" dir-paginate="quick in friend.friend.quick_logs | orderBy:quick.finished_at:true | itemsPerPage: 10" pagination-id="quicklogs">
+    <div class="col col-33" style="font-size:10px">
+      {{friend.formatTime(quick.finished_at) || " "}}
+    </div>
+    <div class="col col-50">
+      {{quick.activity_name}}
+    </div>
+    <div class="col">
+      {{friend.timeString(quick.duration*60)}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="quicklogs" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedFriends = !friend.isCollapsedFriends">
+  <i class="icon ion-ios-people"></i>
+  {{friend.friend.first_name}}'s Friends:
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div
+<div class="row ng-show" ng-show="friend.isCollapsedFriends" style="padding-bottom:15px">
+</div>
+<div class="ng-show" ng-show="!friend.isCollapsedFriends">
+<ion-scroll zooming="true" direction="y" style="max-height:300px">
+<div class="list">
+  <div ng-repeat="f in friend.friend.friends" class="item item-avatar-left item-button-right">
+    <img ng-src="{{f.avatar_url}}" ng-hide="!f.avatar_url" class="ng-hide">
+    {{f.first_name}} {{f.last_name}}
+    <i class="button button-icon ion-ios-plus-outline ng-hide" ng-hide="f.hide" ng-init="f.hide = friend.friendsCheck(f)" ng-click="friend.createFriendRequest(f); f.hide=true"></i>
+  </div>
+</div>
+</ion-scroll>
+</div>
+
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="nav.friends">
+    <i class="icon calm ion-person-stalker"></i>
+    Friends
+  </a>
+</div>
+
+
+</ion-view>

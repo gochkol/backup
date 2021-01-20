@@ -1,0 +1,39 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>{{friend.friend.first_name}} {{friend.friend.last_name}}</h2>
+  </div>
+</div>
+
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2 well" style="box-shadow: 2px 2px 4px 0px #888888;">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <img ng-src="{{friend.friend.avatar_url}}"  ng-hide="!friend.friend.avatar_url" class="img-circle img-thumbnail img-responsive center-block ng-hide" style="height:150px; width:150px;">
+        <img src="content/images/profile_image.jpg" ng-show="!friend.friend.avatar_url" class="img-circle img-thumbnail img-responsive center-block ng-show" style="height:150px; width:150px;">
+		<h4 class="ng-hide" ng-hide="!friend.friend.current_status">"{{friend.friend.current_status}}"</h4>
+		<h5 class="ng-show" ng-show="!friend.friend.current_status">No status update.</h5>
+        <h5 class="ng-hide" ng-hide="!friend.friend.current_status">Last updated {{friend.formatTime(friend.friend.current_status_at)}}</h5>
+      </div>
+      <div class="col-md-6 text-center">
+        <br>
+		<img src="{{friend.level.icon_url}}" class="img-thumbnail img-circle img-responsive center-block" style="height:125px; width:125px;">
+		<h4>Level {{friend.level.value}} {{friend.level.name}}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Points-->
+<div ui-view="points"></div>
+<!--Quick Logs-->
+<div ui-view="quickLogs"></div>
+<!--Finished Workouts-->
+<div ui-view="workouts"></div>
+
+<div class="row topbottompad">
+  <div class="col-md-12 text-center">
+    <button class="btn btn-primary btn-lg img-responsive center-block" ui-sref="friends">Back to Friends</button>
+  </div>
+</div>
+
+

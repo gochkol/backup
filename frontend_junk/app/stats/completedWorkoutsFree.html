@@ -1,0 +1,40 @@
+<h4 style="padding-left:10px" class="orangetext">My Finished Workouts:</h4>
+	<p class="help-text ng-show" ng-show="stats.userHistory.workouts.length === 0">
+      You haven't completed any Updown Workouts yet! Click "Generate Workout" on the Home page to get started.
+    </p>
+    <div style="height:400px;overflow:auto;">
+      <table class="table table-condensed well">
+	    <tr class="ng-show" ng-show="stats.userHistory.workouts.length > 0">
+		  <td colspan="4">
+		    <p class="help-text">
+              Click on a workout name to see the details.<!-- As a free user, you can view your last 5 workouts. Sign up for Updown Plus to see every workout you've ever done.-->
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Completed</b></td>
+          <td><b>Name</b></td>
+          <td><b>Cals</b></td>
+          <td><b>Time</b></td>
+        </tr>	  
+        <tr dir-paginate-start ="workout in stats.userHistory['workouts'] | itemsPerPage: 10" pagination-id="workouts">
+          <td style="font-size:14px">{{stats.formatTime(workout['finished_at']) || " "}}</td>
+          <td><a style="cursor:pointer" ng-click="stats.expander(stats.userHistory['workouts'], workout); stats.getWorkout(workout.id)">{{workout['name'] ? workout['name'] : "Workout"}}</a></td>
+          <td>{{workout['calories_burned']}}</td>
+          <td>{{stats.timeString(workout['total_time'])}}</td>
+        </tr>
+        <tr dir-paginate-end class="ng-hide" ng-hide="stats.workoutHidden[workout.id]">
+          <td colspan="4">
+            <table class='table table-condensed well' ng-repeat="block in stats.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+              <tr class="warning"><td colspan="3"><h5 style="display:inline">{{stats.exerciseLookup[block.block_sets[0].exercise_id].name}}</h5></tr>
+              <tr class='form-group-sm text-center form-inline warning' ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+                <td data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+                  <p>{{stats.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+	<dir-pagination-controls pagination-id="workouts" class="text-center img-responsive center-block" max-size="5"></dir-pagination-controls>

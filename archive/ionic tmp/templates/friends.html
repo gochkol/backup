@@ -1,0 +1,239 @@
+<ion-view view-title="Friends">
+  
+
+<ion-content>
+  
+
+
+<!--FAKE DATA-->
+
+<div class="item item-icon-right item-divider">
+  <i class="icon ion-connection-bars"></i>
+  Friends Leaderboard
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order('current_daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order('current_monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order('current_total_points')">All Time</button>
+</div>
+  <div class="list">
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Chris Freise</h2>
+      <h3>200 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Mike Freise</h2>
+      <h3>100 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Jon Freise</h2>
+      <h3>70 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Lauren Freise</h2>
+      <h3>40 points</h3>
+    </a>
+  </div>
+ 
+<div class="item item-icon-right item-divider">
+  <i class="icon ion-android-search"></i>
+  Find Friends
+</div>
+<div class="row">
+  <div class="col">
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">  
+          <input ng-model="search_string" type="text" maxlength="30" class="item-input" placeholder="Friend search"></td>
+        </label>
+        <button type="submit" class="button button-small button-energized" ng-click="friend_search()">Search</button>
+      </div>
+      <a class="item item-avatar-left item-button-right">
+        <img src="img/profile_image.jpg">
+        <h2>Lauren Freise</h2>
+        <i class="button balanced button-icon icon-small ion-android-add"></i>
+      </a>
+      <a class="item item-avatar-left item-button-right">
+        <img src="img/profile_image.jpg">
+        <h2>Jes Greendick</h2>
+        <i class="button balanced button-icon icon-small ion-android-add"></i>
+      </a>
+      <a class="item" ng-show="no_results">
+        No search results found.
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="item item-icon-right item-divider">
+  <i class="icon ion-person-add"></i>
+  Friend Requests
+</div>
+  <div class="list">
+    <div class="row row-center item">
+      <div class="col col-20 item-avatar-left">
+        <img src="img/profile_image.jpg">
+      </div>
+      <div class="col col-60">
+        Larry Freise
+      </div>
+      <div class="col col-10">
+        <i class="button balanced button-icon icon-small ion-android-add"></i>
+      </div>
+      <div class="col col-10">
+        <i class="button assertive button-icon icon-small ion-android-cancel"></i>
+      </div>
+    </div>
+  </div>
+ 
+
+<div class="item item-icon-right item-divider">
+  <i class="icon ion-ios-personadd-outline"></i>
+  Pending Friends
+</div>
+  <div class="list">
+    <a class="item item-avatar-left item-button-right">
+      <img src="img/profile_image.jpg">
+      <h2>Leroy Freise</h2>
+      <i class="button assertive button-icon icon-small ion-android-cancel"></i>
+    </a>
+  </div>
+
+
+<div class="item item-icon-right item-divider">
+  <i class="icon ion-ios-people"></i>
+  My Friends
+</div>
+  <div class="list" style="margin-bottom:55px">
+    <a class="item item-avatar-left item-button-right">
+      <img src="img/profile_image.jpg">
+      <h2>Leroy John</h2>
+      <i class="button assertive button-icon icon-small ion-android-cancel"></i>
+    </a>
+    <a class="item item-avatar-left item-button-right">
+      <img src="img/profile_image.jpg">
+      <h2>Michael Johns</h2>
+      <i class="button assertive button-icon icon-small ion-android-cancel"></i>
+    </a>
+    <a class="item item-avatar-left item-button-right">
+      <img src="img/profile_image.jpg">
+      <h2>Jes Greendick</h2>
+      <i class="button assertive button-icon icon-small ion-android-cancel"></i>
+    </a>
+  </div>
+ 
+
+<!--REAL DATA-->
+
+<!--
+
+<div class="item item-divider">
+  Friends Leaderboard
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order('current_daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order('current_monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order('current_total_points')">All Time</button>
+</div>
+<div class="list">
+  <a ng-repeat="friend in everybody | orderBy:predicate:reverse" class="item item-avatar-left">
+    <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+    <a ng-click="goToFriend(friend)"><h2>{{friend.first_name}} {{friend.last_name}}</h2></a>
+    <h3 class="ng-hide" ng-hide="showDay">{{friend.current_daily_points}}</h3>
+    <h3 class="ng-hide" ng-hide="showMonth">{{friend.current_monthly_points}}</h3>
+    <h3 class="ng-hide" ng-hide="showTotal">{{friend.current_total_points}}</h3>
+  </a>
+</div>
+ 
+<div class="item item-divider">
+  Find Friends
+</div>
+<div class="row">
+  <div class="col">
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">  
+          <input ng-model="search_string" type="text" maxlength="30" class="item-input" placeholder="Friend search"></td>
+        </label>
+        <button type="submit" class="button button-small button-energized" ng-click="friend_search()">Search</button>
+      </div>
+      <a ng-repeat="friend in friends_from_search" class="item item-avatar-left item-button-right">
+        <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+        <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+        <button type="button" class="button button-balanced" ng-disabled="isReadonlytwo" ng-click="add_friend(friend)">Add</button>
+      </a>
+      <a class="item" ng-show="no_results">
+        No search results found.
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="item item-divider">
+  Friend Requests
+</div>
+  <div class="list">
+    <div ng-repeat="friend in friend_requests.incoming" class="row item">
+      <div class="col col-20 item-avatar-left">
+        <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+      </div>
+      <div class="col col-60">
+        {{friend.first_name}} {{friend.last_name}}
+      </div>
+      <div class="col col-10">
+        <button class="button button-small button-balanced" ng-click="accept_friend(friend)">+</button>
+      </div>
+      <div class="col col-10">
+        <button class="button button-small button-assertive" ng-click="decline_friend(friend)">-</button>
+      </div>
+    </div>
+  </div>
+
+<div class="item item-divider">
+  Pending Friends
+</div>
+  <div class="list">
+    <a ng-repeat="friend in friend_requests.outgoing" class="item item-avatar-left item-button-right">
+      <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+      <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+      <button type="button" ng-click="cancel_request(friend)" class="button button-assertive">Cancel</button>
+    </a>
+  </div>
+
+<div class="item item-divider">
+  My Friends ({{friends.length}})
+</div>
+  <div class="list">
+    <a ng-repeat="friend in friends" class="item item-avatar-left item-button-right">
+      <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+      <a ng-click="goToFriend(friend)"><h2>{{friend.first_name}} {{friend.last_name}}</h2></a>
+      <button class="button button-assertive" ng-really-message="Are you sure you want to remove this friend?" ng-really-click="delete_friend(friend)">x</button>
+    </a>
+  </div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

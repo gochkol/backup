@@ -1,0 +1,23 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Favorites</h2>
+  </div>
+</div>
+
+<div class="row topbottompad">
+  <div class="col-md-8 col-md-offset-2">
+    <div ng-hide="favorites.favorites.length > 0" class="ng-hide">
+      <p class="help-text">Looks like you don't have any favorite workouts yet! Click the "Favorite" button on either the workout preview or workout summary screen in order to add a workout to your favorites. Or, create and favorite your own workout with the custom workout tool.</p>
+    </div>
+	<h4 class="text-center">Favorites: {{favorites.favorites.length}} / {{favorites.favoritesMax}}</h4>
+  </div>
+  <div class="col-md-8 col-md-offset-2" style="max-height:500px;overflow:auto;">
+    <table class="table table-striped well">
+      <tr ng-repeat="favorite in favorites.favorites track by $index" style="height:40px">
+        <td><a style="cursor:pointer" ng-click="favorites.doWorkout(favorite)">{{favorite.name}}</a></td>
+        <td><a><i class="fa fa-lg fa-times pull-right" style="cursor:pointer" ng-really-message="Really, you want to delete me?" ng-really-click="favorites.deleteFavorite($index)"></i></a></td>
+      </tr>
+    </table>
+  </div>
+</div>
+

@@ -1,0 +1,229 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2 class="textheader">User Preferences</h2>
+  </div>
+</div>
+
+<div class="row toppad">
+  <form action="#" method="POST" name="userForm" novalidate>
+    <div class="col-md-8 col-md-offset-2">  
+      <div class="row" ng-class="{ 'has-error' : userForm.weeklyGoal.$invalid && !userForm.weeklyGoal.$pristine && userForm.weeklyGoal.$touched}">
+        <div class="col-md-12">
+          <label for="intensity">* Next Week Point Goal: <a class="help_link" href=""><i class="fa fa-info-circle"></i></a>
+            <span class="help">
+              When you reach your weekly point goal, you are awarded bonus points as a percentage of your weekly point goal. Your weekly points and goal will reset each Monday at 12AM CST.
+            </span>
+          </label>
+        </div>
+        <div class="col-md-10">
+          <div class="form-inline">
+            <input type="range" ng-model="settings.user.next_weekly_points_goal_value" class="intensity-slider" id="weeklyGoal" name="weeklyGoal" max="300" min="50">
+          </div>
+        </div>
+        <div class="col-md-1 col-md-offset-0 col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 whitewell">
+          <h2 class="text-center orangetext">{{settings.user.next_weekly_points_goal_value}}</h2>
+        </div>
+        <p ng-show="userForm.weeklyGoal.$invalid && !userForm.weeklyGoal.$pristine && userForm.weeklyGoal.$touched" class="help-block">Your weekly goal should be between 50 and 300.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p>Bonus Points Earned if Goal is Reached: {{settings.user.next_weekly_points_goal_value*.25 | number : 0}}</p>
+        </div>
+      </div>
+<!-- FITNESS GOAL -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+        <label for="usage">* Fitness Goal: <a class="help_link" href=""><i class="fa fa-info-circle"></i></a>
+          <span class="help">Choose your fitness goal. This will affect your workout parameters including number of reps and sets, rest duration, and amount of weight.
+            <ul style="font-size:14px">
+              <li><i class="bluetext">Building endurance.</i> Choose this option to build muscular and cardiovascular endurance. Very high reps, Low weight, Medium sets.</li>
+	      <li><i class="bluetext">Gaining strength.</i> Choose this option to develop size and raw strength. Low reps, Very high weight, Very high sets.</li>
+              <li><i class="bluetext">General fitness.</i> The appropriate option for most people. Medium reps, Medium weight, Low sets.</li>
+ 	      <li><i class="bluetext">General muscle.</i> Choose this option to build muscle. Medium reps, High weight, High sets.</li>
+              <li><i class="bluetext">Losing weight.</i> Choose this option to lose weight. High reps, Medium weight, Medium sets.</li>
+            </ul>
+          </span>
+        </label>
+        <select ng-options="obj.id as obj.name for obj in settings.usages | orderBy:'name'" ng-model="settings.user.usage_id" name="fitnessGoal" class="form-control" required></select>
+        <p ng-show="userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched" class="help-block">A fitness goal is required.</p>
+      </div>
+<!-- FITNESS CATEGORY -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.category.$invalid && !userForm.category.$pristine && userForm.category.$touched}">
+        <label for="category">* Favorite Exercise Type: <a href="" class="help_link"><i class="fa fa-info-circle"></i></a>
+          <span class="help">Choose your favorite exercise type.
+            <ul style="font-size:14px">
+              <li><i class="bluetext">Cardio.</i> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+              <li><i class="bluetext">Core.</i> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel. Or trim that beer belly.</li>
+              <li><i class="bluetext">Cross.</i> Workout that engages multiple muscles and gets the heart rate up. Combo of strength and cardio, really.</li>
+              <li><i class="bluetext">Strength.</i> Workout focused on isolating and working specific muscles to build strength and make you Hulk without the anger issues.</li>
+              <li><i class="bluetext">Stretch.</i> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+            </ul>
+          </span>
+        </label>
+        <select ng-options="obj.id as obj.name for obj in settings.categories | filter:'!Yoga' | filter:'!All' | orderBy:'name'" ng-model="settings.user['category_id']" name="category" class="form-control" required></select>
+        <p ng-show="userForm.category.$invalid && !userForm.category.$pristine && userForm.category.$touched" class="help-block">A fitness category is required.</p>
+      </div>
+<!-- FITNESS EXPERIENCE -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched}">
+        <label for="experience">* Fitness Experience: <a href="" class="help_link"><i class="fa fa-info-circle"></i></a>
+          <span class="help">Choose your experience level. This will affect which exercises are in your workouts.
+            <ul style="font-size:14px">
+              <li><i class="bluetext">Beginner.</i> You are not very experienced with exercising or haven't exercised regularly in a long time. You consider yourself to be in poor or average shape.</li>
+              <li><i class="bluetext">Intermediate.</i> You exercise with moderate frequency and could find your way around a gym. You consider yourself to be in decent shape.</li>
+              <li><i class="bluetext">Advanced.</i> You are no stranger to the gym and you exercise regularly. You consider yourself to be in pretty good or excellent shape.</li>
+            </ul>
+          </span>
+        </label>
+        <select ng-model="settings.user.experience" name="fitnessExp" class="form-control" required>
+          <option value="1">Beginner</option>
+          <option value="2">Intermediate</option>
+          <option value="3">Advanced</option>
+        </select>
+        <p ng-show="userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched" class="help-block">Fitness experience is required.</p>
+      </div>
+<!-- INTENSITY -->
+      <div class="row">
+        <div class="col-md-12">
+          <label for="intensity">* Preferred Workout Intensity: <a href="" class="help_link"><i class="fa fa-info-circle"></i></a>
+            <span class="help">Choose your preferred intensity level. This will affect the difficulty of your workouts.
+              <ul style="font-size:14px">
+                <li><i class="bluetext">1-3.</i> Light workouts. Barely break a sweat. Appropriate for beginners.</li>
+                <li><i class="bluetext">4-6.</i> Average workouts. Appropriate for most people.</li>
+                <li><i class="bluetext">7-8.</i> Hard workouts. You will definitely be sweating.</li>
+                <li><i class="bluetext">9-10.</i> Extreme workouts. You will be pushed to exhaustion or near failure with each set.</li>
+              </ul>
+            </span>
+          </label>
+        </div>
+        <div class="col-md-10">
+          <div class="form-inline">
+            <input type="range" class="intensity-slider" id="intensity" name="intensity" ng-model="settings.user.intensity" max="10" min="1">
+          </div>
+        </div>
+        <div class="col-md-1 col-md-offset-0 col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 whitewell">
+          <h2 class="text-center orangetext">{{settings.user.intensity}}</h2>
+        </div>
+      </div>
+      <br>
+<!-- PROFILE PICTURE ADD/EDIT -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <label>Profile Picture (optional): </label>
+          <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+          <a class="btn btn-primary" style="text-decoration:none;" ng-click="settings.pickFile()">Add new image</a>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <img ng-src="{{settings.user.avatar_url}}" ng-hide="!settings.user.avatar_url" class="img-thumbnail img-responsive center-block ng-hide" style="height:200px; width:200px;">
+          <img src="content/images/profile_image.jpg" ng-show="!settings.user.avatar_url" class="img-thumbnail img-responsive center-block ng-show" style="height:200px; width:200px;">
+        </div>
+      </div>
+
+<!-- START OTHER SETTINGS -->
+
+      <h5 class="orangetext">Units</h5>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input ng-model="settings.user.settings.units" type="radio" name="optionsUnits" id="optionStandard" value="standard" required>Imperial
+	        </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+	          <input ng-model="settings.user.settings.units" type="radio" name="optionsUnits" id="optionMetric" value="metric" required>Metric
+	        </label>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+		      <label>* Workout Modifiers: <a href="" class="help_link"><i class="fa fa-info-circle"></i></a>
+            <span class="help">
+              Set Time and Rest Time Modifiers multiply your set and rest times by the given value when Updown generates a workout for you. For example, if you generally need more rest, you would increase the rest time multiplier to a value greater than 1. If you complete reps very fast, you would lower the set time modifier. Default values are 1 for both.
+            </span>
+          </label>
+		    </div>
+	    </div>
+	    <br>
+      <div class="row">
+        <div class="col-md-12">
+          <label>
+		    * Set Time Modifier:
+          </label>
+        </div>
+        <div class="col-md-10">
+          <div class="form-inline">
+            <input type="range" class="intensity-slider" name="setModifier" ng-model="settings.setModifier.value" max="2.0" min="0.5" step="0.1" required>
+          </div>
+        </div>
+        <div class="col-md-1 col-md-offset-0 col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 whitewell">
+          <h2 class="text-center orangetext">{{settings.setModifier.value}}</h2>
+        </div>
+      </div>
+
+	  <div class="row">
+        <div class="col-md-12">
+          <label>
+		    * Rest Time Modifier:
+          </label>
+        </div>
+        <div class="col-md-10">
+          <div class="form-inline">
+            <input type="range" name="restModifier" class="intensity-slider" ng-model="settings.restModifier.value" max="2.0" min="0.0" step="0.1" required>
+          </div>
+        </div>
+        <div class="col-md-1 col-md-offset-0 col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 whitewell">
+          <h2 class="text-center orangetext">{{settings.restModifier.value}}</h2>
+        </div>
+      </div>
+
+      <label>* Sound Effects</label>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input ng-model="settings.user.settings.sound" type="radio" name="optionsSound" id="optionSoundOn" ng-value="true" required>On
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+	          <input ng-model="settings.user.settings.sound" type="radio" name="optionsSound" id="optionSoundOff" ng-value="false" required>Off
+	        </label>
+        </div>
+      </div>
+
+	  <label>* Workout Auto-play</label>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input ng-model="settings.user.settings.automatic" type="radio" name="optionsPlay" id="optionPlayOn" ng-value="true" required>On
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+	          <input ng-model="settings.user.settings.automatic" type="radio" name="optionsPlay" id="optionPlayOff" ng-value="false" required>Off
+	        </label>
+        </div>
+      </div>
+
+      <h6 class="text-center"><a target="_blank" href="javascript:void window.open('https://www.updowntech.com/#/terms','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')">Terms of Service</a></h6>
+      <h6 class="text-center"><a target="_blank" href="javascript:void window.open('https://www.updowntech.com/#/privacy','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')">Privacy Policy</a></h6>
+    </div>
+  </form>
+</div>
+
+<div class="row padfornav">
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container">
+    <ud-animated-button options="{submitText: 'Save', submittingText: 'Saving.. '}" ng-disabled="userForm.$invalid" class="btn btn-primary navbar-btn btn-lg img-responsive center-block" ng-click="settings.submit()"></ud-animated-button>
+  </div>
+</nav>

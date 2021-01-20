@@ -1,0 +1,95 @@
+<ion-view view-title="Points">
+  
+
+<ion-content>
+  
+
+<!--NEED PROGRESS BAR DIRECTIVE FROM WEB VERSION!! ui-bootstrap.js-->
+
+<!--FAKE DATA VERSION-->
+
+<div class="row">
+  <div class="col">
+    <h4 class="text-center">DAILY POINTS: 6/30</h4>
+    <progressbar value="20" type="info"><span style="color:white; white-space:nowrap;">20%</span></progressbar>
+    <h4 class="text-center">MONTHLY POINTS: 450/600</h4>
+    <progressbar value="75" type="info"><span style="color:white; white-space:nowrap;">75%</span></progressbar>
+  </div>
+</div>
+
+<div class="item item-icon-right item-divider">
+  My Points
+  <i class="icon ion-ribbon-b"></i> 
+</div>
+<div class="row">
+  <div class="col col-25">
+    1 week ago
+  </div>
+  <div class="col">
+    Chris Freise earned 0 points for logging 10 minutes of Spinning
+  </div>
+</div>
+<div class="row">
+  <div class="col col-25">
+    2 weeks ago
+  </div>
+  <div class="col">
+    Chris Freise earned 0 points for logging 10 minutes of Spinning
+  </div>
+</div>
+<div class="row" style="margin-bottom:55px">
+  <dir-pagination-controls max-size="5"></dir-pagination-controls>  
+</div>
+
+
+<!--REAL DATA VERSION-->
+
+<!--
+
+<div class="row">
+  <div class="col">
+    <h4 class="text-center">DAILY POINTS: {{user.current_daily_points}}/{{max_day}}</h4>
+    <progressbar value="dprogress" type="info"><span style="color:white; white-space:nowrap;">{{dprogress | number : 0}}%</span></progressbar>
+    <h4 class="text-center">MONTHLY POINTS: {{user.current_monthly_points}}/{{max_month}}</h4>
+    <progressbar value="mprogress" type="info"><span style="color:white; white-space:nowrap;">{{mprogress | number : 0}}%</span></progressbar>
+  </div>
+</div>
+
+<div class="item item-icon-right item-divider">
+  My Points
+  <i class="icon ion-ribbon-b"></i> 
+</div>
+<div class="row" dir-paginate="point in points | itemsPerPage: 10">
+  <div class="col col-25">
+    {{point.earned_at}}
+  </div>
+  <div class="col">
+    {{point.sentence}}
+  </div>
+</div>
+
+<div class="row">
+  <dir-pagination-controls max-size="5"></dir-pagination-controls>  
+</div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

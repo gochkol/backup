@@ -1,0 +1,20 @@
+<div class="row toppad">
+      <div class="text-center">
+      <h4 class="text-center"><b class="orangetext">1. Select Type: </b></h4>
+      <p class="help-text ng-show" ng-show="quick.userHistory.workouts.length === 0">  
+        Pick the type of workout.
+      </p>
+      </div>
+    </div>
+
+    <div class="row" style="padding-top:10px">
+      <div ng-repeat="category in quick.categories | filter:'!Yoga' | filter:'!All' | orderBy:'name' track by category.id" class="col-md-12" style="margin-top:-10px;margin-bottom:-10px;padding-bottom:0px;padding-top:0px">
+        <div class="form-group">
+          <label class="rad">
+            <input type="radio" name="exercise_type" ng-model="quick.request.categoryId" ng-change="quick.toggleCategory(category.id)" value="{{category.id}}">
+            <h2 style="color:FF7F00;position:absolute;margin-left:5%;z-index:10">{{category.name}}</h2>
+            <img alt="workout category" class="img-responsive center-block" style="border-radius:10px" ng-src="content/images/{{category.name | lowercase}}.png" width="" height="200px">
+          </label>
+        </div>
+      </div>
+    </div>

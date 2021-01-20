@@ -1,0 +1,128 @@
+<ion-view view-title="<i class='icon ion-ios-people'></i> Teams">
+  
+
+<ion-content style="margin-bottom:65px;">
+
+
+<div class="row" ng-hide="company.company" style="margin-top:15px">
+  <div class="col text-center">
+    <h5 class="ng-hide text-center" ng-hide="company.company">If your company is on Updown, enter a code below to join your department's team. More team functionality is coming soon!</h5>
+    <input ng-model="company.signupCode" type="text" name="signup_code" id="signup_code" placeholder="Signup Code"></input>
+    <button class="button button-calm" ng-click="company.joinCompany()">Submit Code</button>
+  </div>
+</div>
+
+<div ng-show="company.company" class="ng-show" style="margin-top:15px">
+<div class="item item-icon-right item-divider" ng-click="company.isCollapsedCompany = !company.isCollapsedCompany">
+  {{company.company.name}}
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="company.isCollapsedCompany" style="padding-bottom:15px">
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedCompany">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderCompany('daily_points')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderCompany('monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderCompany('total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <a class="item" ng-repeat="member in company.members | orderBy:company.companyPredicate:company.companyReverse">
+    <h2>{{member.first_name}} {{member.last_name}}</h2>
+    <h3 class="ng-hide" ng-hide="company.companyShowDay">{{member.daily_points}}</h3>
+    <h3 class="ng-hide" ng-hide="company.companyShowMonth">{{member.monthly_points}}</h3>
+    <h3 class="ng-hide" ng-hide="company.companyShowTotal">{{member.total_points}}</h3>
+  </a>
+</div>
+</ion-scroll>
+</div>
+
+<div class="item item-icon-right item-divider" ng-click="company.isCollapsedDept = !company.isCollapsedDept">
+  Department Leaderboard
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="company.isCollapsedDept" style="padding-bottom:15px">
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedDept">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartments('daily_points')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartments('monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartments('total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <a class="item" ng-repeat="department in company.departments | orderBy:company.departmentsPredicate:company.departmentsReverse" style="cursor:pointer" ng-click="company.focus(department)">
+    <h2 class="calm">{{department.name}}</h2>
+    <h3 class="ng-hide" ng-hide="company.departmentsShowDay">{{department.daily_points}}</h3>
+    <h3 class="ng-hide" ng-hide="company.departmentsShowMonth">{{department.monthly_points}}</h3>
+    <h3 class="ng-hide" ng-hide="company.departmentsShowTotal">{{department.total_points}}</h3>
+  </a>
+</div>
+</ion-scroll>
+</div>
+
+<div class="item item-icon-right item-divider" ng-click="company.isCollapsedFocus = !company.isCollapsedFocus">
+  Department: {{company.departments[company.focused].name}}
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="company.isCollapsedFocus" style="padding-bottom:15px">
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedFocus">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartment('daily_points')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartment('monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartment('total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <a class="item" ng-repeat="member in company.departments[company.focused].members | orderBy:company.departmentPredicate:company.departmentReverse track by $index ">
+    <h2>{{member.first_name}} {{member.last_name}}</h2>
+    <h3 class="ng-hide" ng-hide="company.departmentShowDay">{{member.daily_points}}</h3>
+    <h3 class="ng-hide" ng-hide="company.departmentShowMonth">{{member.monthly_points}}</h3>
+    <h3 class="ng-hide" ng-hide="company.departmentShowTotal">{{member.total_points}}</h3>
+  </a>
+</div>
+</ion-scroll>
+</div>
+
+<div class="item item-icon-right item-divider" ng-click="company.isCollapsedPer = !company.isCollapsedPer">
+  Department Points/Member
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="company.isCollapsedPer" style="padding-bottom:15px">
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedPer">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartmentsTwo('dailyPointsPerMember')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartmentsTwo('monthlyPointsPerMember')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm" ng-click="company.orderDepartmentsTwo('totalPointsPerMember')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <a class="item" ng-repeat="department in company.departments | orderBy:company.departmentsTwoPredicate:company.departmentsTwoReverse">
+    <h2>{{department.name}}</h2>
+    <h3 class="ng-hide" ng-hide="company.departmentsTwoShowDay">{{department.dailyPointsPerMember | number:0}}</h3>
+    <h3 class="ng-hide" ng-hide="company.departmentsTwoShowMonth">{{department.monthlyPointsPerMember | number:0}}</h3>
+    <h3 class="ng-hide" ng-hide="company.departmentsTwoShowTotal">{{department.totalPointsPerMember | number:0}}</h3>
+  </a>
+</div>
+</ion-scroll>
+</div>
+
+</div>
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="nav.quickLog">
+    <i class="icon calm ion-clipboard"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="nav.quickWorkout">
+    <i class="icon calm ion-android-walk"></i>
+    Updown Workout
+  </a>
+</div>
+
+</ion-view>

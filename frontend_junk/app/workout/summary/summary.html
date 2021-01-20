@@ -1,0 +1,63 @@
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Summary</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <p class="help-text text-center ng-show" ng-show="summary.userHistory.workouts.length < 3">Here's what you just did! Edit values as needed (except rest times - we recorded those for you). Then, click "Finish" to get your points!</p>
+	<p class="help-text text-center ng-show" ng-show="customize.userHistory.workouts.length > 2 && customize.userHistory.workouts.length < 6">Upon completion of each workout, Updown learns from what you did and adjusts future workouts!</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="form-group">
+      <input type="text" onfocus="this.value='';" class="form-control text-center" maxlength="45" ng-model="summary.workout.name">
+    </div>
+  </div>
+</div>
+
+<form action="#" method="POST" name="WorkoutReview" novalidate>
+  <div class="row">
+    <div class="col-md-2 text-left">
+      <h5><span class="orangetext">Time:</span> {{summary.helpers.timeString(summary.workout.total_time_seconds)}}</h5>
+      <h5><span class="orangetext">Calories Burned:</span> {{summary.workout.calories_burned ? summary.workout.calories_burned : 0 | number:0}}</h5>
+      <br>
+    </div>
+    <div class="col-md-8" style="padding-left:0px; padding-right:0px">
+      <table class='table table-condensed well' ng-repeat="block in summary.workout.blocks track by $index" ng-init="$blockIndex = $index" style="padding-left:0px; padding-right:0px">
+        <tr class="info">
+          <td colspan="5" style="padding-left:15px"><h5 style="display:inline;"><span class="orangetext" style="font-weight:bold">{{$blockIndex + 1}}.</span> {{block.exercise.name}} </h5>
+          </td>
+        </tr>
+        <tr class='form-group-sm text-center form-inline' ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+          <td>
+		    <i class="fa fa-pencil" style="margin-bottom:1px;margin-right:-2px"></i>
+          </td>
+          <td ng-repeat="name in blockSet.criterion | criterionDisplay as results" ng-class="{ 'has-error' : WorkoutReview.workoutParams.$invalid}">
+            <label class="small" style="margin-left:-10px">{{summary.criterionDisplayInfo[name].name}}</label>
+            <input ng-model="blockSet.criterion[name]" ng-readonly="name === 'rest'" name="workoutParams" ng-model-options="{ updateOn: 'change' }" ng-change="summary.updateBlockSet(name, blockSet, block)" type='number' min='0' max='999' style="margin-left:-2px; padding-left:6px; padding-right:4px;" class="form-control" required>
+          </td>
+          <td ng-hide="$blockSetIndex == block.block_sets.length-1 && $last" class="ng-hide">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</form>
+
+<div class="row padfornav">
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container-fluid hidden-xs text-center">
+     <button type="button" class="btn btn-primary navbar-btn btn-lg img-responsive ng-hide" ng-disabled="summary.isReadonly" ng-click="summary.createFavorite()">Favorite <img src="content/images/starIcon.png" style="height:18px; margin-bottom:3px;"></button>
+     <ud-animated-button options="{submitText: 'Finish', submittingText: 'Finishing.. '}" class="btn btn-primary navbar-btn btn-lg img-responsive" ng-disabled="WorkoutReview.$invalid || summary.isReadonlytwo || summary.workout['blocks'].length < 1" ng-click="summary.finish(); summary.isReadonlytwo = !summary.isReadonlytwo"></ud-animated-button>
+  </div>
+  <div class="container-fluid hidden-md hidden-lg hidden-sm text-center">
+     <button type="button" style="width:40%" class="btn btn-primary btn-lg navbar-btn img-responsive ng-hide" ng-click="summary.createFavorite()">Favorite <img src="content/images/starIcon.png" style="height:18px; margin-bottom:3px;"></button>
+     <ud-animated-button style="width:40%" options="{submitText: 'Finish', submittingText: 'Finishing.. '}" class="btn btn-primary navbar-btn btn-lg img-responsive" ng-disabled="WorkoutReview.$invalid || summary.isReadonlytwo || summary.workout['blocks'].length < 1" ng-click="summary.finish(); summary.isReadonlytwo = !summary.isReadonlytwo"></ud-animated-button>
+  </div>
+</nav>

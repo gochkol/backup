@@ -1,0 +1,53 @@
+<ion-view view-title="Quick Log" hide-back-button="true">
+
+<form action="#" method="POST" name="quickForm" id="quickForm" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="list" style="margin-top:15px">
+  <label class="item item-input item-select" ng-class="{ 'has-error' : quickForm.activities.$invalid && !quickForm.activities.$pristine && quickForm.activities.$touched}" style="margin-bottom:15px">
+    <div class="input-label">
+      Activity
+    </div>
+    <select ng-options="obj.id as obj.name for obj in quickLog.quickActivities" ng-model="quickLog.request.quickActivityId" name="activities" id="activities" required>
+    </select>
+  </label>
+  <div ng-show="quickForm.activities.$invalid && !quickForm.activities.$pristine && quickForm.activities.$touched" class="help-block item item-text-wrap">Activity is required.</div>
+  <label class="item item-input" ng-class="{ 'has-error' : quickForm.time.$invalid && !quickForm.time.$pristine && quickForm.time.$touched}" style="margin-bottom:15px">
+    <span class="input-label">Time (mins):</span>
+    <input class="text-right" ng-keydown="quickLog.blur()" style="padding-right:20px" type="number" name="time" ng-model="quickLog.request.duration" min="5" max="180" step="5" id="time" placeholder="Time" required>
+  </label>
+  <div ng-show="quickForm.time.$invalid && !quickForm.time.$pristine && quickForm.time.$touched" class="help-block item item-text-wrap">Time is required. Minimum: 5 minutes. Maximum: 180 minutes.</div>
+  <label class="item item-input item-select" style="margin-bottom:15px">
+    <div class="input-label">
+      Occurred:
+    </div>
+    <select ng-options="obj.number as obj.name for obj in quickLog.daysAgo" ng-model="quickLog.request.numberOfDaysAgo" name="quickLogTime" required>
+    </select>
+  </label>
+  <label class="item item-input item-text-wrap" style="margin-bottom:15px">
+    <span class="input-label">Description (optional):</span>
+    <input class="text-right" ng-keydown="quickLog.blur()" ng-model="quickLog.request.description" "quickLog.request.description" type="text" maxlength="60" name="desc" id="desc" placeholder="Description"></input>
+  </label>
+  <label class="item item-input item-text-wrap" ng-class="{ 'has-error' : quickForm.distance_miles.$invalid && !quickForm.distance_miles.$pristine && quickForm.distance_miles.$touched}" style="margin-bottom:15px">
+    <span class="input-label">Distance (miles) (optional)</span>
+    <input class="text-right" ng-keydown="quickLog.blur()" style="padding-right:20px" type="number" step="any" max="500" min="0" placeholder="1" name="distance_miles" id="distance_miles" ng-model="quickLog.request.distanceMiles"></input>
+  </label>
+  <div ng-show="quickForm.distance_miles.$invalid && !quickForm.distance_miles.$pristine && quickForm.distance_miles.$touched" class="help-block item item-text-wrap">Miles must be between 0 and 500.</div>
+  <label class="item item-input item-text-wrap" ng-class="{ 'has-error' : quickForm.calories_burned.$invalid && !quickForm.calories_burned.$pristine && quickForm.calories_burned.$touched}" style="margin-bottom:15px">
+    <span class="input-label">Cals Burned (optional)</span>
+    <input class="text-right" ng-keydown="quickLog.blur()" style="padding-right:20px" ng-model="quickLog.request.caloriesBurned" type="number" max="2000" step="5" min="0" placeholder="Cals Burned" name="calories_burned" id="calories_burned"></input>
+  </label>
+  <div ng-show="quickForm.calories_burned.$invalid && !quickForm.calories_burned.$pristine && quickForm.calories_burned.$touched" class="help-block item item-text-wrap">Calories must be between 0 and 2000.</div>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-disabled="quickForm.$invalid || isReadonly" ng-click="quickLog.createQuickLog(); isReadonly =! isReadonly">
+    <i class="icon calm ion-clipboard"></i>
+    Log Activity
+  </a>
+</div>
+</form>
+
+</ion-view>

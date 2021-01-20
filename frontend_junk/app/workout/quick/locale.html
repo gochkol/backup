@@ -1,0 +1,27 @@
+<div class="row hidden-xs">
+      <h4 class="text-center"><b class="orangetext">2. Select Location:</b></h4>
+	  <p class="help-text text-center ng-show" ng-show="quick.userHistory.workouts.length === 0">  
+        Pick the location where you are working out.
+      </p>  
+      <div class="col-md-10 col-md-offset-1">
+        <div class="radio-inline" ng-repeat="location in quick.locations | orderBy:'name' track by location.id">
+          <label class="rad">
+            <input ng-model="quick.request.locationId" name="location" value="{{location.id}}" type="radio"><h4>{{location.name}}  </h4>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row hidden-sm hidden-md hidden-lg">
+      <h4 class="text-center"><b class="orangetext">1. Select Location:</b></h4>
+	  <p class="help-text text-center ng-show" ng-show="quick.userHistory.workouts.length === 0">  
+        Pick the location where you are working out.
+      </p>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="radio" ng-repeat="location in quick.locations | orderBy:'name' track by location.id">
+          <label class="rad">
+            <input ng-model="quick.request.locationId" name="location_xs" value="{{location.id}}" type="radio"><h4>{{location.name}}  </h4>
+          </label>
+        </div>
+      </div>
+    </div>

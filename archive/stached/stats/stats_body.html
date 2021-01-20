@@ -1,0 +1,60 @@
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top ng-hide" ng-include="'partials/navbar.html'" ng-controller="NavCtrl" ng-hide="hideAll">
+</nav>
+
+<div class="row padfornav">
+</div>	
+<div class="row well">
+	<div class="col-md-8 col-md-offset-2 text-center">	
+	  <h2 class="textheader" style="display:inline">Body Stats </h2><button style="margin-bottom:10px" class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><img src="images/infoicon.png" style="height:20px; margin-bottom:1px"></button>
+	  <div collapse="isCollapsed">
+	    <div class="well">Use this page to record your body stats and track your progress over time.
+            </div> 
+          </div>
+        </div>
+</div>
+
+
+<div class="row toppad">
+	<div class="col-md-8 col-md-offset-2">
+		<table class="table table-condensed">
+                    <div ng-repeat="body_stat in body_stats track by $index"
+		        <tr class="form-group form-inline">
+                                <td><label class="small">{{name_filter(body_stat.value)}} {{units_filter(body_stat.value)}} :</label></td>
+				<td><input type="number" class="form-control field-bg" min="0" ng-model="body_stat.data" ng-change="update_bs($index)" ng-init="update_bs($index)" ng-readonly="body_stat.value==='bmi'"></td>
+				<td><button type="button" class="btn  btn-warning btn-sm img-responsive center-block" ng-click="display_body_stat_history(body_stat.value)">Show History</button></td>
+			</tr>
+<!--                        <tr class="form-group form-inline">
+				<td colspan="3"><canvas id="line" 
+                                                        class="chart chart-line"
+                                                        data="data"
+                                                        labels="labels" 
+                                                        legend="true" 
+                                                        series="series"
+                                                        click="onClick"></canvas></td>
+                        </tr> -->
+                    <div>
+			<tr class="form-group-sm form-inline">
+
+				<td><label class="small">Measurements {{settings.units === "standard" ? "(inches)" : "(cm)"}}:</label></td>
+				<td>
+                                <select ng-options="o.body_part_name for o in body_part_stats" ng-model="selected_body_part" ng-init="selected_body_part=body_part_stats[0]" class="form-control field-bg" name="bodymeasurement"></select>
+                                <input type="number" ng-model="selected_body_part.data" class="form-control field-bg"></input>
+                                </td>
+				<td><button type="button" class="btn btn-warning btn-sm img-responsive center-block" ng-click="display_body_part_stat_history(body_part_stat.body_part_id)">Show History</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2 topbottompad">
+		<div class="row">
+		<div class="col-sm-12 col-xs-12">
+		<button type="submit" id="backtohome" class="btn btn-warning btn-lg img-responsive center-block" ng-click="submit_stats()">Save</button>
+		</div>
+		</div>
+	</div>
+</div>
+

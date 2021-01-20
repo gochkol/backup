@@ -1,0 +1,177 @@
+<ion-view view-title="Settings">
+
+<ion-content>
+
+<div class="list">
+  <div class="item item-divider">
+    Fitness
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Fitness Goal
+    </div>
+    <select ng-options="obj.id as obj.name for obj in settings.usages" ng-model="settings.user.usage_id" name="fitnessGoal" required>
+    </select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Fitness Experience
+    </div>
+    <select ng-model="settings.user.experience" name="fitnessExp" required>
+      <option value="1">Beginner</option>
+      <option value="2">Intermediate</option>
+      <option value="3">Advanced</option>
+    </select>
+  </label>
+  <div class="item padding-horizontal range">
+    <span class="padding-horizontal">Intensity</span>
+    <i class="icon balanced ion-android-happy"></i>
+    <input type="range" name="intensity">
+    <i class="icon assertive ion-android-sad"></i>
+    <span class="padding-horizontal">{{settings.user.intensity}}</span>
+  </div>
+  <div class="item item-divider">
+    Basic
+  </div>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">First Name</span>
+    <input ng-model="settings.user.first_name" type="text" maxlength="20" name="firstName" id="firstName" placeholder="First Name" required></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Last Name</span>
+    <input ng-model="settings.user.last_name" type="text" maxlength="20" name="lastName" id="lastName" placeholder="Last Name" required></input>
+  </label>
+  <div class="item item-divider">
+    Location
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Country
+    </div>
+    <select ng-model="settings.user.country_code" ng-options="country.country_code as country.name for country in settings.constants.COUNTRIES" ng-init="settings.user.country_code = settings.user.country_code || settings.contants.COUNTRIES[0].country_code" type="text" name="country" id="country" placeholder="Country"></input>
+    </select>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">City</span>
+    <input ng-model="settings.user.city" type="text" maxlength="25" name="city" id="city" placeholder="City"></input>
+  </label>
+</div>
+<div class="item item-divider">
+  Profile Picture
+</div>
+<div class="list card">
+  <label class="text-center item item-button">
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+    <button class="button" ng-click="settings.pickFile()">Add new image</button>
+  </label>
+  <div class="item item-image">
+    <img ng-src="{{settigs.user.avatar_url}}" style="padding:50px" class="item-thumbnail ng-hide" ng-hide="!settings.user.avatar_url">
+  </div>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Units
+  </div>
+  <label class="item item-radio">
+    <input ng-model="settings.user.settings.units" type="radio" name="optionsUnits" id="optionStandard" value="standard" required>
+    <div class="item-content">
+      Standard
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <label class="item item-radio">
+    <input ng-model="settings.user.settings.units" type="radio" name="optionsUnits" id="optionMetric" value="metric" required>
+    <div class="item-content">
+      Metric
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+</div>
+
+<ul class="list">
+  <div class="item item-divider">
+    Other Settings
+  </div>
+  <li class="item item-toggle">
+     Hide Help Menus
+     <label class="toggle toggle-calm">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+  <li class="item item-toggle">
+     Sound Effects
+     <label class="toggle toggle-calm">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+</ul>
+
+<div class="item item-divider">
+  Password Change
+</div>
+<div class="list">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Current Password</span>
+    <input ng-model="settings.user.current_password" type="password" maxlength="25" name="current_password" id="current_password" placeholder="Current Password"></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">New Password</span>
+    <input ng-model="settings.user.password" ng-minlength="5" type="password" maxlength="25" name="password" id="password" placeholder="New Password"></input>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Confirm New Password</span>
+    <input ng-model="settings.user.password_confirmation" type="password" maxlength="25" name="password_confirmation" id="password_confirmation" placeholder="New Password Confirmation"></input>
+  </label>
+  <label class="item item-button text-center">
+    <button class="button text-center button-small button-energized">Change</button>
+  </label>
+</div>
+
+<div class="item item-divider">
+  Email Change
+</div>
+
+<div class="list">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">New Email</span>
+    <input ng-model="settings.user.email" type="text" maxlength="75" name="email" id="email" placeholder="Email"></input>
+  </label>
+  <label class="item item-button text-center">
+    <button class="button text-center button-small button-energized">Change</button>
+  </label>
+</div>
+
+<h4 class="text-center"><a target="_blank" href="javascript:void window.open('http://www.updowntech.com/terms','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><u>Terms of Service</u></a></h4>
+<h4 class="text-center" style="margin-bottom:55px"><a target="_blank" href="javascript:void window.open('http://www.updowntech.com/privacy','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=650')"><u>Privacy Policy</u></a></h4>
+
+
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="quickLog">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="quickWorkout">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item" ng-click="home.customWorkout()">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+  <a class="tab-item" ui-sref="favorites">
+    <i class="icon ion-gear-a"></i>
+    Favorites
+  </a>
+</div>
+
+</ion-view>

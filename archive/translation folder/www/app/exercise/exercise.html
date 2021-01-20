@@ -1,0 +1,171 @@
+<div class="row padfornav">
+</div>
+<div class="row whitebg toppad hidden-sm hidden-xs">
+</div>
+
+<!--EXERCISE NAME-->
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h4 class="ng-hide" ng-hide="exercise.curOrNext"><b class="{{exercise.color}}">Current exercise:</b><b> {{exercise.workoutName}}/{{exercise.workout.blocks[exercise.getCurrentBlock()].block_sets.length}}</b></h4>
+    <h4 class="ng-show" ng-show="exercise.curOrNext"><b class="bluetext">Next exercise:</b><b> {{exercise.nextExercise}}</b></h4>
+  </div>
+</div>
+
+<!--EXERCISE BLOCK-->
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2">
+    <table class="table table-condensed">
+      <tr class="{{exercise.setBG[$setIndex]}} form-group-sm form-inline" ng-repeat='set in exercise.workout.blocks[exercise.getCurrentBlock()].block_sets track by $index' ng-init="$setIndex = $index">
+        <td>
+          <img src="content/images/pencil_icon.png" style="height:10px; margin-bottom:1px; margin-right:-2px">
+        </td>
+        <td class="form-inline" ng-repeat="(name, value) in set.criterion | criterionDisplay as results">
+          <label class="small">{{exercise.criterionDisplayInfo[name].name}}</label>
+          <input type="number" onfocus="this.value='';" class="form-control" ng-model="set.criterion[name]">
+        </td>
+      </tr>
+    </table>
+    <div id="flash">
+      <h3 class="text-center">{{exercise.message}}</h3>
+    </div>
+  </div>
+</div>
+
+<!--EXERCISE ANIMATION-->
+
+<div class="row whitebg">
+  <div collapse="exercise.isCollapsed">
+    <div class="col-md-8 col-md-offset-2 well-round hidden-lg">
+      <img ng-src="{{exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.images[exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.current]}}" ng-init="exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()" class="img-responsive center-block" style="width: 300px;"></img>
+    </div>
+    <div class="col-md-8 col-md-offset-2 well-round hidden-xs hidden-sm hidden-md">
+      <img ng-src="{{exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.images[exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.current]}}" ng-init="exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()" class="img-responsive center-block" style="width: 500px;"></img>
+    </div>
+  </div>
+</div>
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2">
+    <button style="margin-bottom:10px" class="btn center-block img-responsive btn-default" ng-click="exercise.isCollapsed = !exercise.isCollapsed; exercise.isCollapsed ? exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoEnd() : exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()">Image</button>
+  </div>
+</div>
+
+<!--WORKOUT PROGRESS-->
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row text-center">
+      <div class="col-xs-12 col-sm-12">
+        <h5><b>Exercise {{exercise.getCurrentBlock() + 1}}/{{exercise.workout.blocks.length}}</b></h5>
+        <progressbar value="exercise.curProgress" type="warning"><span style="color:white; white-space:nowrap;">{{exercise.curProgress | number : 0}}%</span></progressbar>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-xs-6 col-sm-6">
+        <h4>
+          <img src="content/images/fireIcon.png" style="height:20px; margin-bottom:4px">Cals: {{exercise.caloriesBurned | number : 1}}
+        </h4>
+      </div>
+      <div class="col-xs-6 col-sm-6">
+        <h4>
+          <img src="content/images/stopwatchWhite.png" style="height:20px; margin-bottom:4px">Total: {{exercise.timeString(exercise.workout.workout_total_time)}}
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EXERCISE HISTORY TABLE ***NOT YET IMPLEMENTED***-->
+
+<!--
+
+<div class="row whitebg">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h4>History:</h4>
+  </div>
+  <div class="col-md-8 col-md-offset-2 text-center" style="max-height:100px;overflow:auto;">
+    <table class="table table-condensed">
+      <tr class="form-group-sm form-inline">
+        <td>Chest workout 5/4/15
+        </td>
+      </tr>
+      <tr class="form-group-sm text-center form-inline">
+        <td class="form-inline"><label class="small">Reps:</label>
+          <input type="number" class="form-control" value="10" readonly>
+        </td>
+        <td class="form-inline"><label class="small">Wt (lbs):</label>
+          <input type="number" class="form-control" value="100" readonly>
+        </td>
+      </tr>
+      <tr class="form-group-sm text-center form-inline">
+        <td class="form-inline"><label class="small">Reps:</label>
+	  <input type="number" class="form-control" value="10" readonly>
+        </td>
+        <td class="form-inline"><label class="small">Wt (lbs):</label>
+          <input type="number" class="form-control" value="110" readonly>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+-->
+
+<!--MOVE EXERCISE TO END BUTTON-->
+
+<div class="row whitebg ng-hide" ng-hide="skip_available">
+  <div class="col-md-8 col-md-offset-2 topbottompad">
+    <button type="button" style="padding: 2px 2px;" class="btn btn-lg btn-warning text-center img-responsive center-block ng-hide" ng-hide="!exercise.skipAvailable" ng-click="exercise.skip()">Move to Last</button>
+  </div>
+</div>
+
+
+<nav class="navbar-fixed-bottom navbar hidden-xs navbar-inverse">
+  <div class="container-fluid text-center row">
+    <div class="col-sm-4">
+      <button type="button" style="padding: 2px 2px;" class="btn {{exercise.button.color}} navbar-btn btn-lg img-responsive pull-right" ng-click="exercise.startPauseClick(exercise)">
+        <img style="height:38px;" ng-src="content/images/{{exercise.button.text}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+    <div class="col-sm-4">
+      <h1 class="text-center hidden-sm {{exercise.color}}">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h1>
+      <h2 class="text-center hidden-md hidden-lg {{exercise.color}}">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h2>
+    </div>
+    <div class="col-sm-4">
+      <button ng-hide="exercise.cyclerStopped" type="button" style="padding: 2px 2px;" class="btn btn-primary navbar-btn btn-lg img-responsive ng-hide pull-left" ng-click="exercise.complete(exercise)">
+        <img style="height:38px;" ng-src="content/images/{{exercise.doneOrSkip}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar-fixed-bottom navbar hidden-sm hidden-md hidden-lg navbar-inverse">
+  <div class="container-fluid text-center row">
+    <div class="col-xs-3">
+      <button type="button" style="padding: 2px 2px;" class="btn {{exercise.button.color}} navbar-btn img-responsive" ng-click="exercise.startPauseClick(exercise)">
+        <img style="height:30px;" ng-src="content/images/{{exercise.button.text}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+    <div class="col-xs-6">
+      <h3 class="text-center {{exercise.color}}">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h3>
+    </div>
+    <div class="col-xs-3">
+      <button ng-hide="exercise.cyclerStopped" type="button" style="padding: 2px 2px;" class="btn btn-primary navbar-btn img-responsive ng-hide" ng-click="exercise.complete(exercise)">
+        <img style="height:30px;" ng-src="content/images/{{exercise.doneOrSkip}}.png" class="center-block img-responsive">
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+

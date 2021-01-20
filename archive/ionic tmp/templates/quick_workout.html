@@ -1,0 +1,312 @@
+<ion-view view-title="Updown Workout">
+  
+
+<ion-content>
+    
+
+<!--FAKE DATA VERSION-->
+
+<div class="list">
+  <div class="item item-divider">
+    Location
+  </div>
+  <label class="item item-radio">
+    <input type="radio" name="group">
+    <div class="item-content">
+      Home
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <label class="item item-radio">
+    <input type="radio" name="group">
+    <div class="item-content">
+      Gym
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <label class="item item-radio">
+    <input type="radio" name="group">
+    <div class="item-content">
+      Work
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Type
+  </div>
+  <div class="row row-wrap">
+    <label class="rad col col-50">
+      <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+      <img alt="workout category" style="border-radius:30px" src="img/strength.jpg" width="100%">
+    </label>
+    <label class="rad col col-50">
+      <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+      <img alt="workout category" style="border-radius:30px" src="img/cardio.jpg" width="100%">
+    </label>
+    <label class="rad col col-50">
+      <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+      <img alt="workout category" style="border-radius:30px" src="img/cardio.jpg" width="100%">
+    </label>
+    <label class="rad col col-50">
+      <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+      <img alt="workout category" style="border-radius:30px" src="img/cardio.jpg" width="100%">
+    </label>
+    <label class="rad col col-50">
+      <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+      <img alt="workout category" style="border-radius:30px" src="img/cardio.jpg" width="100%">
+    </label>
+  </div>
+</div>
+  
+<div class="list">
+  <div class="item item-divider">
+    Length
+  </div>
+  <label class="item item-input">
+    <span class="input-label">Time (mins):</span>
+    <input type="number" placeholder="20">
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Intensity
+  </div>
+  <div class="item padding-horizontal range">
+    <i class="icon balanced ion-android-happy"></i>
+    <input type="range" name="intensity">
+    <i class="icon assertive ion-android-sad"></i>
+    <span class="padding-horizontal">10</span>
+  </div>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Body Areas
+  </div>
+      <li class="item item-checkbox">
+        <label class="checkbox">
+        <input type="checkbox">
+        </label>
+        Full Body
+        <div class="list">
+          <li class="item item-checkbox">
+            <label class="checkbox">
+            <input type="checkbox">
+            </label>
+            <span style="padding-left:10px">Upper Body</span>
+            <div class="list">
+              <li class="item item-checkbox">
+                <label class="checkbox">
+                <input type="checkbox">
+                </label>
+                <span style="padding-left:20px">Biceps</span>
+              </li>
+              <li class="item item-checkbox">
+                <label class="checkbox">
+                <input type="checkbox">
+                </label>
+                <span style="padding-left:20px">Chest</span>
+              </li>
+              <li class="item item-checkbox">
+                <label class="checkbox">
+                <input type="checkbox">
+                </label>
+                <span style="padding-left:20px">Abs</span>
+              </li>
+            </div>
+          </li>
+        </div>
+      </li>
+</div>
+
+<div style="row" style="margin-bottom:55px">
+  <div style="col">
+    <img src="img/model_B.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      width: 30%;
+      height: 25%;
+      margin-bottom:55px;
+      z-index: 10;">
+    <img src="img/3_B.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+  </div>
+  <div style="col">
+    <img src="img/model_f.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+    <img src="img/4_f.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+    <img src="img/7_f.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+  </div>
+</div>
+
+  <!--Need Image with body areas-->
+
+</div>
+
+<!--*******REAL DATA VERSION*****-->
+
+<!--
+
+<div class="list">
+  <div class="item item-divider">
+    Location
+  </div>
+  <label class="item item-radio" ng-repeat="location in locations track by location.id">
+    <input type="radio" ng-model="workout_request.location_id" name="location" value="{{location.id}}">
+    <div class="item-content">
+      {{location.name}}
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Type
+  </div>
+  <label class="item item-radio" ng-repeat="exercise_type in exercise_types">
+    <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+    <div class="item-content">
+      {{exercise_type}}
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Type
+  </div>
+  <div class="row row-wrap" ng-repeat="exercise_type in exercise_types">
+    <label class="rad col col-50">
+      <input type="radio" name="exercise_type" ng-model="workout_request.category" ng-change="toggleCategory(exercise_type)" value="{{exercise_type}}">
+      <img alt="workout category" style="border-radius:30px" ng-src="img/{{exercise_type}}.jpg" width="100%">
+    </label>
+  </div>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Length
+  </div>
+  <label class="item item-input">
+    <span class="input-label">Time (mins):</span>
+    <input type="number" onfocus="if(this.value == '20') {this.value = ''; }" name="workoutTime" min="5" max="180" step="5" id="inputworkouttime" ng-model="workout_request.workout_time" required>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-divider">
+    Intensity
+  </div>
+  <div class="item padding-horizontal range">
+    <i class="icon balanced ion-android-happy"></i>
+    <input type="range" name="intensity" ng-model="workout_request.intensity" max="10" min="1">
+    <i class="icon assertive ion-android-sad"></i>
+    <span class="padding-horizontal">{{workout_request.intensity}}</span>
+  </div>
+</div>
+
+<div class="list ng-show" ng-show="show_l0" style="margin-bottom:55px">
+  <div class="item item-divider">
+    Body Areas
+  </div>
+      <li class="item item-checkbox" ng-show="show_l0" ng-repeat="body_area_l0 in body_areas track by body_area_l0.id">
+        <label class="checkbox">
+          <input type="checkbox" ng-checked="workout_request.body_area_ids.indexOf(body_area_l0.id) > -1" name="body_areas_l0" value="{{body_area_l0.id}}" ng-click="toggleBodyArea(body_area_l0, 0)">
+        </label>
+        {{body_area_l0.name}}
+        <div class="list">
+          <li class="item item-checkbox" ng-show="show_l1" ng-repeat="body_area_l1 in body_area_l0.children track by body_area_l1.id">
+            <label class="checkbox">
+              <input type="checkbox" ng-checked="workout_request.body_area_ids.indexOf(body_area_l1.id) > -1" name="body_areas_l1" value="{{body_area_l1.id}}" ng-click="toggleBodyArea(body_area_l1, 1)">
+            </label>
+            <span style="padding-left:10px">{{body_area_l1.name}}</span>
+            <div class="list">
+              <li class="item item-checkbox" ng-show="show_l2" ng-repeat="body_area_l2 in body_area_l1.children track by body_area_l2.id">
+                <label class="checkbox">
+                  <input type="checkbox" ng-checked="workout_request.body_area_ids.indexOf(body_area_l2.id) > -1" name="body_areas_l2" value="{{body_area_l2.id}}" ng-click="toggleBodyArea(body_area_l2, 2)>
+                </label>
+                <span style="padding-left:20px">{{body_area_l2.name}}</span>
+              </li>
+            </div>
+          </li>
+        </div>
+      </li>
+</div>
+
+<div style="row" style="margin-bottom:55px" ng-show="show_l2">
+  <div style="col" ng-show="show_l0">
+    <img src="img/model_B.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      width: 30%;
+      height: 25%;
+      margin-bottom:55px;
+      z-index: 10;">
+    <img ng-src="images/{{b_a_id}}_B.png" ng-repeat="b_a_id in workout_request.body_area_ids | BAnotAvailable_B" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+  </div>
+  <div style="col" ng-show="show_l0">
+    <img src="img/model_f.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+    <img ng-src="images/{{b_a_id}}_F.png" ng-repeat="b_a_id in workout_request.body_area_ids | BAnotAvailable_F" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 25%;
+      z-index: 10;">
+  </div>
+</div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-play" ng-click="build_routine(); isReadonly =! isReadonly"></i>
+    Preview
+  </a>
+</div>
+
+
+</ion-view>

@@ -1,0 +1,74 @@
+<h3>Account Status</h3>
+
+<label>Account Status:</label>
+<p ng-show="account.user.content_level === 'plus'">Updown Plus Account</p>
+<p ng-show="account.user.content_level === 'free'">Free Account</p>
+<label>Subscription Status</label>
+<p>{{account.subscription.subscription_status}}</p>
+<label>Subscription Plan</label>
+<p>{{account.subscription.billing_plan_name}}</p>
+<label>Next Automatic Renewal Date:</label>
+<p>{{account.subscription.next_billing_date}}</p>
+<label>Next Automatic Renewal Amount:</label>
+<p>{{account.subscription.next_billing_period_amount}} + tax</p>
+<label>Payment Details:</label>
+<p>
+  <i ng-show="account.subscription.card_type === 'Visa'" class="fa fa-lg fa-cc-visa"></i>
+</p>
+<p>{{account.subscription.masked_number}}</p>
+<button class="btn img-responsive btn-primary" ng-hide="account.showBillEdit" ng-click="account.showBillEdit =! account.showBillEdit">Update Payment Info</button>
+
+<form style="margin-top:15px" name="editBilling" id="checkout" class="greywell" ng-show="account.showBillEdit" novalidate>
+  <div class="row" style="padding-top:20px">
+    <div class="col-md-6">
+	  <div class="form-group" ng-class="{ 'has-error' : editBilling.number.$invalid && !editBilling.number.$pristine && editBilling.number.$touched}">
+        <label>* Card Number:</label>
+        <input data-braintree-name="number" pattern="[0-9]{12,19}" ng-model="account.number" name="number" type="text" maxlength="19" class="form-control" placeholder="1111 2222 3333 4444" required></input>
+        <p ng-show="editBilling.number.$invalid && !editBilling.number.$pristine && editBilling.number.$touched" class="help-block">Enter a valid credit card number.</p>
+	  </div>
+    </div>
+	<div class="col-md-6">
+      <div class="form-group" ng-class="{ 'has-error' : editBilling.cardHolder.$invalid && !editBilling.cardHolder.$pristine && editBilling.cardHolder.$touched}">
+        <label>* Cardholder Name:</label>
+        <input data-braintree-name="cardholder_name" ng-model="account.cardholder_name" name="cardHolder" type="text" maxlength="40" class="form-control" placeholder="John Doe" required></input>
+        <p ng-show="editBilling.cardHolder.$invalid && !editBilling.cardHolder.$pristine && editBilling.cardHolder.$touched" class="help-block">Cardholder name is required.</p>
+	  </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group" ng-class="{ 'has-error' : editBilling.cvv.$invalid && !editBilling.cvv.$pristine && editBilling.cvv.$touched}">
+        <label>* Security Code:</label>
+        <input data-braintree-name="cvv" pattern="[0-9]{3,4}" ng-model="account.cvv" name="cvv" type="text" maxlength="4" class="form-control" placeholder="NNN" required></input>
+        <p ng-show="editBilling.cvv.$invalid && !editBilling.cvv.$pristine && editBilling.cvv.$touched" class="help-block">Enter a valid security code.</p>
+	  </div>
+    </div>
+	<div class="col-md-4">
+      <div class="form-group" ng-class="{ 'has-error' : editBilling.expDate.$invalid && !editBilling.expDate.$pristine && editBilling.expDate.$touched}">
+        <label>* Expiration Date:</label>
+        <input data-braintree-name="expiration_date" pattern="[0-9]{2}/[0-9]{2}" ng-model="account.expDate" name="expDate" type="text" maxlength="5" class="form-control" placeholder="10/20" required></input>
+        <p ng-show="editBilling.expDate.$invalid && !editBilling.expDate.$pristine && editBilling.expDate.$touched" class="help-block">Enter the card expiration date in the format MM/YY.</p>
+	  </div>
+    </div>
+	<div class="col-md-4">
+      <div class="form-group" ng-class="{ 'has-error' : editBilling.postal.$invalid && !editBilling.postal.$pristine && editBilling.postal.$touched}">
+        <label>* Zip Code:</label>
+        <input data-braintree-name="postal_code" ng-model="account.postal" name="postal" type="text" maxlength="15" class="form-control" placeholder="12345" required></input>
+        <p ng-show="editBilling.postal.$invalid && !editBilling.postal.$pristine && editBilling.postal.$touched" class="help-block">Enter the postal code associated with the card.</p>
+	  </div>
+    </div>
+  </div>
+  <button class="btn btn-warning" ng-click="account.showBillEdit =! account.showBillEdit">Cancel</button>
+  <button type="submit" id="submit" ng-disabled="editBilling.$invalid" value="Update" class="btn btn-primary img-responsive">Change Details</button>
+</form>
+  <!--
+  <input data-braintree-name="number" value="4111111111111111">
+  <input data-braintree-name="cvv" value="100">
+
+  <input data-braintree-name="expiration_date" value="10/20">
+
+  <input data-braintree-name="postal_code" value="94107">
+  <input data-braintree-name="cardholder_name" value="John Smith">
+
+  <input type="submit" id="submit" value="Update">
+  -->
+
+

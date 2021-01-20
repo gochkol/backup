@@ -1,0 +1,158 @@
+<ion-view view-title="Home">
+  
+
+<ion-content>
+    
+
+<!--POINTS PROGRESS-->
+
+
+<!--NEED PROGRESS BAR DIRECTIVE FROM WEB VERSION!! ui-bootstrap.js-->
+
+<div class="row">
+  <div class="col">
+    <h4 class="text-center">DAILY POINTS: 6/30</h4>
+    <progressbar value="20" type="info" class="energized"><span style="color:white; white-space:nowrap;">20%</span></progressbar>
+    <h4 class="text-center">MONTHLY POINTS: 450/600</h4>
+    <progressbar value="75" type="info"><span style="color:white; white-space:nowrap;">75%</span></progressbar>
+  </div>
+</div>
+
+<form>
+
+<!--USER STATUS-->
+
+<div class="row">
+  <div class="col">
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">  
+          <input type="text" ng-model="current_status" maxlength="80" placeholder="Status" name="userStatus" id="userStatus" class="item-input"></input>
+        </label>
+        <button type="submit" class="button button-small button-energized" ng-click="update_status()" ng-disabled="current_status === '' || current_status === null">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!--SOCIAL FEED-->
+
+<div class="item item-divider">
+  Who's Doing What
+</div>
+  <ion-scroll zooming="true" direction="y" style="height:300px; margin-bottom:55px"> 
+    <div class="list">
+      <a class="item item-text-wrap item-avatar item-button-right">
+        <img src="img/profile_image.jpg">
+        <h2>5 min ago</h2>
+        <p>Chris did super chest workout.</p>
+        <button class="button button-energized" style="font-size:14px">4</button>
+      </a>
+      <a class="item item-text-wrap item-avatar item-button-right">
+        <img src="img/profile_image.jpg">
+        <h2>8 min ago</h2>
+        <p>Mike did butt workout and played with himself.</p>
+        <button class="button button-energized" style="font-size:14px">23</button>
+        <a class="item item-text-wrap item-avatar item-button-right">
+          <img src="img/profile_image.jpg">
+          <h2>5 min ago</h2>
+          <p>Great job mr mikey! -Chris F</p>
+          <i class="button button-icon icon-small assertive ion-android-cancel" ng-hide="event.hide || user.id != comment.user.id" ng-click="deleter(event, comment)"></i>
+        </a>
+        <a class="item item-text-wrap item-avatar item-button-right">
+          <img src="img/profile_image.jpg">
+          <h2>5 min ago</h2>
+          <p>Great job mr mikey! -Chris F</p>
+          <i class="button button-icon icon-small assertive ion-android-cancel" ng-hide="event.hide || user.id != comment.user.id" ng-click="deleter(event, comment)"></i>
+        </a>
+      </a>
+      <a class="item item-input item-button-right">
+        <input type="text" maxlength="80" class="ng-hide" ng-hide="event.hide" ng-model="commentSubmit" placeholder="Enter comment here.">
+        <i ng-hide="event.hide" class="button balanced button-icon icon-small ion-android-add" ng-click="submitComment(event, commentSubmit); commentSubmit = ''" ng-disabled="commentSubmit === '' || commentSubmit === null"></i>
+      </a>
+      <a class="item item-text-wrap item-avatar item-button-right">
+        <img src="img/profile_image.jpg">
+        <h2>5 min ago</h2>
+        <p>Chris did super chest workout.</p>
+        <button class="button button-energized" style="font-size:14px">4</button>
+      </a>
+    </div>
+  </ion-scroll>
+
+ 
+<!--*******REAL DATA VERSION*****-->
+
+<!--
+
+<div class="row">
+  <div class="col">
+    <h4 class="text-center">DAILY POINTS: {{user.current_daily_points}}/{{max_day}}</h4>
+    <progressbar value="dprogress" type="info"><span style="color:white; white-space:nowrap;">{{dprogress | number : 0}}%</span></progressbar>
+    <h4 class="text-center">MONTHLY POINTS: {{user.current_monthly_points}}/{{max_month}}</h4>
+    <progressbar value="mprogress" type="info"><span style="color:white; white-space:nowrap;">{{mprogress | number : 0}}%</span></progressbar>
+  </div>
+</div>
+
+<form>
+<div class="row">
+  <div class="col">
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">  
+          <input type="text" ng-model="current_status" maxlength="80" placeholder="Status" name="userStatus" id="userStatus" class="item-input"></input>
+        </label>
+        <button type="submit" class="button button-small button-energized" ng-click="update_status()" ng-disabled="current_status === '' || current_status === null">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<div class="item item-divider">
+  Who's Doing What
+</div>
+<ion-scroll zooming="true" direction="y" style="height: 300px; margin-bottom:55px">
+<ion-list>
+  <ion-item ng-repeat-start="event in events" class="item item-text-wrap item-avatar item-button-right">
+    <img ng-src="{{event.user.avatar_url}}">
+    <h3>{{event.seconds_ago}}</h3>
+    <p>{{event_sentence(event)}}</p>
+    <button class="button button-energized" style="font-size:14px">{{event.comment_count}}</button>
+  </ion-item>
+  <ion-item class="ng-hide" ng-hide="event.hide" ng-repeat-end>
+    <ion-item ng-repeat-start="comment in event.comments" class="item item-text-wrap item-avatar item-button-right">
+      <img ng-src="{{event.user.avatar_url}}">
+      <h3>{{comment.seconds_ago}}</h3>
+      <p>{{comment.comment_text}} -{{comment.user.first_name}} {{firstLetter(comment.user.last_name)}}</p>
+      <i class="button button-icon icon-small assertive ion-android-cancel" ng-hide="event.hide || user.id != comment.user.id" ng-click="deleter(event, comment)"></i>
+    </ion-item>
+    <ion item class="item item-input item-button-right">
+      <input type="text" maxlength="80" class="ng-hide" ng-hide="event.hide" ng-model="commentSubmit" placeholder="Enter comment here.">
+      <i ng-hide="event.hide" class="button button-icon icon-small icon ion-android-add" ng-click="submitComment(event, commentSubmit); commentSubmit = ''" ng-disabled="commentSubmit === '' || commentSubmit === null"></i>
+    </ion-item>
+  </ion-item>
+</ion-list>
+</ion-scroll>
+
+-->
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+
+</ion-view>

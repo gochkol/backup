@@ -1,0 +1,25 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Stats and History</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-2">
+    <!--Fitness Stats-->
+	<div ui-view="fitnessStats" class="ng-show"></div>
+  </div>
+  <div class="col-md-4">
+    <!--Quick Logs-->
+	<div ui-view="userQuickLogs"></div>
+  </div>
+</div>
+<div class="row bottompad">
+  <div class="col-md-8 col-md-offset-2" style="padding-left:0px;padding-right:0px">
+    <!--Completed Workouts Free-->
+	<div ui-view="completedWorkoutsFree"></div>
+	<!--Completed Workouts Plus-->
+	<!--<div class="ng-show" ng-show="stats.user.content_level === 'plus'" ui-view="completedWorkoutsPlus"></div>-->
+	<div ui-view="advancedStats"></div>
+  </div>
+</div>

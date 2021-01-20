@@ -1,0 +1,196 @@
+<ion-view view-title="Preview Workout">
+
+<form name="WorkoutPreview" novalidate>
+<ion-scroll direction="y" style="right: 0;top: 0;bottom:65px;left: 0;height:90vh;max-height:100vh">
+
+<div class="list" style="margin-top:70px">
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Name:</span>
+    <input type="text" ng-keydown="customize.blur($event)" style="margin-left:-45px" onfocus="this.value='';" maxlength="45" ng-model="customize.workout.name">
+  </label>
+</div>
+
+<div class="list" style="margin-top:-10px">
+  <div class="item item-text-wrap" ng-if="customize.userHistory.workouts.length < 2 && customize.workout.workout_type != 'custom'">
+    <h4 class="help-text text-center">Here's your personalized workout! Feel free to review. When ready, hit "Start" to begin!</h4>
+  </div>
+  <div class="item item-text-wrap" ng-if="customize.userHistory.workouts.length > 1 && customize.userHistory.workouts.length < 4 && customize.workout.workout_type != 'custom'">
+    <h4 class="help-text text-center">You've done a couple workouts now and are getting the hang of things. Try using the buttons on the bottom to further customize your workout!</h4>
+  </div>
+</div>
+
+<div class="list card" style="margin-top:-10px">
+  <div class="row row-center">
+    <div class="col">
+      <h5>Time: {{customize.helpers.timeString(customize.workout.total_time_seconds)}}</h5>
+      <h5>Exercises: {{customize.workout.blocks.length}}</h5>
+      <h5 class="ng-hide" ng-hide="customize.workout.equipment_ids.length > 0">No Equipment Needed</h5>
+      <h5 class="ng-show" ng-show="customize.workout.equipment_ids.length > 0">Equipment Needed:</h5>
+      <ul style="padding-bottom:10px">
+        <li ng-repeat="equipment_id in customize.workout.equipment_ids"><span style="padding-left:15px">- {{customize.globalDataSet.equipmentLookup[equipment_id].name}}</span></li>
+      </ul>
+    </div>
+    <div class="col text-center">
+      <i class="icon button button-icon balanced ion-play" ng-disabled="WorkoutPreview.$invalid || customize.workout['blocks'].length < 1" ng-click="customize.start();window.plugins.insomnia.keepAwake();"> Start</i>
+      <br/>
+      <i id="favoriteIcon" class="icon button button-icon ion-star ng-hide" ng-hide="customize.isGuest" ng-class="{'assertive':customize.favorites.length == customize.favoritesMax}" ng-disabled="customize.isReadonly || customize.favorites.length == customize.favoritesMax || customize.workout.blocks.length == 0" ng-click="customize.createFavorite()"> Favorite</i>
+      <h5 class="help-text" ng-if="customize.favorites.length == customize.favoritesMax">You've reached max favorites!</h5>
+    </div>
+  </div>
+</div>
+
+<ion-list show-reorder="customize.showReorder">
+  <ion-item class="card" style="padding:0px;margin-right:-10px;margin-left:-10px" ng-repeat="block in customize.workout.blocks track by $index" ng-init="$blockIndex = $index">
+    <div class="row item item-calm" ng-click="customize.showBlockInfo($blockIndex)" ng-disabled="customize.showReorder" style="margin-top:-20px;margin-left:-10px;z-index:20;position:absolute">
+      <div class="col item-text-wrap button-clear">
+        <h3 style="color:white;margin-left:10px">{{;$blockIndex + 1}}. {{block.exercise.name}}</h3>
+        <h5 class="ng-show" style="color:white" ng-show="customize.userHistory.workouts.length < 3 && $blockIndex === 0 && !customize.showReorder"> Tap the exercise header to see the animation.</h5>
+      </div>
+      <div class="col col-10">
+        <i style="font-size:22px;color:white;margin-left:-5px" class="icon ion-eye"></i>
+      </div>
+    </div>
+    <div style="padding-bottom:5px" ng-hide="customize.showReorder">
+    </div>
+    <div style="padding-bottom:15px" ng-hide="!customize.showReorder">
+    </div>
+    <div class="row ng-hide" ng-hide="customize.showReorder || $blockIndex > 0" style="margin-top:15px;margin-bottom:10px">
+      <a class="tab-item">
+        <i class="icon button button-icon ion-ios-copy" style="font-size:22px;margin-bottom:-12px" ng-click="customize.duplicateBlock($blockIndex)"></i>
+        <span style="font-size:10px">Duplicate</span>
+      </a>
+      <a class="tab-item ng-hide" ng-hide="customize.workout.workout_type === 'custom'">
+        <i class="icon button button-icon ion-shuffle" style="font-size:22px;margin-bottom:-12px" ng-click="customize.swapBlock($blockIndex)"></i>
+        <span style="font-size:10px">Swap</span>
+      </a>
+      <a class="tab-item">
+        <i class="icon button button-icon ion-backspace-outline" style="font-size:22px;margin-bottom:-12px" ng-click="customize.deleteBlock($blockIndex)"></i>
+        <span style="font-size:10px">Delete</span>
+      </a>
+    </div>
+    <div class="row ng-hide" ng-hide="customize.showReorder || $blockIndex === 0" style="margin-top:15px;margin-bottom:-10px">
+      <a class="tab-item">
+        <i class="icon button button-icon ion-ios-copy" style="font-size:22px" ng-click="customize.duplicateBlock($blockIndex)"></i>
+      </a>
+      <a class="tab-item ng-hide" ng-hide="customize.workout.workout_type === 'custom'">
+        <i class="icon button button-icon ion-shuffle" style="font-size:22px" ng-click="customize.swapBlock($blockIndex)"></i>
+      </a>
+      <a class="tab-item">
+        <i class="icon button button-icon ion-backspace-outline" style="font-size:22px" ng-click="customize.deleteBlock($blockIndex)"></i>
+      </a>
+    </div>
+    <div class="row ng-hide" ng-hide="!customize.showReorder" style="padding-bottom:30px">
+    </div>
+    <div class="row item-image ng-show" ng-show="block.showInfo && !customize.showReorder">
+      <div class="col">
+        <img ng-src="{{block.animationInfo.images[block.animationInfo.current]}}" style="height:200px"></img>
+      </div>
+    </div>
+    <div class="row row-center" style="margin-top:-10px;margin-bottom:-20px" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">     
+      <div class="col col-10 item-text-wrap" style="padding-left:0px;padding-right:0px;margin-left:-5px">
+        <p style="font-size:11px"><b>Set {{$blockSetIndex + 1}}</b></p>
+      </div>
+      <div class="col calm-light-bg row-center" ng-repeat="name in blockSet.criterion | criterionDisplay as results" ng-class="{ 'has-error' : WorkoutPreview.workoutParams.$invalid && !WorkoutPreview.workoutParams.$pristine && WorkoutPreview.workoutParams.$touched}">
+        <label class="item-input-wrapper calm-light-bg input-sm row-center" style="padding-left:2px;padding-right:2px">
+          <span style="margin-right:3px" class="input-label input-label-sm">{{customize.criterionDisplayInfo[name].name}}</span>
+          <input class="item-input-wrapper calm-light-bg" style="padding-right:0px;margin-left:-3px" ng-model="blockSet.criterion[name]" name="workoutParams" ng-model-options="{ updateOn: 'change' }" ng-change="customize.updateBlockSet(name, blockSet, block)" type='number' pattern="[0-9]*" min='0' max='999' onfocus="this.value='';" required>
+          <i class="icon ion-edit ng-show" ng-show="!customize.showReorder" style="font-size:12px;color:black;padding-right:2px;padding-left:0px;margin-left:-12px"></i>
+        </label>
+      </div>
+      <div class="col col-10 ng-hide" style="margin-right:-30px" ng-hide="$blockSetIndex == block.block_sets.length-1 && $last || customize.showReorder">
+      </div>
+      <div class="col col-10 ng-show text-center" style="margin-right:-30px;padding-top:0px;padding-bottom:0px;margin-top:-1px;margin-bottom:-1px" ng-show="$blockSetIndex == block.block_sets.length-1 && $last && !customize.showReorder">
+        <i ng-show="$blockSetIndex == block.block_sets.length-1 && $last && block.block_sets.length > 1" style="font-size:22px" ng-click="customize.deleteLastSet($blockIndex)" class="ng-show assertive button button-icon ion-android-cancel"></i>
+      </div>
+    </div>
+    <div class="row ng-show" style="margin-bottom:-20px;padding-top:10px" ng-show="!customize.showReorder">
+      <div class="col text-center">
+        <i ng-click="customize.duplicateLastSet($blockIndex)" style="font-size:22px" class="balanced button button-icon ion-plus-circled"></i>
+      </div>
+    </div>
+    <div class="row ng-show item-text-wrap" ng-show="customize.userHistory.workouts.length < 3 && $blockIndex === 0 && !customize.showReorder && !customize.isGuest">
+      <div class="col">
+        <h4 class="help-text"> Updown generated values based on your personal info. You may edit any values you wish, and Updown will learn from your changes.</h4>
+      </div>
+    </div>
+    <div class="row ng-show item-text-wrap" ng-show="customize.isGuest && $blockIndex === 0 && !customize.showReorder">
+      <div class="col">
+        <h4 class="help-text"> Updown generated values based on the info you provided. When you have an account, Updown learns from your changes.</h4>
+      </div>
+    </div>
+    <ion-reorder-button class="ion-arrow-move" on-reorder="customize.moveItem($blockIndex, $fromIndex, $toIndex)"></ion-reorder-button>
+  </ion-item>
+</ion-list>
+
+<div class="list card ng-show" ng-show="customize.addExerciseHidden">
+  <div class="row">
+    <div class="col">
+      <label class="item item-input item-select">
+        <i class="icon ion-ios-body placeholder-icon"></i>
+        <select ng-options="o.name for o in customize.bodyAreas | orderBy:'name' track by o.id" ng-init="customize.selectedBodyArea=customize.bodyAreas[0]" ng-model="customize.selectedBodyArea" style="padding-right:30px;padding-left:0px" name=""></select>
+      </label>
+    </div>
+    <div class="col">
+      <label class="item item-input item-select">
+        <i class="icon ion-settings placeholder-icon"></i>
+        <select ng-options="o.name for o in customize.equipments | orderBy:'name' track by o.id" ng-init="customize.selectedEquipment=customize.equipments[0]" ng-model="customize.selectedEquipment" style="padding-right:30px;padding-left:0px" name=""></select>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label class="item item-input item-select">
+        <i class="icon ion-edit placeholder-icon"></i>
+        <select ng-options="o.name for o in customize.categories | orderBy:'name' track by o.id" ng-init="customize.selectedCategory=customize.categories[0]" ng-model="customize.selectedCategory" style="padding-right:30px;padding-left:0px" name=""></select>
+      </label>
+    </div>
+    <div class="col">
+      <label class="item item-input" style="height:35px">
+        <i class="icon ion-search placeholder-icon" style="padding-right:18px"></i>
+        <input type="text" style="max-width:100%;padding-right:0px" ng-keydown="customize.blur($event)" name="exercise_keys" ng-model="customize.exerciseKeys" placeholder="Exercise search"></input>
+      </label>
+    </div>
+  </div>
+  <div class="item text-center">
+    <p><b>Number of exercises:</b> ({{customize.exerciseList.length}})</p>
+  </div>
+  <div class="row row-center">
+    <div class="col">
+      <label class="item item-input item-select">
+        <i class="icon ion-android-walk placeholder-icon" style="padding-right:18px"></i>
+        <select style="max-width:90%" multiple="true" ng-options="o.name for o in customize.filteredExercises()" ng-model="customize.selectedExercises" name=""></select>
+      </label>
+    </div>
+    <div class="col col-10">
+      <button class="icon button button-icon balanced ion-plus-circled" style="margin-left:-8px" ng-click="customize.addExercises()" ng-disabled="customize.selectedExercises ? (customize.selectedExercises.length<1) : true"></button>
+    </div>
+  </div>
+</div>
+
+</ion-scroll>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item ng-hide" ng-click="customize.showReorder = !customize.showReorder; customize.scrollBottom()" ng-hide="customize.showReorder">
+    <i class="icon calm ion-arrow-move"></i>
+    Reorder
+  </a>
+  <a class="tab-item ng-hide" ng-click="customize.showReorder = !customize.showReorder; customize.scrollBottom()" ng-hide="!customize.showReorder">
+    <i class="icon calm ion-edit"></i>
+    Edit
+  </a>
+  <a class="tab-item ng-hide" ng-click="customize.addRandomBlock(); customize.scrollBottom()" ng-hide="customize.workout.workout_type === 'custom'">
+    <i class="icon calm ion-plus-circled"></i>
+    + Random
+  </a>
+  <a class="tab-item" ng-click="customize.addExerciseHidden = !customize.addExerciseHidden; customize.scrollBottom()">
+    <i class="icon calm ion-search"></i>
+    + Choose
+  </a>
+  <a class="tab-item" ng-disabled="WorkoutPreview.$invalid || customize.workout['blocks'].length < 1" ng-click="customize.start();window.plugins.insomnia.keepAwake();">
+    <i class="icon balanced ion-play"></i>
+    Start
+  </a>
+</div>
+</form>
+
+</ion-view>

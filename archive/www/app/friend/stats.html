@@ -1,0 +1,41 @@
+<div class="item item-icon-right item-calm item-icon-left item-divider" ng-click="friend.isCollapsedStats = !friend.isCollapsedStats">
+  {{friend.friend.first_name}}'s Overall Stats
+  <i class="icon ion-stats-bars"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedStats">
+  <div class="row item">
+    <div class="col col-75">
+      Total Workout Time
+    </div>
+    <div class="col">
+      {{friend.friend.total_workout_time ? friend.timeString(friend.friend.total_workout_time) : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Workout Calories Burned
+    </div>
+    <div class="col">
+      {{friend.friend.total_calories_burned ? friend.friend.total_calories_burned : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Workouts Completed
+    </div>
+    <div class="col">
+      {{friend.friend.total_workouts ? friend.friend.total_workouts : 0}}
+    </div>
+  </div>
+  <div class="row item" ng-repeat="count in friend.friend.total_count_of_workouts">
+    <div class="col">
+    </div>
+    <div class="col col-50">
+      {{count.category_name}}
+    </div>
+    <div class="col">
+      {{count.count ? count.count : 0}}
+    </div>
+  </div>
+</div>

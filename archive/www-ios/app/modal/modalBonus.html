@@ -1,0 +1,19 @@
+<ion-content>
+
+<div class="row" style="padding-top:30px">
+</div>
+
+<div class="card">
+  <div class="item item-divider item-icon-left">
+    <i class="icon ion-happy-outline"></i>
+    Congratulations!
+  </div>
+  <div class="item item-text-wrap help-text">
+    You hit your weekly goal of {{data.goal}} points and earned {{data.bonus}} bonus points!
+  </div>
+  <div class="item item-divider item-text-wrap text-center">
+    <button class="button button-block button-calm" ng-disabled="isReadonlytwo" ng-click="cancel(); isReadonlytwo =! isReadonlytwo">Close</button>
+  </div>
+</div>
+
+</ion-content>

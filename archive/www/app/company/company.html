@@ -1,0 +1,31 @@
+<ion-view view-title="<i class='icon ion-ios-people'></i> Teams" hide-back-button="true">
+
+<ion-content>
+
+<div class="list ng-hide" ng-hide="company.company">
+  <form>
+  <div class="item item-text-wrap">
+    <h4 class="help-text text-center">
+      If your company is on Updown, enter a code below to join your department's team. More team functionality is coming soon!
+    </h4>
+    <input ng-model="company.signupCode" type="text" name="signup_code" id="signup_code" placeholder="Signup Code"></input>
+    <button class="button button-calm button-block text-center" type="submit" ng-click="company.joinCompany()">Submit Code</button>
+  </div>
+  </form>
+</div>
+
+<!--Company leaderboard-->
+<div ui-view="companyLeaderboard"></div>
+
+<!--Department points/member leaderboard-->
+<div ui-view="memberLeaderboard"></div>
+
+<!--Departments total points leaderboard-->
+<div ui-view="departmentsLeaderboard"></div>
+
+<!--Department total points leaderboard-->
+<div ui-view="departmentLeaderboard"></div>
+
+</ion-content>
+
+</ion-view>

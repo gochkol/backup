@@ -1,0 +1,71 @@
+<ion-view view-title="Quick Log">
+  
+
+<ion-content>
+  
+
+<!--FAKE CONTENT-->
+
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Activity
+    </div>
+    <select>
+      <option>Running</option>
+      <option>Walking</option>
+    </select>
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Time (mins):</span>
+    <input type="number" class="text-right" style="padding-right:20px">
+  </label>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Description (optional):</span>
+    <input type="text" maxlength="60" placeholder="Description">
+  </label>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Cals Burned (optional)</span>
+    <input type="number" class="text-right" style="padding-right:20px">
+  </label>
+</div>
+
+
+<!--REAL CONTENT-->
+
+<!--
+
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Activity
+    </div>
+    <select ng-options="obj.id as obj.name for obj in quick_activities" ng-model="quick_activity_id" name="quickActivity" required>
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Time (mins):</span>
+    <input class="text-right" style="padding-right:20px" type="number" onfocus="if(this.value == '0') {this.value = ''; }" name="logTime" ng-model="duration" min="5" max="180" step="5" id="inputActivityTime" required>
+  </label>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Description (optional):</span>
+    <input ng-model="desc" type="text" maxlength="60" name="desc" id="desc" placeholder="Description"></input>
+  </label>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Cals Burned (optional)</span>
+    <input class="text-right" style="padding-right:20px" ng-model="calories_burned" type="number" max="2000" min="0" tooltip-placement="top" name="calories_burned" id="calories_burned"></input>
+  </label>
+</div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline" ng-disabled="quickLog.$invalid || isReadonly" ng-click="add_log(); isReadonly =! isReadonly"></i>
+    Log Activity
+  </a>
+</div>
+
+</ion-view>

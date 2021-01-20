@@ -1,0 +1,84 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2 class="textheader">Log Activity</h2>
+  </div>
+</div>
+
+<form action="#" method="POST" name="quickForm" novalidate>
+<div class="row toppad">
+  <div class="col-md-4 col-md-offset-2">
+    <div class="form-group" ng-class="{ 'has-error' : quickForm.activities.$invalid && !quickForm.activities.$pristine && quickForm.activities.$touched}">
+    <label for="usage">* Activity: </label>
+    <select ng-options="obj.id as obj.name for obj in quickLog.quickActivities | orderBy:'name'" ng-model="quickLog.request.quickActivityId" name="activities" class="form-control" required>
+    </select>
+    <p ng-show="quickForm.activities.$invalid && !quickForm.activities.$pristine && quickForm.activities.$touched" class="help-block">Activity is required.</p>
+    </div>
+  </diV>
+  <div class="col-md-4">
+    <label>* Time (mins):</label>
+    <div class="form-group" ng-class="{ 'has-error' : quickForm.time.$invalid && !quickForm.time.$pristine && quickForm.time.$touched}">
+      <input type="number" onfocus="if(this.value == '0') {this.value = ''; }" ng-model="quickLog.request.duration" min="5" max="180" step="5" placeholder="Time" id="time" name="time" class="form-control" required>
+      <p ng-show="quickForm.time.$invalid && !quickForm.time.$pristine && quickForm.time.$touched" class="help-block">Time is required. Minimum: 5 minutes. Maximum: 180 minutes.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-2">
+    <div class="form-group">
+    <label>Description (optional):</label>
+    <input ng-model="quickLog.request.description" type="text" maxlength="60" name="desc" id="desc" class="form-control" placeholder="Description"></input>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label>Calories burned (optional):</label>
+    <div class="form-group" ng-class="{ 'has-error' : quickForm.calories_burned.$invalid && !quickForm.calories_burned.$pristine && quickForm.calories_burned.$touched}">
+      <input ng-model="quickLog.request.caloriesBurned" type="number" max="2000" min="0" name="calories_burned" placeholder="Cals Burned" id="calories_burned" class="form-control"></input>
+      <p ng-show="quickForm.calories_burned.$invalid && !quickForm.calories_burned.$pristine && quickForm.calories_burned.$touched" class="help-block">Calories must be between 0 and 2000.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-2 ng-show" ng-show="quickLog.request.quickActivityId == 1 ||
+	  quickLog.request.quickActivityId == 3 ||
+	  quickLog.request.quickActivityId == 4 ||
+	  quickLog.request.quickActivityId == 8 ||
+	  quickLog.request.quickActivityId == 9 ||
+	  quickLog.request.quickActivityId == 10 ||
+	  quickLog.request.quickActivityId == 11 ||
+	  quickLog.request.quickActivityId == 12 ||
+	  quickLog.request.quickActivityId == 15">
+    <label>Distance {{(quickLog.metric === "standard" ? "(miles)" : "(km)")}} (optional):</label>
+    <div class="form-group" ng-class="{ 'has-error' : quickForm.distance_miles.$invalid && !quickForm.distance_miles.$pristine && quickForm.distance_miles.$touched}">
+      <input type="number" step="any" max="500" min="0" name="distance_miles" placeholder="Distance" id="distance_miles" ng-model="quickLog.request.distanceMiles" class="form-control"></input>
+      <p ng-show="quickForm.distance_miles.$invalid && !quickForm.distance_miles.$pristine && quickForm.distance_miles.$touched" class="help-block">{{(quickLog.metric === "standard" ? "(Miles)" : "(Km)")}} must be between 0 and 500.</p>
+    </div>
+  </div>
+  <div class="col-md-4 col-md-offset-2 ng-hide" ng-hide="quickLog.request.quickActivityId == 1 ||
+	  quickLog.request.quickActivityId == 3 ||
+	  quickLog.request.quickActivityId == 4 ||
+	  quickLog.request.quickActivityId == 8 ||
+	  quickLog.request.quickActivityId == 9 ||
+	  quickLog.request.quickActivityId == 10 ||
+	  quickLog.request.quickActivityId == 11 ||
+	  quickLog.request.quickActivityId == 12 ||
+	  quickLog.request.quickActivityId == 15">
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>* Occurred:</label>
+      <select ng-options="obj.number as obj.name for obj in quickLog.daysAgo" ng-model="quickLog.request.numberOfDaysAgo" name="quickLogTime" class="form-control" required>
+      </select>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<div class="row topbottompad">
+  <div class="col-md-8 col-md-offset-2">
+    <button type="submit" ng-disabled="quickForm.$invalid || isReadonly" ng-click="quickLog.createQuickLog(); isReadonly =! isReadonly" class="btn btn-primary btn-lg img-responsive center-block">Log Activity</button>
+  </div>
+</div>
+

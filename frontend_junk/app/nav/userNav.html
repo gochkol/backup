@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a style="cursor:pointer" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarMain">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+    <a class="navbar-brand" ui-sref="home">
+      <img class="branding" alt="Updown Fitness app logo" src="content/images/upDownLogo.png" style="
+        margin-top: -4px;
+        margin-left: 5px;
+        width: 60px;
+        max-width: 60px;">
+    </a>
+    <p class="navbar-text"><a ui-sref="account">{{nav.user.first_name}} {{nav.user.last_name}} <i class="fa fa-lg fa-angle-down"></i></a></p>
+	<!--use this for above when implementing premium  ng-show="nav.user.content_level === 'free'"-->
+	<!--<p class="navbar-text ng-show" ng-show="nav.user.content_level === 'plus'"><a ui-sref="Update">{{nav.user.first_name}} {{nav.user.last_name}} <i class="fa fa-lg fa-angle-down"></i></a></p>-->
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="navbarMain">
+    <ul class="nav navbar-nav navbar-right">
+      <li ng-class="checkState('home')"><a ui-sref="home">Home</a></li>
+      <li ng-class="checkState('profile')"><a ui-sref="profile">Profile</a></li>
+      <li ng-class="checkState('stats')"><a ui-sref="stats">Stats</a></li>
+      <li ng-class="checkState('locations')"><a ui-sref="locations">Locations</a></li>
+      <li ng-class="checkState('friends')"><a ui-sref="friends">Friends <span class="orangetext ng-show" ng-show="nav.friendRequestsForMe.length >= 1">({{nav.friendRequestsForMe.length}})</span></a></li>
+      <li ng-class="checkState('company')"><a ui-sref="company">Teams</a></li>
+      <li ng-class="checkState('settings')"><a ui-sref="settings">User Preferences</a></li>
+      <li><a ui-sref="logout" style="text-decoration: none" ng-click="nav.clicked('logout')">Logout</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>

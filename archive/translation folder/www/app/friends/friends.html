@@ -1,0 +1,106 @@
+<ion-view view-title="Friends">
+
+<ion-content>
+
+<div class="item item-divider">
+  Friends Leaderboard
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order('current_daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order('current_monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order('current_total_points')">All Time</button>
+</div>
+<div class="list">
+  <a ng-repeat="friend in friends.friends | orderBy:friends.predicate:friends.reverse" class="item item-avatar-left">
+    <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+    <a ng-click="friends.showFriend(friend)" ng-disabled="friend.is_user"><h2>{{friend.first_name}} {{friend.last_name}}</h2></a>
+    <h3 class="ng-hide" ng-hide="friends.showDay">{{friend.current_daily_points}}</h3>
+    <h3 class="ng-hide" ng-hide="friends.showMonth">{{friend.current_monthly_points}}</h3>
+    <h3 class="ng-hide" ng-hide="friends.showTotal">{{friend.current_total_points}}</h3>
+  </a>
+</div>
+
+<div class="item item-divider">
+  Find Friends
+</div>
+<div class="row">
+  <div class="col">
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input ng-model="search_string" type="text" maxlength="30" class="item-input" placeholder="Friend search"></td>
+        </label>
+        <button type="submit" class="button button-small button-energized" ng-click="friend_search()">Search</button>
+      </div>
+      <a ng-repeat="friend in friends_from_search" class="item item-avatar-left item-button-right">
+        <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+        <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+        <button type="button" class="button button-balanced" ng-disabled="isReadonlytwo" ng-click="add_friend(friend)">Add</button>
+      </a>
+      <a class="item" ng-show="no_results">
+        No search results found.
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="item item-divider">
+  Friend Requests
+</div>
+  <div class="list">
+    <div ng-repeat="friend in friend_requests.incoming" class="row item">
+      <div class="col col-20 item-avatar-left">
+        <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+      </div>
+      <div class="col col-60">
+        {{friend.first_name}} {{friend.last_name}}
+      </div>
+      <div class="col col-10">
+        <button class="button button-small button-balanced" ng-click="accept_friend(friend)">+</button>
+      </div>
+      <div class="col col-10">
+        <button class="button button-small button-assertive" ng-click="decline_friend(friend)">-</button>
+      </div>
+    </div>
+  </div>
+
+<div class="item item-divider">
+  Pending Friends
+</div>
+  <div class="list">
+    <a ng-repeat="friend in friend_requests.outgoing" class="item item-avatar-left item-button-right">
+      <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+      <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+      <button type="button" ng-click="cancel_request(friend)" class="button button-assertive">Cancel</button>
+    </a>
+  </div>
+
+<div class="item item-divider">
+  My Friends ({{friends.length}})
+</div>
+  <div class="list">
+    <a ng-repeat="friend in friends" class="item item-avatar-left item-button-right">
+      <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="ng-hide">
+      <a ng-click="goToFriend(friend)"><h2>{{friend.first_name}} {{friend.last_name}}</h2></a>
+      <button class="button button-assertive" ng-really-message="Are you sure you want to remove this friend?" ng-really-click="delete_friend(friend)">x</button>
+    </a>
+  </div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

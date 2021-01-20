@@ -1,0 +1,20 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedPoints = !friend.isCollapsedPoints">
+  {{friend.friend.first_name}}'s Points
+  <i class="icon ion-ribbon-b"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedPoints">
+  <div class="list card" style="margin-top:15px">
+    <h3 class="text-center">Total points: <span class="energized">{{friend.friend.current_total_points}}</span></h3>
+  </div>
+  <div class="row item">
+    <div class="col">
+      <div class="list card" style="padding-top:10px;margin-bottom:0px;margin-top:0px">
+        <h4 class="text-center">Daily Points: {{friend.friend['current_daily_points']}}/{{friend.maxDay}}</h4>
+        <progressbar style="margin-left:10px;margin-right:10px" value="((friend.friend.current_daily_points / friend.maxDay)*100)" type="danger"><span style="color:white; white-space:nowrap;">{{((friend.friend.current_daily_points / friend.maxDay)*100) | number : 0}}%</span></progressbar>
+        <h4 class="text-center" style="padding-bottom:10px">Weekly Points: {{friend.friend['current_weekly_points']}}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+

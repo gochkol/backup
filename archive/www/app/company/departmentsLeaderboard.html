@@ -1,0 +1,32 @@
+<div ng-show="company.company" class="ng-show">
+<div class="item item-calm item-icon-right item-divider item-text-wrap" ng-click="company.isCollapsedDept = !company.isCollapsedDept">
+  Department Total Points Leaderboard
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedDept">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.departments.daily}}" ng-click="company.orderDepartments('daily_points')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.departments.monthly}}" ng-click="company.orderDepartments('monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.departments.total}}" ng-click="company.orderDepartments('total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="item item-text-wrap text-center">
+  <h4 class="help-text">
+    Tap on a department to see individual members in the next table.
+  </h4>
+</div>
+<div class="list">
+  <div class="item row row-center" ng-repeat="department in company.departments | orderBy:company.departmentsPredicate:company.departmentsReverse" style="cursor:pointer" ng-click="company.focus(department)">
+    <div class="col item-text-wrap">
+      <h2 class="calm">{{department.name}} ({{department.members.length}} <span class="ng-hide" ng-hide="department.members.length == 1">members)</span><span class="ng-hide" ng-hide="department.members.length > 1">member)</span></h2>
+    </div>
+	<div class="col text-center">
+	  <h1 class="ng-hide" ng-hide="company.departmentsShowDay">{{department.daily_points}}</h1>
+      <h1 class="ng-hide" ng-hide="company.departmentsShowMonth">{{department.monthly_points}}</h1>
+      <h1 class="ng-hide" ng-hide="company.departmentsShowTotal">{{department.total_points}}</h1>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>
+</div>

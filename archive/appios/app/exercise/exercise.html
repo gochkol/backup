@@ -1,0 +1,88 @@
+<ion-view>
+
+<ion-content style="margin-bottom:70px;">
+
+<div class="row" style="margin-top:15px">
+  <div class="col text-left">
+    <h4>
+      <i class="icon energized ion-ios-flame"></i> Cals: {{exercise.caloriesBurned | number : 1}}
+    </h4>
+  </div>
+  <div class="col text-center">
+    <h5>Exercise {{exercise.getCurrentBlock() + 1}}/{{exercise.workout.blocks.length}}</h5>
+  </div>
+  <div class="col text-right">
+    <h4>
+      <i class="icon ion-clock"></i> Total: {{exercise.timeString(exercise.workout.workout_total_time)}}
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col text-center">
+    <progressbar value="exercise.curProgress" type="warning"><span style="color:white; white-space:nowrap;">{{exercise.curProgress | number : 0}}%</span></progressbar>
+  </div>
+</div>
+
+<div class="row" style="margin-top:-20px">
+  <div class="col text-center">
+    <h4 class="ng-hide" ng-hide="exercise.curOrNext"><b class="{{exercise.color}}">Current exercise:</b> {{exercise.workoutName}}/{{exercise.workout.blocks[exercise.getCurrentBlock()].block_sets.length}}</h4>
+    <h4 class="ng-show" ng-show="exercise.curOrNext"><b class="calm">Next exercise:</b><b> {{exercise.nextExercise}}</b></h4>
+    <h5 class="ng-show" ng-show="exercise.workoutName.indexOf('(ISO)') != -1">For each set, perform the full number of reps on one side. Then, perform the same number of reps on the other side.</h5>
+    <h5 class="ng-show" ng-show="exercise.workoutName.indexOf('(ALT)') != -1">For each set, perform the full number of reps, alternating sides after each rep.</h5>
+  </div>
+</div>
+
+<div class="row" style="margin-top:-15px;margin-bottom:-15px" ng-repeat='set in exercise.workout.blocks[exercise.getCurrentBlock()].block_sets track by $index' ng-init="$setIndex = $index">
+  <div class="col" ng-repeat="name in set.criterion | criterionDisplay as results">
+    <label class="item-input-wrapper {{exercise.setBG[$setIndex]}} input-sm" style="padding-left:4px; padding-right:0px">
+      <span style="padding-right:0px" class="input-label input-label-sm">{{exercise.criterionDisplayInfo[name].name}}</span>
+      <input type="number" style="padding-right:0px" class="item-input-wrapper {{exercise.setBG[$setIndex]}}" onfocus="this.value='';" min='0' max='999' ng-model="set.criterion[name]">
+      <i class="icon ion-edit" style="font-size:12px;color:grey;padding-right:2px;"></i>
+    </label>
+  </div> 
+</div>
+
+<div id="flash" style="padding-top:10px;padding-bottom:10px">
+  <h4 class="text-center">{{exercise.message}}</h4>
+</div>
+
+<div class="row" style="margin-top:-20px">
+  <div class="col text-left">
+    <button class="button button-small button-calm button-block ng-hide" ng-hide="exercise.isCollapsed" ng-click="exercise.isCollapsed = !exercise.isCollapsed; exercise.isCollapsed ? exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoEnd() : exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()">Hide Image</button>
+    <button class="button button-small button-calm button-block ng-hide" ng-hide="!exercise.isCollapsed" ng-click="exercise.isCollapsed = !exercise.isCollapsed; exercise.isCollapsed ? exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoEnd() : exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()">Show Image</button>
+  </div>
+  <div class="col text-right ng-hide" ng-hide="skip_available">
+    <button class="button button-small button-calm button-block ng-hide" ng-hide="!exercise.skipAvailable || exercise.getCurrentBlock() == (exercise.workout.blocks.length-1)" ng-really-message="This will move this exercise to the end of the workout. Are you sure?" ng-really-click="exercise.skip()">Move to End</button>
+  </div>
+</div>
+
+<div collapse="exercise.isCollapsed" class="row item-image" style="margin-top:-10px;">
+  <div class="col">
+    <img collapse="exercise.isCollapsed" ng-src="{{exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.images[exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.current]}}" ng-init="exercise.workout.blocks[exercise.getCurrentBlock()].animationInfo.photoStart()" style="height:200px"></img>
+  </div>
+</div>
+
+
+</ion-content>
+
+<div class="tab-striped {{exercise.navcolor}} tabs-color-light">
+<div class="tabs tabs-icon-top" style="height:70px">
+  <a class="tab-item active col" style="opacity:1.0;margin-top:10px;" ng-click="exercise.startPauseClick(exercise)">
+    <i class="icon {{exercise.button.text}}"></i>
+    {{exercise.button.textTwo}}
+  </a>
+  <a class="tab-item col col-67" style="margin-top:10px;">
+    <h1 style="color:white;">{{exercise.setOrRest}}: {{exercise.timeString(exercise.currentTime)}}</h1>
+  </a>
+  <a class="tab-item active col ng-hide" style="opacity:1.0;margin-top:10px;" ng-hide="exercise.cyclerStopped" ng-click="exercise.complete(exercise)">
+    <i ng-hide="exercise.cyclerStopped" class="ng-hide icon ion-skip-forward"></i>
+    <p class="ng-hide" ng-hide="exercise.cyclerStopped">{{exercise.doneOrSkip}}</p>
+  </a>
+  <a class="tab-item active col ng-show" style="opacity:1.0;margin-top:10px;" ng-show="exercise.cyclerStopped">
+    <p class="ng-hide" ng-hide="exercise.cyclerStopped">.</p>
+  </a>
+</div>
+</div>
+
+</ion-view>

@@ -1,0 +1,14 @@
+    <h4 class="orangetext">Friend Requests ({{friends.friendRequestsForMe.length}})</h4>
+    <div style="max-height:200px;overflow:auto;">
+      <table class="table table-condensed well">
+        <tr ng-repeat="friendRequest in friends.friendRequestsForMe | orderBy:'first_name'">
+          <td>
+		    <img ng-src="{{friendRequest.user.avatar_url}}" ng-hide="!friendRequest.user.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+			<img ng-src="content/images/profile_image.jpg" ng-hide="friendRequest.user.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+		  </td>
+          <td><a style="cursor:pointer" ng-click="friends.showFriend(friendRequest.user)">{{friendRequest.user.first_name}} {{friendRequest.user.last_name}}</a></td>
+          <td><a class="btn btn-sm pull-right" ng-click="friends.acceptFriendRequest(friendRequest)"><img src="content/images/green_plus.png" class="img-responsive" style="width:12px;height:12px"></a></td>
+          <td><a class="btn btn-sm pull-right" ng-click="friends.declineFriendRequest(friendRequest)"><img src="content/images/red_x.png" class="img-responsive" style="width:12px;height:12px"></a></td>
+        </tr>
+      </table>
+    </div>

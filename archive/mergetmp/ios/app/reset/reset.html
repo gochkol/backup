@@ -1,0 +1,36 @@
+<ion-content>
+<form action="#" method="POST" name="resetForm" novalidate>
+<div class="row" style="padding-top:30px">
+  <div class="col col-10"></div>
+  <div class="col">
+      <img class="full-image" src="content/images/upDownLogo.png">
+  </div>
+  <div class="col col-10"></div>
+</div>
+<div class="row" style="padding-top:20px">
+  <div class="col">
+      <div class="list card">
+        <label class="item item-input" ng-class="{ 'has-error' : resetForm.email.$invalid && !resetForm.email.$pristine && resetForm.email.$touched}">
+          <input type="email" name="email" maxlength="75" id="email" ng-model="reset.email" placeholder="Enter Email Address" required></input>
+		  <p ng-show="resetForm.email.$invalid && !resetForm.email.$pristine && resetForm.email.$touched" name="email" id="email" class="help-block">Enter a valid email.</p>
+        </label>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col text-center">
+     <button type="submit" ng-disabled="reset.emailSent; resetForm.$invalid" class="button button-calm" ng-click="reset.reset()">Reset</button>
+  </div>
+</div>
+<div class="row item item-text-wrap ng-show" ng-show="reset.emailSent" style="padding-top:20px">
+  <p>You should be receiving an email shortly with instructions. Thank you for your patience.</p>
+</div>
+</form>
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="login">
+    <i class="icon calm ion-android-arrow-back"></i>
+    Back
+  </a>
+</div>

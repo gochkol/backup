@@ -1,0 +1,266 @@
+<ion-view view-title=" <i class='icon ion-gear-a'></i> Settings" hide-back-button="true">
+
+<form action="#" method="POST" name="userForm" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="list">
+  <div class="item item-calm item-icon-right item-divider">
+    Fitness
+    <i class="icon ion-ios-information button button-small button-icon" style="color:white" ng-click="settings.isCollapsedInfo = !settings.isCollapsedInfo"></i>  
+  </div>
+  <div class="ng-show list" ng-show="!settings.isCollapsedInfo">
+    <div class="card item item-text-wrap">
+        <b class="help-text">Fitness Goal.</b> This affects your workout parameters including number of reps and sets, rest duration, and amount of weight.
+        <ul style="font-size:12px">
+          <li><b>-Building endurance.</b> Choose this option to build muscular and cardiovascular endurance. Very high reps, Low weight, Medium sets.</li>
+          <li><b>-Gaining strength.</b> Choose this option to develop size and raw strength. Low reps, Very high weight, Very high sets.</li>
+          <li><b>-General fitness.</b> The appropriate option for most people. Medium reps, Medium weight, Low sets.</li>
+          <li><b>-General muscle.</b> Choose this option to build muscle. Medium reps, High weight, High sets.</li>
+          <li><b>-Losing weight.</b> Choose this option to lose weight. High reps, Medium weight, Medium sets.</li>
+        </ul>
+	</div>
+    <div class="card item item-text-wrap">
+        <b class="help-text">Favorite Exercise Type.</b> This affects settings for creating custom workouts.
+        <ul style="font-size:12px">
+          <li><b>-Cardio.</b> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+          <li><b>-Core.</b> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel. Or trim that beer belly.</li>
+          <li><b>-Cross.</b> Workout that engages multiple muscles and gets the heart rate up. Combo of strength and cardio, really.</li>
+          <li><b>-Strength.</b> Workout focused on isolating and working specific muscles to build strength and make you Hulk without the anger issues.</li>
+          <li><b>-Stretch.</b> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+          <!--<li><b>-Yoga.</b> A workout that soothes both the body and mind.</li>-->
+        </ul>
+    </div>
+	<div class="card item item-text-wrap">
+        <b class="help-text">Fitness Experience.</b> This affects which exercises are in your workouts.
+        <ul style="font-size:12px">
+          <li><b>-Beginner.</b> You are not very experienced with exercising or haven't exercised regularly in a long time. You consider yourself to be in poor or average shape.</li>
+          <li><b>-Intermediate.</b> You exercise with moderate frequency and could find your way around a gym. You consider yourself to be in decent shape.</li>
+          <li><b>-Advanced.</b> You are no stranger to the gym and you exercise regularly. You consider yourself to be in pretty good or excellent shape.</li>
+        </ul>
+    </div>
+	<div class="card item item-text-wrap">
+        <b class="help-text">Intensity.</b> This controls the default difficulty of your workouts.
+        <ul style="font-size:12px">
+          <li><b>-1-3.</b> Light workouts. Barely break a sweat. Appropriate for beginners.</li>
+          <li><b>-4-6.</b> Average workouts. Appropriate for most people.</li>
+          <li><b>-7-8.</b> Hard workouts. You will definitely be sweating.</li>
+          <li><b>-9-10.</b> Extreme workouts. You will be pushed to exhaustion or near failure with each set.</li>
+        </ul>
+	</div>
+  </div>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+    <div class="input-label">
+      Fitness Goal
+    </div>
+    <select ng-options="obj.id as obj.name for obj in settings.usages | orderBy:'name'" ng-model="settings.user.usage_id" name="fitnessGoal" required></select>
+    <p ng-show="userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched" class="help-block">A fitness goal is required.</p> 
+  </label>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessGoal.$invalid && !userForm.fitnessGoal.$pristine && userForm.fitnessGoal.$touched}">
+    <div class="input-label">
+      Favorite Exercise Type
+    </div>
+    <select ng-options="obj.id as obj.name for obj in settings.categories | filter:'!Yoga' | filter:'!All' | orderBy:'name'" ng-model="settings.user['category_id']" name="category" required></select>
+    <p ng-show="userForm.category.$invalid && !userForm.category.$pristine && userForm.category.$touched" class="help-block">A fitness category is required.</p>
+  </label>
+  <label class="item item-input item-select" ng-class="{ 'has-error' : userForm.fitnessExp.$invalid}">
+    <div class="input-label">
+      Fitness Experience
+    </div>
+    <select ng-options="exp.value as exp.name for exp in settings.experiences" ng-model="settings.user.experience" name="fitnessExp" required>
+    </select>
+    <p ng-show="userForm.fitnessExp.$invalid && !userForm.fitnessExp.$pristine && userForm.fitnessExp.$touched" class="help-block">Fitness experience is required.</p>
+  </label>
+  <label class="item range range-calm">
+    <div class="input-label" style="padding-left:5px;padding-right:0px">
+      Intensity
+    </div>
+    <input type="range" name="intensity" style="padding-left:0px;padding-right:0px;margin-left:-20px" ng-model="settings.user.intensity" max="10" min="1" required>
+    </br>
+    <h2>{{settings.user.intensity}}</h2>
+  </label>
+  <div class="item item-calm item-divider">
+    Basic
+  </div>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched}">
+    <span class="input-label">First Name</span>
+    <input ng-model="settings.user.first_name" ng-keydown="settings.blur($event)" type="text" maxlength="20" name="firstName" id="firstName" placeholder="First Name" required></input>
+    <p ng-show="userForm.firstName.$invalid && !userForm.firstName.$pristine && userForm.firstName.$touched" class="help-block">First name is required.</p>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched}">
+    <span class="input-label">Last Name</span>
+    <input ng-model="settings.user.last_name" ng-keydown="settings.blur($event)" type="text" maxlength="20" name="lastName" id="lastName" placeholder="Last Name" required></input>
+    <p ng-show="userForm.lastName.$invalid && !userForm.lastName.$pristine && userForm.lastName.$touched" class="help-block">Last name is required.</p>
+  </label>
+  <div class="item item-calm item-divider">
+    Location
+  </div>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Country
+    </div>
+    <select ng-model="settings.user['country_code']" ng-options="country['country_code'] as country['name'] for country in settings.constants.COUNTRIES" 
+      ng-init="settings.user['country_code'] = settings.user['country_code'] || settings.constants.COUNTRIES[0]['country_code']" type="text" name="country" id="country" placeholder="Country">
+    </select>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">City</span>
+    <input ng-model="settings.user.city" ng-keydown="settings.blur($event)" type="text" maxlength="25" name="city" id="city" placeholder="City"></input>
+  </label>
+</div>
+
+<div class="item item-calm item-divider">
+  Profile Picture
+</div>
+
+<div class="list card">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <img ng-src="{{settings.user.avatar_url}}" ng-hide="!settings.user.avatar_url" class="img-thumbnail img-responsive center-block ng-hide" style="height:200px; width:200px;">
+            <img src="content/images/profile_image.jpg" ng-show="!settings.user.avatar_url" class="img-thumbnail img-responsive center-block ng-show" style="height:200px; width:200px;">
+            <input type="file" ngf-select ng-model="settings.avatarFile" name="file" accept="image/*" ngf-max-size="4MB">
+            <!--<button type="button" ng-disabled="!settings.avatarFile" ng-click="settings.uploadAvatar()">Submit</button>-->
+		    <h6 class="help-text">Choose a file and then tap save. It make take a few minutes for your profile picture update to take effect.</h6>
+        </div>
+    </div>
+</div>
+<!--
+<div class="item item-divider">
+  Profile Picture
+</div>
+<div class="list card">
+
+  <label class="text-center item item-button">
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+    <button class="button button-calm" ng-click="settings.pickFile()">Add new image</button>
+  </label>
+  <div class="item item-text-wrap">
+    To upload a profile picture, visit www.updowntech.com/app . Upload from app is coming soon!
+  </div>
+  <div class="item item-image">
+    <img ng-src="{{settings.user.avatar_url}}" ng-hide="!settings.user.avatar_url" class="item-thumbnail ng-hide">
+    <img src="content/images/profile_image.jpg" ng-show="!settings.user.avatar_url" class="item-thumbnail ng-show">
+  </div>
+</div>
+-->
+
+<!--
+<div class="list">
+  <div class="item item-divider">
+    Units
+  </div>
+  <label class="item item-radio">
+    <input ng-model="settings.user.settings.units" type="radio" name="optionsUnits" id="optionStandard" value="standard" required>
+    <div class="radio-content">
+      <div class="item-content">
+        Standard
+      </div>
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+  <label class="item item-radio">
+    <input ng-model="settings.user.settings.units" type="radio" name="optionsUnits" id="optionMetric" value="metric" required>
+    <div class="item-content">
+      Metric
+    </div>
+    <i class="radio-icon ion-checkmark"></i>
+  </label>
+</div>
+-->
+
+<div class="list">
+  <div class="item item-calm item-icon-right item-divider">
+    Workout Modifiers
+    <i class="icon ion-ios-information button button-small button-icon" style="color:white" ng-click="settings.isCollapsedInfoTwo = !settings.isCollapsedInfoTwo"></i>  
+  </div>
+  <div class="ng-show list" ng-show="!settings.isCollapsedInfoTwo">
+    <div class="card item item-text-wrap">
+        <span class="help-text">Set Time and Rest Time Modifiers multiply your set and rest times by the given value when Updown generates a workout for you. For example, if you generally need more rest, you would increase the rest time multiplier to a value greater than 1. If you complete reps very fast, you would lower the set time modifier. Default values are 1 for both. </span>
+	</div>
+  </div>
+  <label class="item range range-calm">
+    <div class="input-label item-text-wrap" style="padding-left:5px;padding-right:0px">
+      Set Time Modifier
+    </div>
+    <input type="range" name="setModifier" style="padding-left:0px;padding-right:0px;margin-left:-20px" ng-model="settings.setModifier.value" max="2.0" min="0.5" step="0.1" required></input>
+    </br>
+    <h2>{{settings.setModifier.value}}</h2>
+  </label>
+  <label class="item range range-calm">
+    <div class="input-label item-text-wrap" style="padding-left:5px;padding-right:0px">
+      Rest Time Modifier
+    </div>
+    <input type="range" name="restModifier" style="padding-left:0px;padding-right:0px;margin-left:-20px" ng-model="settings.restModifier.value" max="2.0" min="0.0" step="0.1" required></input>
+    </br>
+    <h2>{{settings.restModifier.value}}</h2>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-calm item-divider">
+    Other Settings
+  </div>
+  <ion-toggle toggle-class="toggle-calm" ng-model="settings.user.settings.sound" ng-value="true" required>Sound Effects</ion-toggle>
+  
+  <ion-toggle toggle-class="toggle-calm" ng-model="settings.user.settings.automatic" ng-value="true" required>Workout Auto-play</ion-toggle>
+</div>
+
+<div class="item item-calm item-divider item-icon-right" ng-click="settings.isCollapsedPW = !settings.isCollapsedPW">
+  Password Change
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="item item-text-wrap ng-show" ng-show="!settings.isCollapsedPW">
+  <h4 class="help-text text-center">
+	Enter your current password and new password. Tap save to make the change.
+  </h4>
+</div>
+<div class="list ng-show" ng-show="!settings.isCollapsedPW">
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.current_password.$invalid && !userForm.current_password.$pristine && userForm.current_password.$touched}">
+    <span class="input-label">Current Password</span>
+    <input ng-model="settings.user.current_password" ng-keydown="settings.blur($event)" type="password" maxlength="25" ng-minlength="5" name="current_password" id="current_password" placeholder="Current Password"></input>
+    <p ng-show="userForm.current_password.$invalid && !userForm.current_password.$pristine && userForm.current_password.$touched" class="help-block">Current password is at least 5 characters.</p>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$touched}">
+    <span class="input-label">New Password</span>
+    <input ng-model="settings.user.password" ng-minlength="5" ng-keydown="settings.blur($event)" type="password" maxlength="25" name="password" id="password" placeholder="New Password"></input>
+    <p ng-show="userForm.password.$invalid && !userForm.password.$pristine && userForm.password.$touched" class="help-block">Password must be at least 5 characters.</p>
+  </label>
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.password_confirmation.$invalid && !userForm.password_confirmation.$pristine && userForm.password_confirmation.$touched}">
+    <span class="input-label">Confirm New Password</span>
+    <input ng-model="settings.user.password_confirmation" ng-keydown="settings.blur($event)" ng-minlength="5" type="password" maxlength="25" name="password_confirmation" id="password_confirmation" placeholder="New Password Confirmation"></input>
+    <p ng-show="userForm.password_confirmation.$invalid && !userForm.password_confirmation.$pristine && userForm.password_confirmation.$touched" class="help-block">Password confirmation is required.</p>
+  </label>
+</div>
+
+<div class="item item-calm item-divider item-icon-right" ng-click="settings.isCollapsedEmail = !settings.isCollapsedEmail">
+  Email Change
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="item item-text-wrap ng-show" ng-show="!settings.isCollapsedEmail">
+  <h4 class="help-text text-center">
+	Enter your new email address. Tap save to make the change.
+  </h4>
+</div>
+<div class="list ng-show" ng-show="!settings.isCollapsedEmail">
+  <label class="item item-input item-floating-label" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine && userForm.email.$touched}">
+    <span class="input-label">New Email</span>
+    <input ng-model="settings.user.email" ng-keydown="settings.blur($event)" type="email" maxlength="75" name="email" id="email" placeholder="Email"></input>
+    <p ng-show="userForm.email.$invalid && !userForm.email.$pristine && userForm.email.$touched" class="help-block">Enter a valid email.</p>
+  </label>
+</div>
+<br>
+<div class="item">
+  <h4><a class="calm" target="_blank" href="javascript:void window.open('http://www.updowntech.com/terms','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=350')">Terms of Service</a></h4>
+  <h4><a class="calm" target="_blank" href="javascript:void window.open('http://www.updowntech.com/privacy','','scrollbars=yes,menubar=yes,resizable=yes,left=30,top=30,height=500,width=350')">Privacy Policy</a></h4>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="settings.submit()" ng-disabled="userForm.$invalid">
+    <i class="icon calm ion-ios-checkmark"></i>
+    Save
+  </a>
+</div>
+</form>
+
+</ion-view>

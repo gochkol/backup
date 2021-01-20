@@ -1,0 +1,18 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedRequests = !friends.isCollapsedRequests">
+  <i class="icon ion-person-add"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  Friend Requests ({{friends.friendRequestsForMe.length}})
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedRequests || friends.friendRequestsForMe.length>0">
+  <ion-scroll zooming="true" direction="y" style="max-height:250px">
+    <div class="list">
+      <div ng-repeat="friendRequest in friends.friendRequestsForMe | orderBy:'first_name'" class="item item-avatar-left item-button-right">
+        <img ng-click="friends.showFriend(friendRequest.user)" ng-src="{{friendRequest.user.avatar_url}}" ng-hide="!friendRequest.user.avatar_url">
+        <img ng-click="friends.showFriend(friendRequest.user)" ng-hide="friendRequest.user.avatar_url" ng-src="content/images/profile_image.jpg">
+        <h2 class="calm" ng-click="friends.showFriend(friendRequest.user)">{{friendRequest.user.first_name}} {{friendRequest.user.last_name}}</h2>
+        <i class="icon button button-icon ion-ios-plus-outline" style="margin-right:70px" ng-click="friends.acceptFriendRequest(friendRequest)"></i> 
+        <i class="icon button button-icon ion-backspace-outline" ng-click="friends.declineFriendRequest(friendRequest)"></i>   
+      </div>
+    </div>
+  </ion-scroll>
+</div>

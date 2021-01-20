@@ -1,0 +1,91 @@
+<form name="WorkoutPreview" novalidate>
+
+<ion-content scroll="true" overflow-scroll="false" style="margin-bottom:65px">
+
+<div class="list">
+  <div class="row row-center text-center item">
+    <div class="col">
+      <span><i class="icon ion-ios-stopwatch-outline"></i> {{workout.helpers.timeString(workout.workout.total_time_seconds)}}</span>
+    </div>
+    <div class="col">
+      <span><i class="icon ion-ios-list-outline"></i> {{workout.workout.blocks.length}}</span>
+    </div>
+    <div class="col">
+      <h5><i id="favoriteIcon" class="icon button button-icon ion-star" ng-class="{'assertive':workout.favorites.length == workout.favoritesMax}" ng-disabled="workout.isReadonly || workout.favorites.length == workout.favoritesMax || workout.workout.blocks.length == 0" ng-click="workout.createFavorite()"></i></h5>
+      <h5 class="help-text" ng-if="workout.favorites.length == workout.favoritesMax">You've reached max favorites!</h5>
+    </div>
+  </div>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Name:</span>
+    <input type="text" ng-keydown="workout.blur($event)" style="margin-left:-45px" onfocus="this.value='';" maxlength="45" ng-model="workout.workout.name">
+  </label>
+  <div class="row row-center item">
+    <div class="col" style="padding-left:10px">
+      <span class="ng-hide text-center" ng-hide="workout.workout.equipment_ids.length > 0">No Equipment Needed</span>
+      <span class="ng-show text-center" ng-show="workout.workout.equipment_ids.length > 0">Equipment Needed:</span>
+      <ul style="padding-bottom:10px">
+        <li ng-repeat="equipment_id in workout.workout.equipment_ids"><h4 style="padding-left:15px">- {{workout.globalDataSet.equipmentLookup[equipment_id].name}}</h4></li>
+      </ul>
+    </div>
+    <div class="col text-center">
+      <i style="padding-top:10px;padding-bottom:10px" class="icon button button-icon balanced ion-play large" ng-disabled="WorkoutPreview.$invalid || workout.workout['blocks'].length < 1" ng-click="workout.start();window.plugins.insomnia.keepAwake();"></i>
+    </div>
+  </div>
+</div>
+
+<ion-list show-reorder="workout.showReorder">
+  <ion-item class="card" style="padding:0px;margin-right:-10px;margin-left:-10px" ng-repeat="block in workout.workout.blocks track by $index" ng-init="$blockIndex = $index">
+    <div class="row item item-calm" ng-click="workout.showBlockInfo($blockIndex)" ng-disabled="workout.showReorder" style="margin-top:-20px;margin-left:-10px;z-index:20;position:absolute">
+      <div class="col item-text-wrap button-clear">
+        <h3 style="color:white;margin-left:10px">{{;$blockIndex + 1}}. {{block.exercise.name}}</h3>
+      </div>
+      <div class="col col-10">
+        <i style="font-size:22px;color:white;margin-left:-5px" class="icon ion-edit"></i>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:30px">
+    </div>
+    <div class="row item-image">
+      <div class="col">
+        <img ng-src="{{block.animationInfo.images[block.animationInfo.current]}}" style="height:200px"></img>
+      </div>
+    </div>
+    <div class="row row-center ng-show" style="margin-top:0px;margin-bottom:-15px" ng-hide="block.showInfo" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">     
+      <div class="col col-10 item-text-wrap" style="padding-left:0px;padding-right:0px;margin-left:-5px">
+        <p style="font-size:11px"><b>Set {{$blockSetIndex + 1}}</b></p>
+      </div>
+      <div class="col calm-light-bg row-center" ng-repeat="name in blockSet.criterion | criterionDisplay as results" ng-class="{ 'has-error' : WorkoutPreview.workoutParams.$invalid && !WorkoutPreview.workoutParams.$pristine && WorkoutPreview.workoutParams.$touched}">
+        <label class="item-input-wrapper calm-light-bg input-sm row-center" style="padding-left:2px;padding-right:2px">
+          <span style="margin-right:3px" class="input-label input-label-sm">{{workout.criterionDisplayInfo[name].name}}</span>
+          <input class="item-input-wrapper form-control calm-light-bg" style="padding-right:0px;padding-left:4px;margin-left:-3px" ng-model="blockSet.criterion[name]" name="workoutParams" ng-model-options="{ updateOn: 'change' }" ng-change="workout.updateBlockSet(name, blockSet, block)" type='number' pattern="[0-9]*" min='0' max='999' onfocus="this.value='';" required>
+          <i class="icon ion-edit ng-show" ng-show="!workout.showReorder" style="font-size:12px;color:black;padding-right:2px;padding-left:0px;margin-left:-12px"></i>
+        </label>
+      </div>
+      <div class="col col-10 ng-hide" style="margin-right:-30px" ng-hide="$blockSetIndex == block.block_sets.length-1 && $last || workout.showReorder">
+      </div>
+      <div class="col col-10 ng-show text-center" style="margin-right:-30px;padding-top:0px;padding-bottom:0px;margin-top:-1px;margin-bottom:-1px" ng-show="$blockSetIndex == block.block_sets.length-1 && $last && !workout.showReorder">
+        <i ng-show="$blockSetIndex == block.block_sets.length-1 && $last && block.block_sets.length > 1" style="font-size:22px" ng-click="workout.deleteLastSet($blockIndex)" class="ng-show assertive button button-icon ion-android-cancel"></i>
+      </div>
+    </div>
+    <div class="row ng-show" style="margin-bottom:-20px;padding-top:10px" ng-hide="workout.showReorder || block.showInfo">
+      <div class="col text-center">
+        <i ng-click="workout.duplicateLastSet($blockIndex)" style="font-size:22px" class="balanced button button-icon ion-plus-circled"></i>
+      </div>
+    </div>
+    <ion-reorder-button class="ion-arrow-move" on-reorder="workout.moveItem($blockIndex, $fromIndex, $toIndex)"></ion-reorder-button>
+  </ion-item>
+</ion-list>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="workout.simple =! workout.simple">
+    <i class="icon calm ion-settings"></i>
+    Advanced Edit
+  </a>
+  <a class="tab-item" ng-disabled="WorkoutPreview.$invalid || workout.workout['blocks'].length < 1" ng-click="workout.start();window.plugins.insomnia.keepAwake();">
+    <i class="icon balanced ion-play"></i>
+    Start
+  </a>
+</div>
+</form>

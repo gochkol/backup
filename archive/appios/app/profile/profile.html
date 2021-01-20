@@ -1,0 +1,214 @@
+<ion-view view-title="<i class='icon ion-person'></i> Profile">
+
+<ion-content style="margin-bottom:65px;">
+
+<div class="row" style="margin-top:15px">
+  <div class="col">
+    <div class="list card">
+      <div class="item item-text-wrap item-thumbnail-left">
+        <img ng-src="{{profile.user.avatar_url}}" ng-hide="!profile.user.avatar_url" class="ng-hide item-thumbnail">
+        <h2 style="font-size:22px">{{profile.user.first_name}} {{profile.user.last_name}}</h2>
+        <h2 class="ng-hide" ng-hide="!profile.user['current_status']">"{{profile.user['current_status']}}"</h2>
+        <p class="ng-hide" ng-hide="!profile.user['current_status']">Last updated {{profile.formatTime(profile.user['current_status_at'])}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form action="#" method="POST" name="bodyStats" novalidate>
+<div class="item item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedBody = !profile.isCollapsedBody">
+  <i class="icon ion-ios-body"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+  Body Stats
+</div>
+<div class="row ng-show" ng-show="profile.isCollapsedBody" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedBody">
+  <div class="row item row-center" ng-repeat-start="bodyStat in profile.bodyStats track by $index" ng-class="{ 'has-error' : bodyStats.{{bodyStat['value']}}.$invalid && !bodyStats.{{bodyStat['value']}}.$pristine && bodyStats.{{bodyStat['value']}}.$touched}">
+    <div class="col col-66">
+      {{profile.nameFilter(bodyStat['value'])}} {{profile.unitsFilter(bodyStat['value'])}} :
+    </div>
+    <div class="col">
+      <input type="number" name="{{profile.nameFilter(bodyStat['value'])}}" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="bodyStat['data']" ng-change="profile.updateBS($index)" ng-init="profile.updateBS($index)" ng-readonly="bodyStat['value'] ==='bmi'">
+    </div>
+    <div class="col text-right">
+      <i class="icon button button-icon ion-android-arrow-dropdown" ng-click="profile.displayBodyStatHistory(bodyStat)"></i>
+    </div>
+  </div>
+  <div class="row item-image ng-hide" ng-repeat-end ng-hide="profile['hiding'][bodyStat['value']]">
+    <div class="col">
+      <h5 class="ng-hide text-center" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length > 1">We need more data to graph!</h5>
+      <linechart class="ng-hide" style="height:250px" height="250" ng-hide="profile['hiding'][bodyStat['value']] || profile.bodyStatHistory.length <= 1" data="profile.bodyStatHistory" options="profile.options" mode=""></linechart>
+    </div>
+  </div>
+  <div class="row" style="padding-top:10px">
+    <div class="col col-66">
+      Measurements {{profile.user.settings.units === "standard" ? "(inches)" : "(cm)"}} :
+      <select ng-options="o.body_part.name for o in profile.bodyPartStats" ng-model="selectedBodyPart" ng-init="selectedBodyPart= profile.bodyPartStats[0]" name="bodymeasurement"></select>
+    </div>
+    <div class="col">
+      <input type="number" name="measurement" onfocus="if(this.value == '0') {this.value = ''; }" min="0" max="600" ng-model="selectedBodyPart.data"></input>
+    </div>
+    <div class="col text-right">
+     <i class="icon button button-icon ion-android-arrow-dropdown" ng-click="profile.displayBodyPartStatHistory(selectedBodyPart)"></i>
+    </div>
+  </div>
+  <div class="row ng-hide" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']]">
+    <h5 class="ng-hide text-center" ng-hide="profile['hiding'][selectedBodyPart['body_part_id']] || profile.bodyPartStatHistory.length > 1">We need more data to graph!</h5>
+    <linechart class="ng-hide" style="height:250px" height="250" ng-hide="profile['hiding'][selectedBoydPart['body_part_id']] || profile.bodyPartStatHistory.length <= 1" data="profile.bodyPartStatHistory" options="profile.options" mode=""></linechart>
+  </div>
+  <div class="row">
+    <div class="col col-50 col-offset-25 text-center">
+      <i ng-disabled="bodyStats.$invalid" ng-click="profile.submitStats()" class="button button-icon icon ion-ios-checkmark"> Update</i>
+    </div>
+  </div>
+</div>
+</form>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedStats = !profile.isCollapsedStats">
+  Workout Stats
+  <i class="icon ion-stats-bars"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+</div>
+<div class="row ng-show" ng-show="profile.isCollapsedStats" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedStats">
+  <div class="row item">
+    <div class="col col-75">
+      Total Workout Time
+    </div>
+    <div class="col">
+      {{profile.userHistory.total_workout_time ? profile.timeString(profile.userHistory.total_workout_time) : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Calories Burned
+    </div>
+    <div class="col">
+      {{profile.userHistory.total_calories_burned ? profile.userHistory.total_calories_burned : 0}}
+    </div>
+  </div>
+  <div class="row item">
+    <div class="col col-75">
+      Total Workouts Completed
+    </div>
+    <div class="col">
+      {{profile.userHistory.workouts ? profile.userHistory.workouts.length : 0}}
+    </div>
+  </div>
+  <div class="row item" ng-repeat="count in profile.userHistory.total_count_of_workouts">
+    <div class="col col-50 col-offset-25">
+      {{count['category_name']}}
+    </div>
+    <div class="col">
+      {{count.count ? count.count : 0}}
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedWorkouts = !profile.isCollapsedWorkouts">
+  <i class="icon ion-arrow-graph-up-right"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+  Finished Updown Workouts
+</div>
+<div class="row ng-show" ng-show="profile.isCollapsedWorkouts" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedWorkouts"> 
+  <div class="row header">
+    <div class="col col-25">
+      <b>Completed</b>
+    </div>
+    <div class="col">
+      <b>Name</b>
+    </div>
+    <div class="col col-20">
+      <b>Cals / Time</b>
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate-start ="workout in profile.userHistory['workouts'] | itemsPerPage: 10" pagination-id="workouts">
+    <div class="col col-25" style="font-size:10px">
+      {{profile.formatTime(workout['finished_at']) || " "}}
+    </div>
+    <div class="col">
+      {{workout['name'] ? workout['name'] : "Workout"}}
+    </div>
+    <div class="col col-20">
+      {{workout['calories_burned']}} / {{profile.timeString(workout['total_time'])}}
+    </div>
+    <div class="col col-10 text-right" style="cursor:pointer" ng-click="profile.expander(profile.userHistory['workouts'], workout); profile.getWorkout(workout.id)">
+      <i style="font-size:30px" class="icon button button-icon ion-android-arrow-dropdown"></i>
+    </div>
+  </div>
+  <div class="card row calm-light-bg ng-hide" ng-hide="profile.workoutHidden[workout.id]" dir-paginate-end ng-repeat="block in profile.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+    <div class="col">
+      <div class="row header item-text-wrap">
+        <h4>{{profile.exerciseLookup[block.block_sets[0].exercise_id].name}} </h4>
+      </div>
+      <div class="row" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+        <div class="col" data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+          {{profile.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="row">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="workouts" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="item item-icon-right item-icon-left item-divider" ng-click="profile.isCollapsedLogs = !profile.isCollapsedLogs">
+  <i class="icon ion-ios-list-outline"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon"></i>
+  Quick Log Activities
+</div>
+<div class="row ng-show" ng-show="profile.isCollapsedLogs" style="padding-bottom:15px">
+</div>
+<div class="list ng-show" ng-show="!profile.isCollapsedLogs"> 
+  <div class="row header">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col col-50">
+      <b>Activity</b>
+    </div>
+    <div class="col">
+      <b>Time</b>
+    </div>
+  </div>
+  <div class="row" dir-paginate="quick in profile.userHistory['quick_logs'] | itemsPerPage: 10" pagination-id="quicklogs">
+    <div class="col col-33" style="font-size:10px">
+      {{profile.formatTime(quick['finished_at']) || " "}}
+    </div>
+    <div class="col col-50">
+      {{quick['activity_name']}}
+    </div>
+    <div class="col">
+      {{profile.timeString(quick['duration']*60) || 0}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="quicklogs" max-size="5"></dir-pagination-controls>
+    </div>
+  </div>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="nav.quickLog">
+    <i class="icon calm ion-clipboard"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="nav.quickWorkout">
+    <i class="icon calm ion-android-walk"></i>
+    Updown Workout
+  </a>
+</div>
+
+</ion-view>

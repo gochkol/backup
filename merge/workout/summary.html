@@ -1,0 +1,59 @@
+<ion-view view-title="Review Workout" hide-back-button="true" can-swipe-back="false">
+  
+<form name="WorkoutReview" novalidate>
+<ion-scroll direction="y" style="right: 0;top: 0;bottom:65px;left: 0;height:90vh;max-height:100vh">
+
+<div class="list" style="margin-top:35px">
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Name:</span>
+    <input type="text" ng-keydown="workout.blur($event)" style="margin-left:-45px" maxlength="45" ng-model="workout.workout.name">
+  </label>
+</div>
+
+<div class="list card" style="margin-top:-10px">
+  <h3 class="text-center">Workout workout</h3>
+  <div class="row row-center">
+    <div class="col">
+      <h5 style="padding-left:10px">Time: {{workout.helpers.timeString(workout.workout.total_time_seconds)}}</h5>
+      <h5 style="padding-left:10px">Calories Burned: {{workout.workout.calories_burned | number:0}}</h5>
+    </div>
+    <div class="col text-center">
+      <i class="icon button button-icon balanced ion-checkmark large" ng-disabled="WorkoutReview.$invalid || workout.workout['blocks'].length < 1" ng-click="workout.finish();window.plugins.insomnia.allowSleepAgain();"> Finish</i>
+    </div>
+  </div>
+</div>
+
+<ion-list style="margin-top:-15px">
+  <ion-item class="card" style="padding:0px;margin-right:-10px;margin-left:-10px" ng-repeat="block in workout.workout.blocks track by $index" ng-init="$blockIndex = $index">
+    <div class="row item item-calm">
+      <div class="col item-text-wrap">
+        <h3 style="color:white;margin-left:10px">{{$blockIndex + 1}}. {{block.exercise.name}}</h3>
+      </div>
+    </div>
+    <div class="row row-center calm-light-bg" style="padding-left:15px;padding-right:15px;padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:-10px" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+      <div class="col" ng-repeat="name in blockSet.criterion | criterionDisplay as results" ng-class="{ 'has-error' : WorkoutReview.workoutParams.$invalid}">
+        <label class="item-input-wrapper calm-light-bg input-sm" style="padding-left:3px; padding-right:0px">
+          <span style="padding-right:0px" class="input-label input-label-sm">{{workout.criterionDisplayInfo[name].name}}</span>
+          <input class="item-input-wrapper form-control calm-light-bg" style="padding-right:0px;padding-left:4px;margin-left:-3px" ng-model="blockSet.criterion[name]" ng-readonly="name==='rest'" name="workoutParams" id="workoutParams" ng-model-options="{ updateOn: 'change' }" ng-change="workout.updateBlockSet(name, blockSet, block)" type='number' pattern="[0-9]*" min='0' max='999' required>
+          <i class="icon ion-edit" style="font-size:12px;color:grey;padding-right:2px;padding-left:0px"></i>
+        </label>
+      </div>
+    </div>
+  </ion-item>
+</ion-list>
+
+</ion-scroll>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-disabled="workout.isReadonly || workout.favorites.length == workout.favoritesMax" ng-click="workout.createFavorite()">
+    <i id="favoriteIconworkout" ng-class="{'assertive':workout.favorites.length == workout.favoritesMax}" class="icon ion-star"></i>
+    Favorite
+  </a>
+  <a class="tab-item" ng-disabled="WorkoutReview.$invalid || workout.workout['blocks'].length < 1" ng-click="workout.finish();window.plugins.insomnia.allowSleepAgain();">
+    <i class="icon balanced ion-checkmark"></i>
+    Finish
+  </a>
+</div>
+</form>
+
+</ion-view>

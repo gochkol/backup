@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "7554079405",
+    "firebase_url": "https://updowntech-1055.firebaseio.com",
+    "project_id": "updowntech-1055",
+    "storage_bucket": "updowntech-1055.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7554079405:android:64b5fe89af7da468",
+        "android_client_info": {
+          "package_name": "com.ionicframework.updownapp567681"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7554079405-j5avngnle6njr3dj7rvd0p26q5v5bd3v.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "7554079405-dfm75dtdjau5ulvlsg9id27n3balke2a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr1_t_58kDP5F-AoUmW_c0vhtJFOg-ABc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

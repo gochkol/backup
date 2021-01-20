@@ -1,0 +1,27 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedFriends = !friend.isCollapsedFriends">
+  <i class="icon ion-ios-people"></i>
+  {{friend.friend.first_name}}'s Friends:
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="ng-show" ng-show="!friend.isCollapsedFriends">
+<div class="item item-text-wrap">
+  <h4 class="help-text text-center">
+	Tap the + button to add a friend.
+  </h4>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:300px">
+<div class="list">
+  <div ng-repeat="f in friend.friend.friends | orderBy:'first_name'" class="item item-avatar-left item-button-right item-icon-right">
+    <img ng-src="{{f.avatar_url}}" ng-hide="!f.avatar_url">
+	<img ng-hide="f.avatar_url" ng-src="content/images/profile_image.jpg">
+    {{f.first_name}} {{f.last_name}}
+    <i class="icon button button-icon ion-ios-plus-outline ng-hide" ng-hide="f.hide" ng-init="f.hide = friend.friendsCheck(f)" ng-click="friend.createFriendRequest(f); f.hide=true"></i>
+	<i class="icon balanced ion-checkmark" ng-hide="!f.hide"></i>
+  </div>
+</div>
+</ion-scroll>
+</div>
+
+<div class="item text-right">
+  <i style="cursor:pointer" class="button button-icon ion-backspace-outline assertive" ng-really-message="Are you sure you want to remove this friend?" ng-really-click="friend.deleteFriend(friend.friend)"><span style="font-size:14px"> Remove Friend</span></i>
+</div>

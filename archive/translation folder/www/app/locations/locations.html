@@ -1,0 +1,63 @@
+<ion-view view-title="Locations">
+
+<ion-content>
+
+<ion-list ng-repeat="location in locations.locations track by $index" ng-init="locationIndex = $index">
+  <div class="item item-divider" ng-click="locations.hiding.location[locationIndex].hidden = !locations.hiding.location[locationIndex].hidden">
+    {{location.name}}
+  </div>
+  <div class="row ng-hide" ng-hide="locations.hiding.location[locationIndex].hidden">
+    <div class="col">
+      Name:
+    </div>
+    <div class="col">
+      <input ng-change="evalName()" maxlength="20" ng-model="location.name" type="text" placeholder="Location Name">
+    </div>
+  </div>
+  <div class="row ng-hide" ng-hide="locations.hiding.location[locationIndex].hidden">
+    <div class="col">
+      Space:
+    </div>
+    <div class="col">
+      <select ng-options="obj.id as obj.name for obj in locations.spaces" ng-model="location.space_id" name="spaceHome"></select>
+    </div>
+  </div>
+  <div ng-repeat="equipmentGroup in locations.equipmentGroups track by $index" ng-init="groupIndex = $index" class="list list-inset ng-hide" ng-hide="locations.hiding.location[locationIndex].hidden">
+    <div class="item item-divider" ng-click="locations.hiding.location[locationIndex].hider[groupIndex] = !locations.hiding.location[locationIndex].hider[groupIndex]">
+      {{equipmentGroup.name}}
+    </div>
+    </br>
+    <ul class="list">
+      <li ng-repeat="equipment in equipmentGroup.equipments" class="item item-checkbox item-avatar ng-hide" ng-hide="locations.hiding.location[locationIndex].hider[groupIndex]">
+        <label class="checkbox">
+        <input type="checkbox" ng-checked="location.equipment_ids.indexOf(equipment.id) > -1" ng-click="locations.toggleEquipment(location, equipment.id)" value="{{equipment.id}}" class="ng-hide" ng-hide="locations.hiding.location[locationIndex].hider[groupIndex]">
+        </label>
+        {{equipment.name}}
+        <img ng-src="content/images/{{equipment.name}}.png" class="ng-hide" ng-hide="equipment_hide" width="100px">
+      </li>
+    </ul>
+  </div>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ui-sref="quickLog">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ui-sref="quickWorkout">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item" ng-click="locations.customWorkout()">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+  <a class="tab-item" ui-sref="favorites">
+    <i class="icon ion-gear-a"></i>
+    Favorites
+  </a>
+</div>
+
+</ion-view>

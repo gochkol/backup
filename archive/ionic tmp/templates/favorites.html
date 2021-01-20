@@ -1,0 +1,69 @@
+<ion-view view-title="Favorites">
+  
+
+<ion-content>
+  
+
+<!--FAKE CONTENT-->
+
+<div class="row">
+  <div class="col-80 col col-center">
+    <a>Super Chest Workout</a>
+  </div>
+  <div class="col text-right">
+    <i class="button button-icon icon-small assertive ion-android-cancel" ng-really-message="Really, you want to delete me?" ng-really-click="delete_favorite(favorite.id)"></i>
+  </div>
+</div>
+<div class="row">
+  <div class="col-80 col col-center">
+    <a>Super Chest Workout</a>
+  </div>
+  <div class="col text-right">
+    <i class="button button-icon icon-small assertive ion-android-cancel" ng-really-message="Really, you want to delete me?" ng-really-click="delete_favorite(favorite.id)"></i>
+  </div>
+</div>
+<div class="row" style="margin-bottom:55px">
+  <div class="col-80 col col-center">
+    <a>Cardio Workout</a>
+  </div>
+  <div class="col text-right">
+    <i class="button button-icon icon-small assertive ion-android-cancel" ng-really-message="Really, you want to delete me?" ng-really-click="delete_favorite(favorite.id)"></i>
+  </div>
+</div>
+
+
+
+<!--REAL CONTENT-->
+
+<!--
+
+<div class="row" ng-repeat="favorite in favorites">
+  <div class="col-80 col col-center">
+    <a>ng-click="do_workout(favorite.id)">{{favorite.name}}</a>
+  </div>
+  <div class="col text-right">
+    <i class="button button-icon icon-small assertive ion-android-cancel" ng-really-message="Really, you want to delete me?" ng-really-click="delete_favorite(favorite.id)"></i>
+  </div>
+</div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

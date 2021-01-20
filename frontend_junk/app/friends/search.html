@@ -1,0 +1,22 @@
+    <form>
+      <h4 class="orangetext">Find Friends</h4>
+      <div style="max-height:200px;overflow:auto;">
+        <table class="table well">
+          <tr class="form-group">
+            <td colspan=2><input ng-model="friends.searchText" tooltip="Search for friends by name or email address." tooltip-trigger="focus" tooltip-placement="top" type="text" maxlength="30" class="form-control" placeholder="Friend search"></td>
+	    <td><button type="submit" class="btn btn-primary btn-sm img-responsive pull-right" ng-click="friends.search()">Search</button></td>
+          </tr>
+          <tr ng-repeat="friend in friends.friendsFromSearch | orderBy:'last_name'">
+            <td>
+			  <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+			  <img ng-src="content/images/profile_image.jpg" ng-hide="friend.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+			</td>
+            <td>{{friend.first_name}} {{friend.last_name}}</td>
+            <td><a class="btn btn-sm pull-right" ng-disabled="friends.isReadonlytwo" ng-click="friends.createFriendRequest(friend)"><img src="content/images/green_plus.png" class="img-responsive" style="width:18px;height:18px"></a></td>
+          </tr>
+          <tr ng-show="friends.searchText != '' && friends.friendsFromSearch.length == 0 && friends.searchSubmitted">
+            <td colspan=3>No Search Results Found</td>
+          </tr>
+        </table>
+      </div>
+    </form>

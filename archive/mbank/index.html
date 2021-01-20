@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="AppController">
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+
+  <link rel="stylesheet" href="css/theme.css"></link>
+
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+  <script type="text/javascript" src="js/app.module.js"></script>
+  <script type="text/javascript" src="js/app.config.js"></script>
+  <script type="text/javascript" src="js/app.controller.js"></script>
+  <script type="text/javascript" src="js/app.run.js"></script>
+  <script type="text/javascript" src="js/component/stateConfigProvider.js"></script>
+  <script type="text/javascript" src="js/component/dataFactory.js"></script>
+
+</head>
+<body>
+  <div class="header" ui-view="header"></div>
+  <div class="body" ui-view="body"></div>
+  <div class="graph" ui-view="graph"></div>
+  <div class="footer" ui-view="footer"></div>
+</body>
+</html>

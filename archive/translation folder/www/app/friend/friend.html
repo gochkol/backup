@@ -1,0 +1,141 @@
+<div class="row padfornav">
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <img class="sideimage hidden-sm hidden-xs" src="content/images/sideimage.png">
+  </div>
+  <div class="col-md-8 text-center">
+    <h2 class="textheader" style="display:inline">{{friend.friend['first_name']}} {{friend.friend['last_name']}}</h2>
+  </div>
+</div>
+
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <img ng-src="{{friend.friend.avatar_url}}"  ng-hide="!friend.friend.avatar_url" class="img-circle img-thumbnail img-responsive center-block ng-hide" style="height:150px; width:150px;">
+        <img src="content/images/profile_image.jpg" ng-show="!friend.friend.avatar_url" class="img-circle img-thumbnail img-responsive center-block ng-show" style="height:150px; width:150px;">
+      </div>
+      <div class="col-md-4 text-center">
+        <br>
+        <h4 class="ng-hide" ng-hide="!friend.friend.current_status">"{{friend.friend['current_status']}}"</h4>
+        <h5 class="ng-hide" ng-hide="!friend.friend.current_status">Last updated {{friend.friend['current_status_at']}}</h5>
+        <h4 class="ng-show" ng-show="!friend.friend.current_status">No status update.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row toppad">
+  <div class="col-md-4 col-md-offset-2">
+    <h4 class="orangetext">Updown Workout Stats:</h4>
+    <table class="table table-striped table-condensed well">
+      <tr>
+        <td colspan="10"><b>Total Workout Time</b></td>
+        <td colspan="2">{{friend.timeString(friend.friend['total_workout_time'])}}</td>
+      </tr>
+      <tr>
+        <td colspan="10"><b>Total Calories Burned</b></td>
+        <td colspan="2">{{friend.friend['total_calories_burned']}}</td>
+      </tr>
+      <tr>
+        <td colspan="10"><b>Total Workouts Completed</b></td>
+        <td colspan="2">{{friend.friend['total_workouts']}}</td>
+      </tr>
+      <tr ng-repeat="count in friend.friend['total_count_of_workouts']">
+        <td colspan="2"></td>
+        <td colspan="8"><b>{{count['category_name']}}</b></td>
+        <td colspan="2">{{count['count']}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!--Quick Logs-->
+
+  <div class="col-md-4">
+    <h4 class="orangetext">Quick Log Activities:</h4>
+    <div style="max-height:300px;overflow:auto;">
+      <table class="table table-striped table-condensed well">
+        <tr>
+          <td><b>Finished At</b></td>
+          <td><b>Activity</b></td>
+          <td><b>Total Time</b></td>
+        </tr>
+
+        <tr dir-paginate="quick in friend.friend.quick_logs | itemsPerPage: 10" pagination-id="quicklogs">
+          <td>{{quick.finished_at || " "}}</td>
+          <td>{{quick.activity_name}}</td>
+          <td>{{friend.timeString(quick.duration*60)}}</td>
+        </tr>
+      </table>
+    </div>
+    <dir-pagination-controls pagination-id="quicklogs" class="text-center img-responsive center-block" max-size="5"></dir-pagination-controls>
+  </div>
+
+</div>
+
+<!--Finished Workouts-->
+
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2">
+    <h4 class="orangetext">Finished Updown Workouts:</h4>
+    <div style="max-height:400px;overflow:auto;">
+      <table class="table table-condensed well">
+        <tr>
+          <td><b>Finished At</b></td>
+          <td><b>Name</b></td>
+          <td><b>Calories</b></td>
+          <td><b>Total Time</b></td>
+        </tr>
+
+        <tr dir-paginate-start ="workout in friend.friend.workouts | itemsPerPage: 10" pagination-id="workouts">
+          <td>{{workout.finished_at || " "}}</td>
+          <td><a style="cursor:pointer" ng-click="friend.closeAll(friend.workout_history, workout); friend.showFriendWorkout(workout)">{{workout.name ? workout.name : "Workout"}}</a></td>
+          <td>{{workout.calories_burned}}</td>
+          <td>{{friend.timeString(workout.total_time)}}</td>
+          <td><button type="button" class="btn btn-warning btn-sm img-responsive center-block" ng-disabled="friend.isReadonly" ng-click="friend.favorite(workout); friend.isReadonly = ! friend.isReadonly">Favorite <img src="content/images/starIcon.png" style="height:22px; margin-bottom:3px;"></button></td>
+        </tr>
+        <tr dir-paginate-end>
+          <td colspan="4">
+            <table class='table table-condensed well' ng-repeat="block in workout[workout.id].blocks track by $index" ng-init="$blockIndex = $index">
+              <tr class="warning"><td colspan="3"><h4 style="display:inline">{{workout[workout.id].exercises[block.block_sets[0].exercise_id].exercise.name}} </h4></tr>
+ 	            <tr class='form-group-sm text-center form-inline warning' ng-repeat="set in block.block_sets track by $index" ng-init="$setIndex = $index">
+                <td data-ng-repeat="(criteria, value) in set.criterion | modeFilter as results track by $index">
+                  <p>{{friend.modeDisplay(criterion[$blockIndex][$setIndex][$index])}} {{values[$blockIndex][$setIndex][$index]}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <dir-pagination-controls pagination-id="workouts" class="text-center img-responsive center-block" max-size="5"></dir-pagination-controls>
+
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-12 col-md-offset-2">
+    <h4 class="orangetext">{{friend.friend['first_name']}}'s Friends:</h4>
+
+    <div style="max-height:500px;overflow:auto;">
+      <table class="table table-condensed">
+	      <tr ng-repeat="friend in friend.friend.friends | orderBy:friend.predicate:friend.reverse">
+	        <td> <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="img-circle pull-left ng-hide" style="height:35px; width:35px;"></td>
+          <td>{{friend.first_name}} {{friend.last_name}}</td>
+          <td><button type="button" class="btn btn-success ng-hide btn-sm img-responsive pull-right" ng-hide="friend.friendsCheck(friend)" ng-disabled="friend.isReadonlyTwo || friend.friendsCheck(friend)" ng-click="friend.add_friend(friend); friend.isReadonlyTwo =! friend.isReadonlyTwo">Add friend</button></td>
+	      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2 topbottompad">
+		<div class="row">
+		  <div class="col-sm-12 col-xs-12">
+		    <button type="submit" id="backtohome" class="btn btn-warning btn-lg img-responsive center-block" ui-sref='home'>Home</button>
+		  </div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<div class="item item-calm item-icon-right item-divider item-text-wrap" ng-click="company.isCollapsedFocus = !company.isCollapsedFocus">
+  {{company.departments[company.focused].name}} Department Leaderboard ({{company.departments[company.focused].members.length}} <span class="ng-hide" ng-hide="company.departments[company.focused].members.length == 1">members)</span><span class="ng-hide" ng-hide="company.departments[company.focused].members.length > 1">member)</span>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="ng-show" ng-show="!company.isCollapsedFocus">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.department.daily}}" ng-click="company.orderDepartment('daily_points')"><span style="padding-bottom:8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.department.monthly}}" ng-click="company.orderDepartment('monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{company.ordering.department.total}}" ng-click="company.orderDepartment('total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <div class="item row row-center" ng-repeat="member in company.departments[company.focused].members | orderBy:company.departmentPredicate:company.departmentReverse track by $index">
+    <div class="col item-text-wrap">
+      <h2>{{member.first_name}} {{member.last_name}}</h2>
+	</div>
+	<div class="col text-center">
+      <h1 class="ng-hide" ng-hide="company.departmentShowDay">{{member.daily_points}}</h1>
+      <h1 class="ng-hide" ng-hide="company.departmentShowMonth">{{member.monthly_points}}</h1>
+      <h1 class="ng-hide" ng-hide="company.departmentShowTotal">{{member.total_points}}</h1>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>

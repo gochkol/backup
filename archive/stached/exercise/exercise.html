@@ -1,0 +1,142 @@
+
+  <div class="row whitebg">
+        
+    <div class="col-md-8 col-md-offset-2">
+      <div class="row text-center">
+        <div class="col-xs-6 col-sm-6">
+          <span id='calorie_counter'></span><h4 class="text-center whitetext"><img src="images/fireIcon.png" style="height:20px; margin-bottom:4px">Cals: {{calories_burned | number : 1}}</h4>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+          <span id='timer'></span><h4 class="text-center {{color}}"><img ng-src="images/stopwatch{{set_or_rest}}.png" style="height:20px; margin-bottom:4px">{{set_or_rest}}: {{current_time_string}}</h4>
+        </div>
+      </div>
+    </div>
+      
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h1>{{message}}</h1>
+      <h5 id="workout" class="ng-hide" ng-hide="cur_or_next"><b class="{{color}}">Current exercise:</b><b> {{workout_name}}/{{sets.length}}</b></h5>
+      <h5 id="workout" class="ng-show" ng-show="cur_or_next"><b class="bluetext">Next exercise:</b> <b>{{next_exercise}}</b></h5>
+     
+      <h5>Progress: <b>Exercise {{workout.current_block + 1}}/{{workout.blocks.length}}</b></h5>
+        <progressbar value="cur_progress"><span style="color:white; white-space:nowrap;">{{cur_progress | number : 0}}%</span></progressbar>
+    </div>
+    
+  </div>
+    
+  <div class="row whitebg">
+    <div class="col-md-8 col-md-offset-2 bottompad">
+      <div class="row">
+        <div class="col-sm-{{center_button}} col-xs-{{center_button}}">
+          <button type="button" id="pause" class="btn {{button.color}} btn-lg img-responsive center-block" ng-click="s_p_click()">{{button.text}} {{set_or_rest}}</button>
+        </div>
+        <div class="col-sm-6 col-xs-6 ng-hide" ng-hide="cycler_stopped">
+          <button type="button" id="finishworkout" class="btn btn-warning btn-lg img-responsive center-block" ng-click="complete()">Done Early</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Row Repeat--> 
+  <div class="row whitebg">  
+    <div class="col-md-8 col-md-offset-2">
+      <table class="table table-condensed">
+        <tr class="{{setBG[$setIndex]}} form-group-sm form-inline" ng-repeat='set in sets track by $index' ng-init="$setIndex = $index">
+          <td class="form-inline" ng-repeat="(criteria, value) in set.exercise.criterion | ex_modeFilter as results track by $index">
+            <label class="small">{{modeDisplay(criterion[workout.current_block][$setIndex][$index])}}</label>
+            <input type="number" class="form-control field-bg" ng-model="values[workout.current_block][$setIndex][$index]">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!--Row End-->
+    
+  <!--Image-->
+        
+    <div class="row whitebg">
+      <div collapse="isCollapsed">
+      <div class="col-md-8 col-md-offset-2 well">
+        <img ng-src="{{photo.url}}" ng-init="photo_start()" class="img-responsive center-block" style="width: 300px;"></img>
+      </div>
+      </div>
+    </div>
+    <div class="row whitebg">
+    <button style="margin-bottom:10px" class="btn center-block img-responsive btn-default" ng-click="isCollapsed = !isCollapsed">Image</button>
+    </div>
+  <!--Image End-->
+
+  <div class="row whitebg">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <span id='total_timer'></span><h4 class="text-center whitetext"><img src="images/stopwatchWhite.png" style="height:20px; margin-bottom:4px">Total time: {{total_time_string}}</h4>
+    </div>
+
+
+<!--  Table for exercise history
+
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h4>History:</h4>
+    </div>
+
+
+    <div class="col-md-8 col-md-offset-2 whitebg text-center" style="max-height:100px;overflow:auto;">
+     
+		<table class="table table-condensed">
+			<tr class="form-group-sm form-inline">
+			<td>Chest workout 5/4/15</td>
+			</tr>
+			<tr class="form-group-sm text-center form-inline">
+				<td class="form-inline"><label class="small">Reps:</label>
+					<input type="number" class="form-control field-bg" value="10" readonly></td>
+				<td class="form-inline"><label class="small">Wt (lbs):</label>
+					<input type="number" class="form-control field-bg" value="100" readonly></td>
+			</tr>
+			<tr class="form-group-sm text-center form-inline">
+				<td class="form-inline"><label class="small">Reps:</label>
+					<input type="number" class="form-control field-bg" value="10" readonly></td>
+				<td class="form-inline"><label class="small">Wt (lbs):</label>
+					<input type="number" class="form-control field-bg" value="110" readonly></td>
+			</tr>
+			<tr class="form-group-sm form-inline">
+			<td>Chest workout 3/2/15</td>
+			</tr>
+			<tr class="form-group-sm text-center form-inline">
+				<td class="form-inline"><label class="small">Reps:</label>
+					<input type="number" class="form-control field-bg" value="9" readonly></td>
+				<td class="form-inline"><label class="small">Wt (lbs):</label>
+					<input type="number" class="form-control field-bg" value="85" readonly></td>
+			</tr>
+			<tr class="form-group-sm text-center form-inline">
+				<td class="form-inline"><label class="small">Reps:</label>
+					<input type="number" class="form-control field-bg" value="10" readonly></td>
+				<td class="form-inline"><label class="small">Wt (lbs):</label>
+					<input type="number" class="form-control field-bg" value="95" readonly></td>
+			</tr>
+			<tr class="form-group-sm form-inline">
+			<td>Deluxe Full Body workout 2/25/15</td>
+			</tr>
+			<tr class="form-group-sm text-center form-inline">
+				<td class="form-inline"><label class="small">Time (s):</label>
+					<input type="number" class="form-control field-bg" value="60" readonly></td>
+				<td class="form-inline"></td>
+			</tr>
+		</table>
+    </div>
+
+-->
+
+  </div>
+    
+  
+    
+    <div class="row whitebg">
+        <div class="col-md-8 col-md-offset-2 topbottompad">
+            <div class="row">
+                <div class="col-sm-{{center_button}} col-xs-{{center_button}}">
+          	  <button type="button" id="pause" class="btn {{button.color}} btn-lg img-responsive center-block" ng-click="s_p_click()">{{button.text}} {{set_or_rest}}</button>
+        	</div>
+        	<div class="col-sm-6 col-xs-6 ng-hide" ng-hide="cycler_stopped">
+          	  <button type="button" id="finishworkout" class="btn btn-warning btn-lg img-responsive center-block" ng-click="complete()">Done Early</button>
+                </div>
+            </div>
+        </div>
+    </div>

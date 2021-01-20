@@ -1,0 +1,177 @@
+<ion-view view-title="Generate Workout">
+
+<form action="#" method="POST" name="quickWorkout" novalidate>
+<ion-content style="margin-bottom:65px;">
+
+<div class="list">
+<!--
+  <div class="item item-positive item-divider item-icon-right">
+    <span style="padding-left:35px">Select Type</span>
+	<i class="icon ion-ios-pricetag-outline" style="left:8px;"></i>
+    <i class="icon ion-ios-information button button-small button-icon" ng-click="quick.isCollapsedInfo = !quick.isCollapsedInfo"></i> 
+  </div>
+  <div class="ng-show list" ng-show="!quick.isCollapsedInfo">
+    <div class="card item item-text-wrap">
+        <b class="help-text">Workout Type</b>
+        <ul style="font-size:12px">
+		  <li><b>-Cross.</b> Active workout that engages muscles and gets the heart rate up. Combo of strength and cardio.</li>
+		  <li><b>-Strength.</b> Workout focused on isolating and working specific muscles to build strength.</li>
+          <li><b>-Stretch.</b> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+		  <li><b>-Core.</b> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel.</li>
+          <li><b>-Cardio.</b> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+        </ul>
+	</div>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Pick the type of workout.
+    </h4>
+  </div>
+-->
+  <label class="item item-radio" ng-repeat="category in quick.categories | filter:'!Yoga' | filter:'!All' track by category.id" style="padding:0px;margin:0px">
+    <input type="radio" style="padding:0px;margin:0px" ng-model="quick.request.categoryId" name="exercise_type" ng-change="quick.toggleCategory(category.id)" value="{{category.id}}">
+    <div class="radio-content" style="padding:0px;margin:0px">
+	  <div class="item-content" style="padding:0px;margin:0px">
+	    <h1 class="small" style="color:#FF7F00;position:absolute;margin-left:5%">{{category.name}}</h1>
+        <img style="width:100%;height:17vmax;margin-bottom:-10px;padding:0px" ng-src="content/images/{{category.name | lowercase}}.png">
+      </div>
+    </div>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-positive item-divider item-icon-left item-button-right">
+    Select Location
+    <i class="icon ion-map"></i>
+	<button class="button button-calm button-small ng-hide" ui-sref="nav.locations" style="font-size:10px;height:30px;" ng-hide="quick.isGuest">Update</button>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Pick the location where you are working out.
+    </h4>
+  </div>
+  <label class="item item-radio" ng-repeat="location in quick.locations track by location.id">
+    <input type="radio" ng-model="quick.request.locationId" name="location" value="{{location.id}}">
+    <div class="radio-content">
+      <div class="item-content">
+        <span style="margin-left:10px">{{location.name}}</span>
+      </div>
+    </div>
+  </label>
+</div>
+
+<div class="list">
+  <div class="item item-positive item-divider item-icon-left">
+    Select Length
+    <i class="icon ion-clock"></i>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Pick the duration of the workout.
+    </h4>
+  </div>
+  <label class="item item-input" ng-class="{ 'has-error' : quickWorkout.workoutTime.$invalid}">
+    <span class="input-label">Time (mins):</span>
+    <input type="number" class="text-right" onfocus="if(this.value == '20') {this.value = ''; }" name="workoutTime" min="5" max="180" ng-keydown="quick.blur()" step="5" id="inputworkouttime" ng-model="quick.request.workoutTime" required>
+  </label>
+  <div ng-show="quickWorkout.workoutTime.$invalid" class="item item-text-wrap help-block">Time is required. Minimum: 5 minutes. Maximum: 180 minutes. If left blank, Updown will use 20 minutes.</div>
+</div>
+
+<div class="list">
+  <div class="item item-positive item-divider item-icon-left">
+    Select Intensity
+    <i class="icon ion-arrow-graph-up-right"></i>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">  
+      Choose an intensity.
+    </h4>  	
+  </div>
+  <div class="item padding-horizontal range range-calm">
+    <input type="range" class="range-calm" id="intensity" name="intensity" ng-model="quick.request.intensity" max="10" min="1">
+    <span class="padding-horizontal">{{quick.request.intensity}}</span>
+  </div>
+</div>
+
+<div class="list ng-show" ng-show="quick.show.l0">
+  <div class="item item-positive item-divider item-icon-left">
+    Select Body Areas
+    <i class="icon ion-ios-body"></i>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Choose body areas to exercise.
+    </h4>  	
+  </div>
+  <div class="ng-show row" ng-show="quick.show.l0" ng-repeat="body_area_l0 in quick.bodyAreasNested track by body_area_l0.id">
+    <div class="col">
+      <label class="checkbox checkbox-calm">
+        <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l0.id) > -1" name="body_areas_l0" value="{{body_area_l0.id}}" ng-click="quick.toggleBodyArea(body_area_l0, 0)">
+      </label>
+      <span>{{body_area_l0.name}}</span>
+      <div class="row">
+        <div class="ng-show col" ng-show="quick.show.l1" ng-repeat="body_area_l1 in body_area_l0.children track by body_area_l1.id">
+          <label class="checkbox checkbox-calm">
+            <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l1.id) > -1" name="body_areas_l1" value="{{body_area_l1.id}}" ng-click="quick.toggleBodyArea(body_area_l1, 1)">
+          </label>
+          <span>{{body_area_l1.name}}</span>
+          <div class="ng-show item item-checkbox" ng-show="quick.show.l2" ng-repeat="body_area_l2 in body_area_l1.children track by body_area_l2.id">
+            <label class="checkbox checkbox-calm">
+              <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l2.id) > -1" name="body_areas_l2" value="{{body_area_l2.id}}" ng-click="quick.toggleBodyArea(body_area_l2, 2)">
+            </label>
+            <span>{{body_area_l2.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="row" class="ng-show" ng-show="quick.show.l2">
+  <div style="col" class="ng-show" ng-show="quick.show.l0">
+    <img src="content/images/model_B.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 200px;
+      z-index: 10;">
+    <img ng-repeat="b_a_id in quick.request.bodyAreaIds | BAnotAvailable_B" ng-src="content/images/{{b_a_id}}_B.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:10%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 200px;
+      z-index: 10;">
+  </div>
+  <div style="col" class="ng-show" ng-show="quick.show.l0">
+    <img src="content/images/model_F.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 200px;
+      z-index: 10;">
+    <img ng-repeat="b_a_id in quick.request.bodyAreaIds | BAnotAvailable_F" ng-src="content/images/{{b_a_id}}_F.png" style="position: absolute;
+      margin-top:0%;
+      margin-left:60%;
+      margin-bottom:55px;
+      width: 30%;
+      height: 200px;
+      z-index: 10;">
+  </div>
+</div>
+
+</ion-content>
+
+<div class="tabs tabs-color-positive tabs-icon-top">
+  <a class="tab-item" ng-disabled="quickWorkout.$invalid || quick.baMissing" ng-click="quick.submitRequest()">
+    <i class="icon positive ion-play"></i>
+    Build Workout
+  </a>
+</div>
+
+</form>
+
+
+</ion-view>

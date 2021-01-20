@@ -1,0 +1,43 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Generate Workout</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+  <div class="ng-show" ng-show="quick.step == 1" ui-view="type"></div>
+  
+  <div class="ng-show" ng-show="quick.step == 2" ui-view="locale"></div>
+  
+  <div class="ng-show" ng-show="quick.step == 2" ui-view="time"></div>
+  
+  <div class="ng-show" ng-show="quick.step == 2" ui-view="intensity"></div>
+  
+  <div class="ng-show" ng-show="quick.step == 1" ui-view="bodyAreas"></div>
+
+
+  </div>
+</div>
+
+<div class="row" style="padding-bottom:60px">
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container">
+    <div class="col-xs-6 ng-show" ng-show="quick.step != 1">
+	  <button class="btn btn-primary btn-lg navbar-btn img-responsive pull-right ng-show" ng-click="quick.step = quick.step-1">Back</button>
+	</div>
+	<div class="col-xs-6 ng-show" ng-show="quick.step != 1">
+	  <button class="btn btn-primary btn-lg navbar-btn img-responsive pull-left" ng-disabled="quickWorkout.$invalid || quick.baMissing" ng-click="quick.submitRequest()">
+	   <span class="ng-show" ng-show="quick.step == 1">Next</span>
+       <span class="ng-show" ng-show="quick.step == 2">Build Workout</span> 
+	 </button>
+	</div>
+	<button class="btn btn-primary btn-lg navbar-btn img-responsive center-block ng-hide" ng-hide="quick.step != 1" ng-disabled="quickWorkout.$invalid || quick.baMissing" ng-click="quick.submitRequest()">
+	   <span class="ng-show" ng-show="quick.step == 1">Next</span>
+       <span class="ng-show" ng-show="quick.step == 2">Build Workout</span> 
+	 </button>
+  </div>
+</nav>

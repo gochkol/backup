@@ -1,0 +1,18 @@
+<h3>Account Overview</h3>
+
+<label>Name:</label>
+<p>{{account.user.first_name}} {{account.user.last_name}}</p>
+<label>Email:</label>
+<p>{{account.user.email}}</p>
+<label class="ng-show" ng-show="account.user.facebook_email != ''">Connected Facebook Email:</label>
+<p>{{account.user.facebook_email}}</p>
+<button class="btn btn-primary ng-hide" ng-hide="account.user.auth_flags === 'facebook' || account.user.auth_flags === 'updown'" ng-click="account.unlinkFacebook()">Unlink Facebook</button>
+<button class="btn btn-primary ng-hide" ng-hide="account.user.auth_flags === 'facebook' || account.user.auth_flags === 'facebook_and_updown'" ui-sref="linkFacebook">Link Facebook</button>
+<br>
+<label style="padding-top:10px">Date of Birth:</label>
+<p>{{account.user.birthdate}}</p>
+<label>Country:</label>
+<p>{{account.user.country_code}}</p>
+<label>City:</label>
+<p>{{account.user.city}}</p>
+<button class="btn img-responsive btn-primary" ng-click="account.showEditBasic =! account.showEditBasic">Update Info</button>

@@ -1,0 +1,23 @@
+<div class="item item-calm item-icon-left item-divider">
+  <i class="icon ion-android-search"></i>
+  Find Friends
+</div>
+<div class="list">
+  <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input ng-model="friends.searchText" type="text" maxlength="30" ng-keydown="friends.blur($event)" class="item-input" placeholder="Friend search"></td>
+    </label>
+    <button class="button button-small button-calm" ng-click="friends.search()">Search</button>
+  </div>
+  <ion-scroll zooming="true" direction="y" style="max-height:200px">
+  <a ng-repeat="friend in friends.friendsFromSearch | orderBy:'last_name'" class="item item-avatar-left item-button-right">
+    <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url">
+    <img ng-hide="friend.avatar_url" ng-src="content/images/profile_image.jpg">
+    <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+    <i class="icon button button-icon ion-ios-plus-outline ng-hide" ng-disabled="friends.isReadonlytwo" ng-hide="friends.isReadonlytwo" ng-click="friends.createFriendRequest(friend); friends.isReadonlytwo != friends.isReadyonlytwo"></i>
+  </a>
+  </ion-scroll>
+  <div class="item" ng-show="friends.searchText != '' && friends.friendsFromSearch.length == 0 && friends.searchSubmitted">
+    No search results found.
+  </div>
+</div>

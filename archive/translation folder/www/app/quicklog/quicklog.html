@@ -1,0 +1,47 @@
+<ion-view view-title="Quick Log">
+  
+
+<ion-content>
+
+
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Activity
+    </div>
+    <select ng-options="obj.id as obj.name for obj in quickLog.quickActivities" ng-model="quickLog.request.quickActivityId" name="activities" required>
+    </select>
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Time (mins):</span>
+    <input class="text-right" style="padding-right:20px" type="number" name="time" ng-model="quickLog.request.duration" min="5" max="180" step="5" id="time" required>
+  </label>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Description (optional):</span>
+    <input "quickLog.request.description" type="text" maxlength="60" name="desc" id="desc" placeholder="Description"></input>
+  </label>
+  <label class="item item-input item-text-wrap">
+    <span class="input-label">Cals Burned (optional)</span>
+    <input class="text-right" style="padding-right:20px" ng-model="quickLog.request.caloriesBurned" type="number" max="2000" min="0" tooltip-placement="top" name="calories_burned" id="calories_burned"></input>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Occurred:
+    </div>
+    <select ng-options="obj.number as obj.name for obj in quickLog.daysAgo" ng-model="quickLog.request.numberOfDaysAgo" name="quickLogTime" required>
+    </select>
+  </label>
+</div>
+
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline" ng-disabled="quickForm.$invalid || isReadonly" ng-click="quickLog.createQuickLog(); isReadonly =! isReadonly"></i>
+    Log Activity
+  </a>
+</div>
+
+</ion-view>

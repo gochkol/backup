@@ -1,0 +1,31 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedFriends = !friends.isCollapsedFriends">
+  <i class="icon ion-ios-people"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Friends ({{friends.friends.length - 1}})
+</div>
+<div class="item item-text-wrap ng-show" ng-show="friends.friends.length - 1 == 0">
+  <h4 class="help-text">
+	Add friends to view and share workouts and activity. Also, compete with them for points and levels!
+  </h4>
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedFriends">
+<div class="item item-text-wrap ng-hide" ng-hide="friends.friends.length < 2">
+  <h4 class="help-text text-center">
+	Tap on a friend to see more details.
+  </h4>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:300px">
+<div class="list">
+  <div ng-repeat="friend in friends.friends | filter:friends.invert | orderBy:'first_name'" class="item row row-center ng-hide" ng-hide="friend.id == friends.user.id" ng-click="friends.showFriend(friend)">
+    <div class="col col-25 item-avatar">
+	  <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url">
+	  <img ng-hide="friend.avatar_url" ng-src="content/images/profile_image.jpg">
+	</div>
+	<div class="col">
+      <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+	  <h3>Lv {{friends.level[friend.level_id].value}} {{friends.level[friend.level_id].name}}</h3>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>

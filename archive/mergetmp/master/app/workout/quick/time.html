@@ -1,0 +1,17 @@
+<div class="list">
+  <div class="item item-calm item-divider item-icon-left">
+    Select Length
+    <i class="icon ion-clock"></i>
+  </div>
+  <div class="ng-show item item-text-wrap" ng-show="quick.userHistory.workouts.length === 0">
+    <h4 class="help-text">
+      Pick the duration of the workout.
+    </h4>
+  </div>
+  <label class="item item-input" ng-class="{ 'has-error' : quickWorkout.workoutTime.$invalid}">
+    <span class="input-label">Time (mins):</span>
+    <input type="number" class="text-right" onfocus="if(this.value == '20') {this.value = ''; }" name="workoutTime" min="5" max="180" ng-keydown="quick.blur()" step="5" id="inputworkouttime" ng-model="quick.request.workoutTime" required>
+  </label>
+  <div ng-show="quickWorkout.workoutTime.$invalid" class="item item-text-wrap help-block">Time is required. Minimum: 5 minutes. Maximum: 180 minutes. If left blank, Updown will use 20 minutes.</div>
+</div>
+

@@ -1,0 +1,36 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedLeaders = !friends.isCollapsedLeaders">
+  <i class="icon ion-connection-bars"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  Friends Leaderboard
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedLeaders">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm {{friends.ordering.daily}}" ng-click="friends.order('current_daily_points')"><span style="margin-top:-8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{friends.ordering.monthly}}" ng-click="friends.order('current_monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{friends.ordering.total}}" ng-click="friends.order('current_total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:300px">
+<div class="item item-text-wrap ng-show" ng-show="friends.friends.length - 1 == 0">
+    <h4 class="help-text">
+	  Add friends to compete with them on the leaderboard!
+    </h4>
+  </div>
+<div class="list">
+  <div ng-repeat="friend in friends.friends | orderBy:friends.predicate:friends.reverse" class="item row row-center" ng-class="{'item-energized':friend.id == friends.user.id}" ng-click="friends.personClick(friend)">
+    <div class="col col-25 item-avatar">
+      <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url">
+	  <img ng-hide="friend.avatar_url" ng-src="content/images/profile_image.jpg">
+	</div>
+	<div class="col item-text-wrap">
+      <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+	  <h3>Lv {{friends.level[friend.level_id].value}} {{friends.level[friend.level_id].name}}</h3>
+	</div>
+	<div class="col col-33 text-center">
+      <h1 class="ng-hide" ng-hide="friends.showDay">{{friend.current_daily_points}}</h1>
+      <h1 class="ng-hide" ng-hide="friends.showMonth">{{friend.current_monthly_points}}</h1>
+      <h1 class="ng-hide" ng-hide="friends.showTotal">{{friend.current_total_points}}</h1>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>

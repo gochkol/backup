@@ -1,0 +1,26 @@
+TODO: 
+  - clean up github repository
+
+
+STANDARDS
+  - File Structure
+    - Directory
+      - state
+        - template.html
+        - controller.js
+      - shared templates
+      - shared components
+        - names spaced
+   - single component per js file
+
+ - Patterns
+    - IIFE (Y020)
+    - Getter and Setter syntax for module naming (Y021 - Y023)
+    - Named vs Anonymous Functions (Y024)
+    - understand controllerAs
+    - Bindable Members Up Top (Y033)
+    - use controllerAs name of singular state for each stateproivder
+    - 
+
+
+

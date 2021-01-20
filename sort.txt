@@ -1,0 +1,241 @@
+1)Sort By Body Area (Group exercises by body area)
+2)Sort By Weight (Sort groups from highest weight to lowest weight)
+3)Sort By Reps (Sort weight groups from highest reps to lowest reps)
+4)Sort by Duration (Sort remaining groups by highest Duration to lowest Duration)
+4)Interlace Related Areas (Mix related body to interlace)
+
+Body areas
+1) Full Body
+2) Upper Body
+3) Back
+4) Shoulders
+5) Biceps
+6) Core
+7) Obliques
+8) Lower Back
+9) Chest
+10)Triceps
+11)Forearms
+12)Lower Body
+13)Calves
+14)Quads
+15)Glutes
+16)Hamstrings
+17)Abductors(Hips)
+18)Adductors(Groin)
+
+Body Area Order Precedence (* + ^ Interlace these two)
+1)  Full Body
+2)  Upper Body
+3*) Chest
+4^) Back
+5)  Shoulders
+6*)  Biceps
+7^)  Triceps
+8)  Forearms
+9)  Lower Back
+10) Lower Body
+11*)Quads
+12^)Hamsrings
+13) Glutes
+14*)Adductors(groin)
+15^)Abductors(hips)
+16) Calves
+17*)Obliques
+18^)Core
+
+
+Example 1:
+Step 0
+Blocks: [0: {exercise.primary_body_area_id: 1,
+             exercise.primary_body_area_value: "full_body",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 12,
+                                       rest:102,
+                                       time:138}},
+         1: {exercise.primary_body_area_id: 2,
+             exercise.primary_body_area_value: "upper_body",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 14,
+                                       rest:102,
+                                       time:130}},
+         2: {exercise.primary_body_area_id: 6,
+             exercise.primary_body_area_value: "core",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 6,
+                                       reps: 9,
+                                       rest: 102,
+                                       time: 156}},
+         3: {exercise.primary_body_area_id: 7,
+             exercise.primary_body_area_value: "obliques",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 10,
+                                       rest: 102,
+                                       time: 132}},
+         4: {exercise.primary_body_area_id: 8,
+             exercise.primary_body_area_value: "lower_back",
+             block_sets[0].criterion: {mode: "duration",
+                                       rate: 1,
+                                       rest:102,
+                                       time:142}},
+         5: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 19,
+                                       rest:102,
+                                       time:140}},
+         6: {exercise.primary_body_area_id: 10,
+             exercise.primary_body_area_value: "triceps",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 8,
+                                       rest:102,
+                                       time:118}},
+         7: {exercise.primary_body_area_id: 12,
+             exercise.primary_body_area_value: "lower_body",
+             block_sets[0].criterion: {mode: "duration",
+                                       rate: 1,
+                                       rest:102,
+                                       time:142}},
+         8: {exercise.primary_body_area_id: 14,
+             exercise.primary_body_area_value: "quads",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 6,
+                                       reps: 10,
+                                       rest:102,
+                                       time:162}},
+         9: {exercise.primary_body_area_id: 15,
+             exercise.primary_body_area_value: "butt",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 6,
+                                       reps: 5,
+                                       rest:102,
+                                       time:132}},
+         10: {exercise.primary_body_area_id: 1,
+             exercise.primary_body_area_value: "full_body",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 12,
+                                       rest:102,
+                                       time:138}},
+         11: {exercise.primary_body_area_id: 2,
+             exercise.primary_body_area_value: "upper_body",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 14,
+                                       rest:102,
+                                       time:128}},
+         12: {exercise.primary_body_area_id: 6,
+             exercise.primary_body_area_value: "core",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 10,
+                                       rest:102,
+                                       time:132}}]
+
+Step 1
+Blocks: [0, 10, 1, 11, 5, 6, 4, 7, 8, 9, 3, 2, 12]
+
+Step 2
+Blocks: [0, 10, 1, 11, 5, 6, 4, 7, 8, 9, 3, 12, 2]
+
+DONE!
+
+Example 2:
+Step 0
+Blocks: [0: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 19,
+                                       rest:102,
+                                       time:140}},
+         1: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 19,
+                                       rest:102,
+                                       time:140}},
+         2: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 16,
+                                       rest: 102,
+                                       time: 134}},
+         3: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 16,
+                                       rest: 102,
+                                       time: 134}},
+         4: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 12,
+                                       rest:102,
+                                       time:135}},
+         5: {exercise.primary_body_area_id: 9,
+             exercise.primary_body_area_value: "chest",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 19,
+                                       rest:102,
+                                       time:140}},
+         6: {exercise.primary_body_area_id: 10,
+             exercise.primary_body_area_value: "triceps",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 8,
+                                       rest:102,
+                                       time:118}},
+         7: {exercise.primary_body_area_id: 12,
+             exercise.primary_body_area_value: "lower_body",
+             block_sets[0].criterion: {mode: "duration",
+                                       rate: 1,
+                                       rest:102,
+                                       time:142}},
+         8: {exercise.primary_body_area_id: 14,
+             exercise.primary_body_area_value: "quads",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 6,
+                                       reps: 10,
+                                       rest:102,
+                                       time:162}},
+         9: {exercise.primary_body_area_id: 15,
+             exercise.primary_body_area_value: "butt",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 6,
+                                       reps: 5,
+                                       rest:102,
+                                       time:132}},
+         10: {exercise.primary_body_area_id: 1,
+             exercise.primary_body_area_value: "full_body",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 12,
+                                       rest:102,
+                                       time:138}},
+         11: {exercise.primary_body_area_id: 2,
+             exercise.primary_body_area_value: "upper_body",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 2,
+                                       reps: 14,
+                                       rest:102,
+                                       time:128}},
+         12: {exercise.primary_body_area_id: 6,
+             exercise.primary_body_area_value: "core",
+             block_sets[0].criterion: {mode: "reps",
+                                       rate: 3,
+                                       reps: 10,
+                                       rest:102,
+                                       time:132}}]
+
+

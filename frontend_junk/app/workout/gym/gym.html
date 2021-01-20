@@ -1,0 +1,138 @@
+<div class="row padfornav">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2>Preview</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <p class="help-text text-center ng-show" ng-show="gym.userHistory.workouts.length < 2 && gym.workout.workout_type != 'custom'">Here's your workout! Feel free to review. When ready, hit "Start" to begin!</p>
+	<p class="help-text text-center ng-show" ng-show="gym.userHistory.workouts.length > 1 && gym.userHistory.workouts.length < 4 && gym.workout.workout_type != 'custom'">You've done a couple workouts now and are getting the hang of things. Try using the buttons on the bottom to further customize your workout!</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="form-group">
+      <input type="text" onfocus="this.value='';" class="form-control text-center" maxlength="45" ng-model="gym.workout.name">
+    </div>
+  </div>
+</div>
+
+<form action="#" method="POST" name="WorkoutPreview" novalidate>
+  <div class="row">
+    <div class="col-md-2 text-left">
+      <h5><span class="orangetext">Time:</span> {{gym.helpers.timeString(gym.workout.total_time_seconds)}}</h5>
+      <h5><span class="orangetext">Exercises:</span> {{gym.workout.blocks.length}}</h5>
+      <h5 class="ng-hide" ng-hide="gym.workout.equipment_ids.length > 0"><span class="orangetext">No Equipment Needed</span></h5>
+      <h5 class="ng-show" ng-show="gym.workout.equipment_ids.length > 0"><span class="orangetext">Equipment Needed:</span></h5>
+      <ul>
+        <li ng-repeat="equipment_id in gym.workout.equipment_ids">{{gym.globalDataSet.equipmentLookup[equipment_id].name}}</li>
+      </ul>
+      <br>
+    </div>
+    <div class="col-md-8" style="padding-left:0px; padding-right:0px">
+      <table class='table table-condensed well' ng-repeat="block in gym.workout.blocks track by $index" ng-init="$blockIndex = $index" style="padding-left:0px; padding-right:0px">
+        <tr class="info">
+          <td colspan="5" style="padding-left:15px;"><h5 style="display:inline;"><span class="orangetext" style="font-weight:bold">{{;$blockIndex + 1}}.</span> {{block.exercise.name}} </h5><a href="" class="help_link"><i class="fa fa-lg fa-info-circle" ng-click="gym.showBlockInfo($blockIndex)" style="margin-bottom:5px"></i></a><br><p class="ng-show help-text" ng-show="gym.userHistory.workouts.length < 3 && $blockIndex === 0"> Tap the info icon to see the animation.</p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div class="pull-left">
+              <a class="help_link"><i class="fa fa-lg fa-arrow-down" ng-show="block.showDownButton" ng-click="gym.moveBlock($blockIndex, 'down')" style="margin-bottom:2px; padding-left:12px; padding-right:12px;cursor:pointer;"></i></a>
+              <a class="help_link"><i class="fa fa-lg fa-arrow-up" ng-show="block.showUpButton" ng-click="gym.moveBlock($blockIndex, 'up')" style="margin-bottom:2px; padding-left:12px; padding-right:12px;cursor:pointer;"></i></a>
+            </div>
+            <div class="pull-right">
+              <a class="help_link ng-hide" ng-hide="gym.workout.workout_type === 'custom' || gym.isReadOnlyTwo"><i class="fa fa-lg fa-exchange" ng-hide="gym.workout.custom" ng-click="gym.swapBlock($blockIndex)" style="margin-bottom:2px; padding-left:12px; padding-right:12px;cursor:pointer;"></i></a>
+              <a class="help_link"><i class="fa fa-lg fa-copy" ng-click="gym.duplicateBlock($blockIndex)" style="margin-bottom:2px; padding-left:12px; padding-right:12px;cursor:pointer;"></i></a>
+              <a class="help_link"><i class="fa fa-lg fa-times" ng-click="gym.deleteBlock($blockIndex)" style="margin-bottom:2px; padding-left:12px; padding-right:12px;cursor:pointer;"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr ng-show="block.showInfo">
+          <td colspan="5">
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2 purplewell hidden-lg">
+                <img ng-src="{{block.animationInfo.images[block.animationInfo.current]}}" class="img-responsive center-block" style="width: 300px;"></img>
+              </div>
+              <div class="col-md-8 col-md-offset-2 purplewell hidden-sm hidden-xs hidden-md">
+                <img ng-src="{{block.animationInfo.images[block.animationInfo.current]}}" class="img-responsive center-block" style="width: 450px;"></img>
+              </div>
+            </div>
+          </td>
+        </tr>
+		<tr class="ng-show" ng-show="gym.userHistory.workouts.length < 3 && $blockIndex === 0">
+	      <td colspan="5">
+	        <p class="help-text"> Updown generated values based on your personal info. You may edit any values you wish, and Updown will learn from your changes.</p>
+	      </td>
+	    </tr>
+        <tr class='form-group-sm text-center form-inline' ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index" style="padding-left:0px; padding-right:0px">
+          <td>
+		    <i class="fa fa-pencil" style="margin-bottom:1px;margin-right:-2px"></i>
+          </td>
+          <td ng-repeat="name in blockSet.criterion | criterionDisplay as results" ng-class="{ 'has-error' : WorkoutPreview.workoutParams.$invalid && !WorkoutPreview.workoutParams.$pristine && WorkoutPreview.workoutParams.$touched}" style="padding-left:0px;padding-right:0px">
+            <label class="small" style="margin-left:-10px">{{gym.criterionDisplayInfo[name].name}}</label>
+            <input ng-model="blockSet.criterion[name]" name="workoutParams" ng-model-options="{ updateOn: 'change' }" ng-change="gym.updateBlockSet(name, blockSet, block)" type='number' min='0' max='999' onfocus="this.value='';" style="margin-left:-2px; padding-left:4px; padding-right:2px;" class='form-control' required>
+		  <td ng-hide="$blockSetIndex == block.block_sets.length-1 && $last" class="ng-hide pull-right"></td>
+          <td ng-show="$blockSetIndex == block.block_sets.length-1 && $last" class="ng-show pull-right" style="padding-left:0px; padding-right:0px">
+		    <a ng-show="$blockSetIndex == block.block_sets.length-1 && $last && block.block_sets.length > 1" class="help_link"><i class="fa fa-lg fa-times" ng-click="gym.deleteLastSet($blockIndex)" style="margin-bottom:2px;padding-right:5px;cursor:pointer;"></i></a>
+            <a ng-show="$blockSetIndex == block.block_sets.length-1 && $last" class="help_link"><i class="fa fa-lg fa-plus-square-o" ng-click="gym.duplicateLastSet($blockIndex)" style="margin-bottom:1px;padding-left:0px;padding-right:5px;cursor:pointer;"></i></a>
+          </td>
+        </tr>
+      </table>
+      <button type="button" ng-hide="gym.workout.workout_type === 'custom'" class="ng-hide center-block img-responsive btn-lg btn btn-success" ng-click="gym.addRandomBlock()">+ Add Random</button>
+    </div>
+  </div>
+</form>
+
+<div class="row toppad">
+  <button type="button" ng-hide="gym.workout.workout_type === 'custom'" class="center-block img-responsive btn-lg btn btn-success ng-hide" ng-click="gym.addExerciseHidden = !gym.addExerciseHidden">+ Choose Exercise</button>
+  </br>
+</div>
+
+<div class="row padfornav ng-hide" ng-hide="gym.addExerciseHidden">
+</div>
+
+<div class="row ng-show" ng-show="gym.addExerciseHidden">
+  <div class="col-md-8 col-md-offset-2 well">
+    <button class="btn btn-success center-block img-responsive" type="submit" ng-disabled="gym.selectedExercises ? (gym.selectedExercises.length<1) : true" ng-click="gym.addExercises()">Add to Workout</button>
+    </br>
+    <div class="form-inline">
+      <label>Body Area: </label>
+      <select ng-options="o.name for o in gym.bodyAreas | orderBy:'name' track by o.id" ng-init="gym.selectedBodyArea=gym.bodyAreas[0]" ng-model="gym.selectedBodyArea" class="form-control" name=""></select>
+    </div>
+    <div class="form-inline">
+      <label>Equipment: </label>
+      <select ng-options="o.name for o in gym.equipments | orderBy:'name' track by o.id" ng-init="gym.selectedEquipment=gym.equipments[0]" ng-model="gym.selectedEquipment" class="form-control" name=""></select>
+    </div>
+    <div class="form-inline">
+      <label>Type: </label>
+      <select ng-options="o.name for o in gym.categories | orderBy:'name' track by o.id" ng-init="gym.selectedCategory=gym.categories[0]" ng-model="gym.selectedCategory" class="form-control" name=""></select>
+    </div>
+    <div class="form-inline">
+      <label>Search: </label>
+      <input type="text" name="exercise_keys" ng-model="gym.exerciseKeys" class="form-control" placeholder="Exercise search"></input>
+    </div>
+    </br>
+    <p><b>Number of exercises:</b> ({{gym.exerciseList.length}})</p>
+    <p class="hidden-xs hidden-sm help-text">Click on an exercise to select. Use the shift-key to select a range or the control-key for individual toggling. Hit the 'Add to Workout' button to add selected exercise(s) to your workout.</p>
+    <select size="10" multiple="true" ng-options="o.name for o in gym.filteredExercises()" ng-model="gym.selectedExercises" class="form-control" name=""></select>
+    </br>
+  </div>
+</div>
+
+<div class="row padfornav ng-show" ng-show="gym.addExerciseHidden">
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container-fluid hidden-xs text-center">
+     <button type="button" class="btn btn-primary navbar-btn btn-lg img-responsive ng-hide" ng-disabled="gym.isReadonly" ng-click="gym.createFavorite()">Favorite <img src="content/images/starIcon.png" style="height:18px; margin-bottom:3px;"></button>
+     <button type="button" class="btn btn-primary navbar-btn btn-lg img-responsive" ng-disabled="WorkoutPreview.$invalid || gym.workout['blocks'].length < 1" ng-click="gym.saveWorkout(); gym.isReadonly = !gym.isReadonly">Start</button>
+  </div>
+  <div class="container-fluid hidden-md hidden-lg hidden-sm text-center">
+     <button type="button" style="width:40%" class="btn btn-primary navbar-btn btn-lg img-responsive ng-hide" ng-disabled="gym.isReadonly" ng-click="gym.createFavorite()">Favorite <img src="content/images/starIcon.png" style="height:18px; margin-bottom:3px;"></button>
+     <button type="button" style="width:40%" class="btn btn-primary navbar-btn btn-lg img-responsive" ng-disabled="WorkoutPreview.$invalid || gym.workout['blocks'].length < 1" ng-click="gym.start(); gym.isReadonly = !gym.isReadonly">Save</button>
+  </div>
+</nav>
+

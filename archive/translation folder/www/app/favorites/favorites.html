@@ -1,0 +1,33 @@
+<div class="row padfornav">
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <h2 class="textheader" style="display:inline">Favorites </h2><button style="margin-bottom:10px" class="btn btn-sm btn-grey" ng-click="favorites.infoClicked(favorites, 0)"><img src="content/images/infoicon.png" style="height:15px; margin-bottom:6px"></button>
+      <div collapse="favorites.isCollapsed[0]">
+        <div class="thinpurplewell">Here are your favorite workouts (pro-tip: you can favorite your friends' workouts). Updown does a computer magic thing to calculate all the numbers just for you each time you open a workout.
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="row toppad">
+  <div class="col-md-8 col-md-offset-2">
+    <div ng-hide="favorites.favorites.length > 0" class="ng-nide thinpurplewell text-center">
+      <h5>Looks like you don't have any favorite workouts yet! Click the "Favorite" button on either the workout preview or workout summary screen in order to add a workout to your favorites.</h5>
+    </div>
+  </div>
+  <div class="col-md-8 col-md-offset-2" style="max-height:500px;overflow:auto;">
+    <table class="table table-striped well">
+      <tr ng-repeat="favorite in favorites.favorites track by $index">
+        <td><a style="cursor:pointer" ng-click="favorites.doWorkout(favorite)">{{favorite.name}}</a></td>
+        <td><a id="deletefavorite1" class="btn btn-sm pull-right redtext" ng-really-message="Really, you want to delete me?" ng-really-click="favorites.deleteFavorite($index)" style="margin-bottom:-12px; margin-top:-14px; text-decoration:none;"><img src="content/images/red_x.png" class="img-responsive" style="width:12px;height:12px;margin-top:10px"></a></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row topbottompad">
+  <div class="col-md-8 col-md-offset-2">
+    <button type="submit" class="btn btn-primary btn-lg img-responsive center-block" ui-sref='home'>Home</button>
+  </div>
+</div>

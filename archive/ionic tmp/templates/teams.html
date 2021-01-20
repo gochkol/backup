@@ -1,0 +1,198 @@
+<ion-view view-title="Teams">
+  
+
+<ion-content>
+  
+
+
+<!--FAKE DATA-->
+
+<div class="row ng-hide" ng-hide="hideIt">
+  <div class="col text-center">
+    <h5 class="ng-hide text-center" ng-hide="hideIt">If your company is on Updown, enter a code below to join your department's team. More team functionality is coming soon!</h5>
+    <label class="item item-input item-floating-label">
+      <span class="input-label">Company Code</span>
+      <input ng-model="signup_code" type="text" name="signup_code" id="signup_code" placeholder="Signup Code"></input>
+    </label>
+    </br>
+    <button class="button button-energized" ng-click="add_company()">Submit Code</button>
+  </div>
+</div>
+
+<div class="item item-divider">
+  Company Name
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order_company('daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order_company('monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order_company('total_points')">All Time</button>
+</div>
+  <div class="list">
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Chris Freise</h2>
+      <h3>200 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Mike Freise</h2>
+      <h3>100 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Jon Freise</h2>
+      <h3>70 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Lauren Freise</h2>
+      <h3>40 points</h3>
+    </a>
+  </div>
+
+<div class="item item-divider">
+  Department Leaderboard
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order_departments('daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order_departments('monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order_departments('total_points')">All Time</button>
+</div>
+  <div class="row">
+    <div class="col">
+      Accounting
+    </div>
+    <div class="col">
+      200 points
+    </div>
+  </div>
+    <div class="row">
+    <div class="col">
+      Sales
+    </div>
+    <div class="col">
+      100 points
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      HR
+    </div>
+    <div class="col">
+      60 points
+    </div>
+  </div>
+
+<div class="item item-divider">
+  Accounting
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order_department('daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order_department('monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order_department('total_points')">All Time</button>
+</div>
+  <div class="list" style="margin-bottom:55px">
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Chris Freise</h2>
+      <h3>200 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Mike Freise</h2>
+      <h3>100 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Jon Freise</h2>
+      <h3>70 points</h3>
+    </a>
+    <a class="item item-avatar-left">
+      <img src="img/profile_image.jpg"
+      <h2>Lauren Freise</h2>
+      <h3>40 points</h3>
+    </a>
+  </div>
+
+ 
+
+<!--REAL DATA-->
+
+<!--
+
+<div class="item item-divider">
+  {{company.name}}
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order_company('daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order_company('monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order_company('total_points')">All Time</button>
+</div>
+  <div class="list">
+    <a class="item item-avatar-left" ng-repeat="member in members | orderBy:company_predicate:company_reverse">
+      <img src="img/profile_image.jpg"
+      <h2>{{member.first_name}} {{member.last_name}}</h2>
+      <h3 class="ng-hide" ng-hide="company_showDay">{{member.daily_points}}</h3>
+      <h3 class="ng-hide" ng-hide="company_showMonth">{{member.monthly_points}}</h3>
+      <h3 class="ng-hide" ng-hide="company_showTotal">{{member.total_points}}</h3>
+    </a>
+  </div>
+
+<div class="item item-divider">
+  Department Leaderboard
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order_departments('daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order_departments('monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order_departments('total_points')">All Time</button>
+</div>
+  <div class="row" ng-repeat="department in departments | orderBy:departments_predicate:departments_reverse">
+    <div class="col">
+      <a style="cursor:pointer" ng-init="focus(department)" ng-click="focus(department)">{{department.name}}</a>
+    </div>
+    <div class="col">
+      <span class="ng-hide" ng-hide="departments_showDay">{{department.daily_points}}</span>
+      <span class="ng-hide" ng-hide="departments_showMonth">{{department.monthly_points}}</span>
+      <span class="ng-hide" ng-hide="departments_showTotal">{{department.total_points}}</span>
+    </div>
+  </div>
+
+<div class="item item-divider">
+  {{departments[focused].name}}
+</div>
+<div class="button-bar">
+  <button type="button" class="button" ng-click="order_department('daily_points')">Day</button>
+  <button type="button" class="button" ng-click="order_department('monthly_points')">Month</button>
+  <button type="button" class="button" ng-click="order_department('total_points')">All Time</button>
+</div>
+  <div class="list">
+    <a class="item item-avatar-left" ng-repeat="member in departments[focused].members | orderBy:department_predicate:department_reverse track by $index ">
+      <img src="img/profile_image.jpg"
+      <h2>{{member.first_name}} {{member.last_name}}</h2>
+      <h3 class="ng-hide" ng-hide="department_showDay">{{member.daily_points}}</h3>
+      <h3 class="ng-hide" ng-hide="department_showMonth">{{member.monthly_points}}</h3>
+      <h3 class="ng-hide" ng-hide="department_showTotal">{{member.total_points}}</h3>
+    </a>
+  </div>
+
+-->
+
+</ion-content>
+
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="quick_log()">
+    <i class="icon ion-ios-paper-outline"></i>
+    Quick Log
+  </a>
+  <a class="tab-item" ng-click="quick_workout()">
+    <i class="icon ion-android-walk"></i>
+    Updown Workout
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+    Custom Workout
+  </a>
+</div>
+
+</ion-view>

@@ -1,0 +1,63 @@
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friend.isCollapsedWorkouts = !friend.isCollapsedWorkouts">
+  {{friend.friend.first_name}}'s Workouts
+  <i class="icon ion-arrow-graph-up-right"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+</div>
+<div class="list ng-show" ng-show="!friend.isCollapsedWorkouts">
+  <div class="item item-text-wrap">
+    <h4 class="help-text text-center">
+	  Tap the star icon to favorite a friend's workout.
+    </h4>
+  </div>
+  <div class="row header">
+    <div class="col col-33">
+      <b>Completed</b>
+    </div>
+    <div class="col">
+      <b>Name</b>
+    </div>
+    <div class="col col-20">
+      <b>Cals / Time</b>
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+    <div class="col col-10 text-right">
+    </div>
+  </div>
+  <div class="row item item-text-wrap" dir-paginate-start="workout in friend.friend.workouts | itemsPerPage: 10" pagination-id="workouts">
+    <div class="col col-25" style="font-size:10px">
+      {{friend.formatTime(workout.finished_at) || " "}}
+    </div>
+    <div class="col" style="font-size:10px">
+      {{workout.name ? workout.name : "Workout"}}
+    </div>
+    <div class="col col-20">
+      {{workout.calories_burned}} / {{friend.timeString(workout.total_time)}}
+    </div>
+    <div class="col col-10" style="cursor:pointer" ng-click="friend.expander(friend.workouts, workout)">
+      <i style="font-size:30px" class="icon ion-android-arrow-dropdown"></i>
+    </div>
+    <div class="col col-10 text-right">
+      <i class="button button-icon energized ion-star" ng-class="{'assertive':friend.favorites.length == friend.favoritesMax}" ng-disabled="workout.isReadonly || friend.favorites.length == friend.favoritesMax" ng-init="workout.isReadonly = false" ng-click="friend.createFavorite(workout); workout.isReadonly = true"></i>
+    </div>
+  </div>
+  <ion-item class="energized-bg ng-hide" style="padding:0px" ng-hide="friend.workoutHidden[workout.id]" dir-paginate-end>
+  <div class="card row grey-bg ng-hide" ng-repeat="block in friend.workouts[workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index" ng-hide="friend.workoutHidden[workout.id]">
+    <div class="col">
+      <div class="row header item-text-wrap">
+        <h4 style="margin: 0 0 4px 0;font-size: 12px;">{{friend.exerciseLookup[friend.workouts[workout.id].exercise_ids[$blockIndex]].name}}</h4>
+      </div>
+      <div class="row" ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+        <div class="col" data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+          {{friend.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}
+        </div>
+      </div>
+    </div>
+  </div>
+  </ion-item>
+  <div class="row item">
+    <div class="col text-center">
+      <dir-pagination-controls pagination-id="workouts" max-size="5"></dir-pagination-controls> 
+    </div>
+  </div>
+</div>

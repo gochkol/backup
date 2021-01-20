@@ -1,0 +1,85 @@
+<ion-content class="custom-bg">
+
+<div style="height:5vh">
+</div>
+
+<!--Updown image-->
+<div class="row" style="padding-top:30px">
+  <div class="col col-20"></div>
+  <div class="col">
+    <img class="full-image" src="content/images/upDownLogo.png">
+  </div>
+  <div class="col col-20"></div>
+</div>
+
+<!--Spacer between updown image and inputs-->
+<div style="height:5vh">
+</div>
+
+<!--Login form-->
+<form>
+<div class="row" style="padding-top:5px">
+  <div class="col col-10">
+  </div>
+  <div class="col" style="margin-left:6px;margin-right:6px;border-bottom-width:1px;border-bottom-color:#737373;border-bottom-style:solid"> 
+    <label class="item-input-clear">
+	  <i style="color:#737373;font-size:20px;margin-bottom:-8px" class="icon ion-ios-email-outline"></i>
+      <input style="background:transparent;padding-left:10px;margin-bottom:-10px;color:#4d4d4d" ng-keydown="login.blur($event)" type="email" name="email" ng-model="login.user.email" placeholder="Email Address" required></input>
+    </label>
+  </div>
+  <div class="col col-10">
+  </div>
+</div>
+<div class="row" style="padding-top:5px">
+  <div class="col col-10">
+  </div>
+  <div class="col" style="margin-left:6px;margin-right:6px;border-bottom-width:1px;border-bottom-color:#737373;border-bottom-style:solid"> 	
+    <label class="item-input-clear">
+      <i style="color:#737373;font-size:20px;margin-bottom:-8px" class="icon ion-ios-locked-outline"></i>
+      <input style="background:transparent;padding-left:12px;margin-bottom:-10px;color:#4d4d4d" ng-keydown="login.blur($event)" type="password" name="password" ng-model="login.user.password" placeholder="Password" required></input>
+    </label>
+  </div>
+  <div class="col col-10">
+  </div>
+</div>
+</form>
+
+<!--Spacer between login form and buttons-->
+<div style="height:3vh">
+</div>
+
+<!--Login Button-->
+<div class="row">
+  <div class="col col-10">
+  </div>
+  <div class="col text-center">
+    <button class="button button-calm button-block" ng-disabled="isProcessing" ng-click="login.login()">Log in</button>
+  </div>
+  <div class="col col-10">
+  </div>
+</div>
+
+<!--Sign up buttons-->
+<div class="row">
+  <div class="col col-10">
+  </div>
+  <div class="col text-center">
+    <button class="button button-medium button-energized button-block" ui-sref="signup"><span style="font-size:12px">Sign Up Now</span></button>
+  </div>
+  <div class="col text-center">
+    <button class="button button-medium button-block button-energized" ui-sref="guestNav.guest"><span style="font-size:12px">Sign Up Later</span></button>
+  </div>
+  <div class="col col-10">
+  </div>
+</div>
+
+<!--Forgot password-->
+<div class="row" style="padding-top:20px">
+  <div class="col text-right" style="padding-right:42px">
+    <h5><a style="text-decoration:none;color:#737373" ui-sref="reset">Forgot Password?</a></h5>
+  </div>
+</div>
+
+</ion-content>
+
+

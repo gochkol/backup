@@ -1,0 +1,70 @@
+<ion-content scroll="true">
+
+<!--
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="stats.isCollapsedExerciseStats = !stats.isCollapsedExerciseStats">
+  <i class="icon ion-android-options"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  Individual Exercise Stats
+</div>
+-->
+<div class="list">
+  <label class="item item-input item-select item-text-wrap">
+    <div class="input-label">
+      Exercise:
+    </div>
+    <select ng-options="o.name for o in stats.filteredExercises() | orderBy:'name'" ng-model="stats.selectedExercise" name=""></select>
+  </label>
+  <label class="item item-input">
+    <input type="text" class="text-center" name="exercise_keys" ng-model="stats.exerciseKeys" placeholder="Exercise search"></input>
+    <i class="icon ion-search placeholder-icon" style="padding-right:18px"></i>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Body Area
+    </div>
+    <select ng-options="o.name for o in stats.bodyAreas | orderBy:'name' track by o.id" ng-init="stats.selectedBodyArea=stats.bodyAreas[0]" ng-model="stats.selectedBodyArea" name=""></select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Equipment
+    </div>
+    <select ng-options="o.name for o in stats.equipments | orderBy:'name' track by o.id" ng-init="stats.selectedEquipment=stats.equipments[0]" ng-model="stats.selectedEquipment" name=""></select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Type
+    </div>
+    <select ng-options="o.name for o in stats.categories | orderBy:'name' track by o.id" ng-init="stats.selectedCategory=stats.categories[0]" ng-model="stats.selectedCategory" name=""></select>
+  </label>
+
+  <div class="item text-center">
+    <button class="button button-calm" ng-click="stats.getBlockStats(stats.selectedExercise.id)" ng-disabled="stats.selectedExercise ? (stats.selectedExercise.length<1) : true">See Stats</button>
+  </div>
+  <div class="item item-icon-right item-text-wrap item-calm text-center" ng-show="stats.displayName.length > 0" ng-click="stats.reverseOrder=!stats.reverseOrder">
+    {{stats.displayName}} ({{stats.blockStats.length}} <span ng-show="stats.blockStats.length==1">Instance</span><span ng-show="stats.blockStats.length>1">Instances</span>)
+	  <i ng-hide="stats.blockStats.length==1" style="font-size:22px;color:white;" class="ng-hide icon ion-loop"></i>
+  </div>
+</div>
+
+<div class="list">
+  <ion-item class="card" style="padding:0px;margin-right:-10px;margin-left:-10px" ng-repeat="block in stats.blockStats | orderBy:'workout.finished_at':stats.reverseOrder track by $index" ng-init="$blockIndex = $index">
+    <div class="row item item-calm">
+      <div class="col item-text-wrap">
+        <h3 style="color:white;margin-left:10px">{{;$blockIndex + 1}}. Workout done: {{stats.formatTime(block.workout.finished_at)}}</h3>
+      </div>
+    </div>
+	  <div class="row row-center" style="margin-top:-10px;margin-bottom:-15px" ng-repeat="blockSet in block.block_data.block_sets track by $index" ng-init="$blockSetIndex = $index">
+	    <div class="col col-20">
+	      <p style="font-size:11px;margin-left:3px"><b>Set {{$blockSetIndex + 1}}</b></p>
+	    </div>
+      <div class="col calm-light-bg" ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+        <label class="item-input-wrapper calm-light-bg input-sm" style="padding-left:2px;padding-right:2px">
+          <span style="padding-right:0px" class="input-label input-label-sm">{{stats.criterionDisplayInfo[name].name}}</span>
+          <input class="item-input-wrapper calm-light-bg" style="padding-right:0px;margin-left:-3px" ng-model="blockSet.criterion[name]" name="workoutParams" ng-model-options="{ updateOn: 'change' }" type='number' min='0' max='999' readonly="true">
+        </label>
+      </div>
+    </div>
+  </ion-item>
+</div> 
+
+</ion-content>

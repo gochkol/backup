@@ -1,0 +1,282 @@
+{
+  "name": "Test Workout",
+  "usage": "endurance",
+  "body_area" : "chest_triceps",
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "duration",
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "rest" : 120,
+       "time": 240},
+      {"id": 2,
+       "duration": 120,
+       "rest" : 120,
+       "time": 240},
+      {"id": 3,
+       "duration": 120,
+       "rest" : 120,
+       "time": 240}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "duration_weight",
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "weight": 100,
+       "rest" : 120,
+       "time": 240},
+      {"id": 2,
+       "duration": 120,
+       "weight": 100,
+       "rest" : 120,
+       "time": 240},
+      {"id": 3,
+       "duration": 120,
+       "weight": 100,
+       "rest" : 120,
+       "time": 240}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "duration_distance",
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "distance": 60,
+       "rest" : 120,
+       "time": 240},
+      {"id": 2,
+       "duration": 120,
+       "distance": 60,
+       "rest" : 120,
+       "time": 240},
+      {"id": 3,
+       "duration": 120,
+       "distance": 60,
+       "rest" : 120,
+       "time": 240}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": “duration_distance_weight”,
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "distance": 60,
+       "weight": 100,
+       "rest" : 120,
+       "time": 240},
+      {"id": 2,
+       "duration”: 120,
+       "distance": 60,
+       "weight": 100,
+       "rest" : 120,
+       "time": 240},
+      {"id": 3,
+       "duration": 120,
+       "distance": 60,
+       "weight": 100,
+       "rest" : 120,
+       "time": 240}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": “duration_reps”,
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "reps": ,
+       "rest" : 120,
+       "time": 240},
+      {"id": 2,
+       "duration": 120,
+       "reps": 60,
+       "rest": 120,
+       "time": 240},
+      {"id": 3,
+       "duration”: 120,
+       "reps": 60,
+       "rest": 120,
+       "time": 240}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": “duration_reps_weight”,
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "reps": 60,
+       "weight": 100,
+       "rest": 120,
+       "time": 240},
+      {"id": 2,
+       "duration": 120,
+       "reps": 60,
+       "weight": 100,
+       "rest": 120,
+       "time": 240},
+      {"id": 3,
+       "duration": 120,
+       "reps": 60,
+       "weight": 100,
+       "rest": 120,
+       "time": 240}
+    ]},
+ "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "duration_breaths",
+    "sets": [
+      {"id": 1,
+       "duration": 120,
+       "breaths": 60,
+       "rest": 120,
+       "time": 240},
+      {"id": 2,
+       "duration": 120,
+       "breaths": 60,
+       "rest": 120,
+       "time": 240},
+      {"id": 3,
+       "duration": 120,
+       "breaths": 60,
+       "rest": 120,
+       "time": 240}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "distance",
+    "sets": [
+      {"id": 1,
+       "distance": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 2,
+       "distance": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 3,
+       "distance": 60,
+       "rest" : 120,
+       "time": 210}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "distance_weight",
+    "sets": [
+      {"id": 1,
+       "distance": 60,
+       "weight" : 35,
+       "rest" : 120,
+       "time": 210},
+      {"id": 2,
+       "distance": 60,
+       "weight" : 35,
+       "rest" : 120,
+       "time": 210},
+      {"id": 3,
+       "distance": 60,
+       "weight" : 35,
+       "rest" : 120,
+       "time": 210}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": "reps",
+    "sets": [
+      {"id": 1,
+       "reps": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 2,
+       "reps": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 3,
+       "reps": 60,
+       "rest" : 120,
+       "time": 210}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": “reps_weight",
+    "sets": [
+      {"id": 1,
+       "reps": 60,
+       "weight" : 35,
+       "rest" : 120,
+       "time": 210},
+      {"id": 2,
+       "reps": 60,
+       "weight" : 35,
+       "rest" : 120,
+       "time": 210},
+      {"id": 3,
+       "reps": 60,
+       "weight" : 35,
+       "rest" : 120,
+       "time": 210}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": “pattern”,
+    "sets": [
+      {"id": 1,
+       "pattern": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 2,
+       "pattern": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 3,
+       "pattern": 60,
+       "rest" : 120,
+       "time": 210}
+    ]},
+  "exercise": {
+    "id" = 1,
+    "name": "Exercise",
+    "modes": “breaths”,
+    "sets": [
+      {"id": 1,
+       "breaths": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 2,
+       "breaths": 60,
+       "rest" : 120,
+       "time": 210},
+      {"id": 3,
+       "breaths": 60,
+       "rest" : 120,
+       "time": 210}
+    ]}
+}
+//duration
+//duration, weight
+//duration, distance
+//duration, distance, weight
+//duration, reps
+//duration, reps, weight
+//duration, breaths 
+//distance
+//distance, weight
+//reps
+//reps, weight
+//pattern
+//breaths

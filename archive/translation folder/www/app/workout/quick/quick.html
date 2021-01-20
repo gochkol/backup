@@ -1,0 +1,137 @@
+<div class="row padfornav">
+  <div class="col-md-2">
+    <img class="sideimage hidden-sm hidden-xs" src="content/images/sideimage.png">
+  </div>
+  <div class="col-md-8 text-center">
+    <h2 class="textheader" style="display:inline">Updown Workout </h2><button style="margin-bottom:10px" class="btn btn-sm btn-grey" ng-click="quick.infoClicked(quick, 0)"><img src="content/images/infoicon.png" style="height:15px; margin-bottom:6px"></button>
+    <div collapse="quick.isCollapsed[0]">
+      <div class="thinpurplewell">Tell us about the workout you want to do. Then, we'll send this info to our exercise gnomes who (...which? Are they people? We're not sure. Awaiting government decision.) will return you a personalized workout.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row hidden-xs">
+      <h4 class="text-center"><b class="orangetext">1. Select Location:</b></h4>
+      <div class="col-md-10 col-md-offset-1">
+        <div class="radio-inline" ng-repeat="location in quick.locations track by location.id">
+          <label class="rad">
+            <input ng-model="quick.request.locationId" name="location" value="{{location.id}}" type="radio"><h4>{{location.name}}  </h4>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row hidden-sm hidden-md hidden-lg">
+      <h4 class="text-center"><b class="orangetext">1. Select Location:</b></h4>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="radio" ng-repeat="location in quick.locations track by location.id">
+          <label class="rad">
+            <input ng-model="quick.request.locationId" name="location_xs" value="{{location.id}}" type="radio"><h4>{{location.name}}  </h4>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row toppad">
+      <div class="text-center">
+      <h4 class="text-center" style="display:inline"><b class="orangetext">2. Select Type: </b></h4><a href="" class="help_link btn btn-sm"><img src="content/images/infoicon.png" style="height:15px; margin-bottom:6px"></a>
+        <span class="help">
+          <ul class="text-left">
+            <li><i class="bluetext">Cross:</i> Active workout that engages muscles and gets the heart rate up. Combo of strength and cardio, really.</li>
+            <li><i class="bluetext">Strength:</i> Workout focused on isolating and working specific muscles to build strength and make you Hulk without the anger issues.</li>
+            <li><i class="bluetext">Cardio:</i> Exercises with high rates of calorie burn that get you breathing hard and sweating profusely.</li>
+            <li><i class="bluetext">Core:</i> Workout that engages the core with a variety of fast-paced exercises. Build your abs of steel. Or trim that beer belly.</li>
+            <li><i class="bluetext">Stretch:</i> Exercises that stretch out your muscles. Pretty self-explanatory.</li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div ng-repeat="category in quick.categories | filter:'!Yoga' | filter:'!All' track by category.id" class="col-md-3 col-sm-6 col-xs-6">
+        <div class="form-group">
+          <label class="rad">
+            <input type="radio" name="exercise_type" ng-model="quick.request.categoryId" ng-change="quick.toggleCategory(category.id)" value="{{category.id}}">
+            <img alt="workout category" class="img-responsive center-block" style="border-radius:30px" ng-src="content/images/{{category.name}}.jpg" width="" height="200px">
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <form action="#" method="POST" name="quickWorkout" novalidate>
+    <div class="row">
+      <h4 class="text-center"><b class="orangetext">3. Select Length:</b></h4>
+      <div class="col-md-2 col-md-offset-3">
+        <label style="padding-top:7px">Time (mins):</label>
+      </div>
+      <div class="col-md-4 form-group" ng-class="{ 'has-error' : quickWorkout.workoutTime.$invalid}">
+        <input type="number" onfocus="if(this.value == '20') {this.value = ''; }" name="workoutTime" tooltip="Enter the duration of your workout (minimum 5 minutes)." tooltip-trigger="mouseenter" tooltip-placement="top" tooltip-enable="!quick.request.workoutTime" min="5" max="180" step="5" id="inputworkouttime" ng-model="quick.request.workoutTime" class="form-control" required>
+        <p ng-show="quickWorkout.workoutTime.$invalid" class="help-block">Time is required. Minimum: 5 minutes. Maximum: 180 minutes. If left blank, Updown will use 20 minutes.</p>
+      </div>
+    </div>
+    </form>
+
+    <div class="row">
+      <h4 class="text-center"><b class="orangetext">4. Select Intensity:</b></h4>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-inline">
+          <input type="range" class="intensity-slider" id="intensity" name="intensity" ng-model="quick.request.intensity" max="10" min="1">
+        </div>
+        <h4 class="text-center">Intensity: <b>{{quick.request.intensity}}</b></h4>
+      </div>
+    </div>
+
+    <div class="row padfornav ng-hide" ng-hide="quick.show.l0">
+    </div>
+
+    <div class="row text-center" ng-show="quick.show.l0">
+      <h4><b class="orangetext">5. Select Body Area(s):</b></h4>
+    </div>
+    <div class="row ng-show img-overlay well" ng-show="quick.show.l0">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="form-group" ng-show="quick.show.l0" ng-repeat="body_area_l0 in quick.bodyAreasNested track by body_area_l0.id">
+          <div class="checkbox">
+            <label class="ckb">
+              <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l0.id) > -1" name="body_areas_l0" value="{{body_area_l0.id}}" ng-click="quick.toggleBodyArea(body_area_l0, 0)"><h5 style="display:inline">{{body_area_l0.name}}</h5>
+            </label>
+          </div>
+          <div class="form-group col-sm-offset-1 col-xs-offset-1" ng-show="quick.show.l1" ng-repeat="body_area_l1 in body_area_l0.children track by body_area_l1.id">
+            <div class="checkbox">
+              <label class="ckb">
+                <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l1.id) > -1" name="body_areas_l1" value="{{body_area_l1.id}}" ng-click="quick.toggleBodyArea(body_area_l1, 1)"><h5 style="display:inline">{{body_area_l1.name}}</h5>
+              </label>
+            </div>
+            <div class="form-group col-sm-offset-2 col-xs-offset-2" ng-show="quick.show.l2" ng-repeat="body_area_l2 in body_area_l1.children track by body_area_l2.id">
+              <div class="checkbox">
+                <label class="ckb">
+                  <input type="checkbox" ng-checked="quick.request.bodyAreaIds.indexOf(body_area_l2.id) > -1" name="body_areas_l2" value="{{body_area_l2.id}}" ng-click="quick.toggleBodyArea(body_area_l2, 2)"><h5 style="display:inline">{{body_area_l2.name}}</h5>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6" ng-show="quick.show.l2">
+        <div ng-show="quick.show.l0">
+          <img alt="body map" class="img-responsive img-overlay-two center-block" src="content/images/model_B.png">
+          <img class="img-responsive img-overlay-two center-block" ng-repeat="b_a_id in quick.request.bodyAreaIds | BAnotAvailable_B" ng-src="content/images/{{b_a_id}}_B.png">
+          <img alt="body map" class="img-responsive img-overlay-three center-block" src="content/images/model_F.png">
+          <img class="img-responsive img-overlay-three center-block" ng-repeat="b_a_id in quick.request.bodyAreaIds | BAnotAvailable_F" ng-src="content/images/{{b_a_id}}_F.png">
+        </div>
+      </div>
+    </div>
+
+    <div class="row padfornav ng-show" ng-show="quick.show.l0">
+    </div>
+
+  </div>
+</div>
+
+<nav class="navbar-fixed-bottom navbar navbar-inverse">
+  <div class="container">
+     <button type="button" class="btn btn-primary btn-lg navbar-btn img-responsive center-block" ng-disabled="quickWorkout.$invalid || quick.isReadonly || quick.baMissing" ng-click="quick.submitRequest()">Preview</button>
+  </div>
+</nav>

@@ -1,0 +1,343 @@
+<div class="row padfornavtwo">
+  <div class="col-md-8 col-md-offset-2">
+<!-- Total finished workouts: {{home.stats[0].value}}-->
+<!--Desktop Version-->
+    <div class="row hidden-xs">
+      <div class="col-md-6 col-sm-12 text-center">
+        <div class="container-progress">
+          <div class="progress-wrapper">
+            <div class="progress-style ng-cloak" ng-style="home.getStyle()">
+              <img ng-src="{{home.level.icon_url}}" class="img-thumbnail img-circle img-responsive center-block" style="height:127px; width:127px;">
+            </div>
+            <div
+              round-progress
+              max="home.levelInfo.range"
+              current="home.levelInfo.progress"
+              color="#3366ff"
+              bgcolor="#eaeaea"
+              radius="120"
+              stroke="20"
+              semi="false"
+              rounded="true"
+              clockwise="true"
+              responsive="false"
+              duration="800"
+              animation="easeInOutQuart">
+              <div
+                round-progress
+                max="home.user.current_weekly_points_goal_value"
+                current="home.user.current_weekly_points"
+                color="{{home.weeklyColor}}"
+                bgcolor="#eaeaea"
+                radius="120"
+                stroke="20"
+                semi="false"
+                rounded="true"
+                clockwise="true"
+                responsive="false"
+                duration="800"
+                animation="easeInOutQuart"
+                offset="inherit">
+                <div
+                  round-progress
+                  max="home.maxDay"
+                  current="home.user.current_daily_points"
+                  color="#ffa31a"
+                  bgcolor="#eaeaea"
+                  radius="120"
+                  stroke="20"
+                  semi="false"
+                  rounded="true"
+                  clockwise="true"
+                  responsive="false"
+                  duration="800"
+                  animation="easeInOutQuart"
+                  offset="inherit">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 well-round" style="box-shadow: 2px 2px 4px 0px #888888;">
+        <div class="row" style="padding-top:10px">
+          <div class="col-md-5 col-sm-5">
+            <img ng-src="{{home.user['avatar_url']}}" ng-hide="!home.user['avatar_url']" class="img-thumbnail img-responsive center-block ng-hide" style="height:100px; width:100px">
+            <img ng-src="content/images/profile_image.jpg" class="img-thumbnail img-responsive center-block ng-hide" ng-hide="home.user['avatar_url']" style="height:100px; width:100px">	
+          </div>
+          <div class="col-md-7 col-sm-7">
+            <h3 class="text-center">
+              {{home.user.first_name}} {{home.user.last_name}}
+            </h3>
+            <h4 class="text-center" ng-hide="!home.user.current_status">
+              "{{home.user.current_status}}"
+            </h4>
+            <p class="text-center help-text" ng-hide="home.user.current_status">
+              Add a status below and your friends will be able to see what's up with you.
+            </p>
+          </div>
+        </div>
+        <br>
+        <h4 style="color:#0000ff">Level {{home.level.value}} {{home.level.name}}</h4>
+        <p style="color:#0000ff">{{home.levelInfo.progress}}/{{home.levelInfo.range}} to level {{home.level.value + 1}}</p>
+        <h4 style="color:{{home.weeklyColor}}">Weekly Points: {{home.user.current_weekly_points}}/{{home.user.current_weekly_points_goal_value}}</h4>
+        <h4 style="color:#ec971f">Daily Points: {{home.user.current_daily_points}}/{{home.maxDay}}</h4>
+        <p class="help-text ng-show" ng-show="home.totalPoints == 0">
+          Earn points by completing workouts and logging activity. Try to hit your goal each week for bonus points! You can change your weekly goal in settings.
+        </p>
+      </div>
+    </div>
+    <div class="row hidden-xs toppad">
+      <div class="col-md-3 col-sm-3">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn center-block btn-lg btn-primary img-responsive" ui-sref="quickWorkout">Workout Now<img src="content/images/updown_workout_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn center-block btn-lg btn-primary img-responsive" ng-click="home.customWorkout()">Custom Workout<img src="content/images/custom_build_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn center-block btn-lg btn-primary img-responsive" ui-sref="favorites">Favorites<img src="content/images/favorite_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn center-block btn-lg btn-primary img-responsive" ui-sref="quickLog">Log Activity<img src="content/images/quick_log_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+    </div>
+
+
+<!--Mobile Version Points on Top-->
+    <div class="row hidden-sm hidden-md hidden-lg text-center">
+      <div class="col-xs-6" style="padding:2px">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn btn-lg btn-primary img-responsive" ui-sref="quickWorkout">Generate Workout<img src="content/images/updown_workout_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+      <div class="col-xs-6" style="padding:2px">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn btn-lg btn-primary img-responsive" ng-click="home.customWorkout()">Custom Workout<img src="content/images/custom_build_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+      <div class="col-xs-6" style="padding:2px">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn btn-lg btn-primary img-responsive" ui-sref="favorites">Favorites<img src="content/images/favorite_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+      <div class="col-xs-6" style="padding:2px">
+        <button type="button" style="font-size:14px; margin-bottom:20px" class="btn btn-lg btn-primary img-responsive" ui-sref="quickLog">Quick Log<img src="content/images/quick_log_button.png" class="img-responsive center-block" style="height:45px; width:45px;"></button>
+      </div>
+    </div>
+    <div class="row hidden-sm hidden-md hidden-lg">
+      <div class="col-md-6 col-sm-12 well-round" style="box-shadow: 2px 2px 4px 0px #888888;">
+        <div class="row" style="padding-top:10px">
+          <div class="col-md-5 col-sm-5">
+            <img ng-src="{{home.user['avatar_url']}}" ng-hide="!home.user['avatar_url']" class="img-thumbnail img-responsive center-block ng-hide" style="height:100px; width:100px">
+            <img ng-src="content/images/profile_image.jpg" class="img-thumbnail img-responsive center-block ng-hide" ng-hide="home.user['avatar_url']" style="height:100px; width:100px">
+          </div>
+          <div class="col-md-7 col-sm-7">
+            <h3 class="text-center">
+              {{home.user.first_name}} {{home.user.last_name}}
+            </h3>
+            <h4 class="text-center" ng-hide="!home.user.current_status">
+              "{{home.user.current_status}}"
+            </h4>
+            <p class="text-center help-text" ng-hide="home.user.current_status">
+              Add a status below and your friends will be able to see what's up with you.
+            </p>
+          </div>
+        </div>
+        <br>
+        <h4 style="color:#0000ff">Level {{home.level.value}} {{home.level.name}}</h4>
+        <p style="color:#0000ff">{{home.levelInfo.progress}}/{{home.levelInfo.range}} to level {{home.level.value + 1}}</p>
+        <h4 style="color:{{home.weeklyColor}}">Weekly Points: {{home.user.current_weekly_points}}/{{home.user.current_weekly_points_goal_value}}</h4>
+        <h4 style="color:#ec971f">Daily Points: {{home.user.current_daily_points}}/{{home.maxDay}}</h4>
+        <p class="help-text ng-show" ng-show="home.totalPoints == 0">
+          Earn points by completing workouts and logging activity. Try to hit the cap each month and watch as you level up!
+        </p>
+      </div>
+      <div class="col-md-6 col-sm-12 text-center">
+        <div class="container-progress">
+          <div class="progress-wrapper">
+            <div class="progress-style ng-cloak" ng-style="home.getStyle()">
+              <img ng-src="{{home.level.icon_url}}" class="img-thumbnail img-circle img-responsive center-block" style="height:125px; width:125px;">
+            </div>
+            <div
+              round-progress
+              max="home.levelInfo.range"
+              current="home.levelInfo.progress"
+              color="#0000ff"
+              bgcolor="#eaeaea"
+              radius="120"
+              stroke="20"
+              semi="false"
+              rounded="true"
+              clockwise="true"
+              responsive="false"
+              duration="800"
+              animation="easeInOutQuart">
+              <div
+                round-progress
+                max="home.user.current_weekly_points_goal_value"
+                current="home.user.current_weekly_points"
+                color="{{home.weeklyColor}}"
+                bgcolor="#eaeaea"
+                radius="120"
+                stroke="20"
+                semi="false"
+                rounded="true"
+                clockwise="true"
+                responsive="false"
+                duration="800"
+                animation="easeInOutQuart"
+                offset="inherit">
+                <div
+                  round-progress
+                  max="home.maxDay"
+                  current="home.user.current_daily_points"
+                  color="#ec971f"
+                  bgcolor="#eaeaea"
+                  radius="120"
+                  stroke="20"
+                  semi="false"
+                  rounded="true"
+                  clockwise="true"
+                  responsive="false"
+                  duration="800"
+                  animation="easeInOutQuart"
+                  offset="inherit">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--Monthly Points Leaderboard-->
+
+    <div class="row">
+      <h4 class="orangetext text-center">Monthly Points Leaderboard</h4>
+      <div style="max-height:400px;overflow:auto;">
+        <table class="table table-condensed well" style="margin:0px;padding:0px">
+          <tr style="font-weight:bold">
+            <td></td>
+            <td>Friend</td>
+            <td>Level</td>
+            <td>Points</td>
+          </tr>
+          <tr ng-repeat="friend in home.friends | orderBy:home.predicate:home.reverse" ng-class="{'gold-bg': $index==0,'silver-bg': $index==1,'bronze-bg': $index==2 }">
+            <td>
+              <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url" class="pull-left img-circle ng-hide" style="height:35px; width:35px;">
+              <img ng-src="content/images/profile_image.jpg" ng-hide="friend.avatar_url" class="pull-left img-circle ng-hide" style="height:35px; width:35px;">
+            </td>
+            <td>{{friend.first_name}} {{friend.last_name}}</td>
+            <td>Lv {{home.levelFriend[friend.level_id].value}} {{home.levelFriend[friend.level_id].name}}</td>
+            <td>{{friend.current_monthly_points}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br>
+<!--Message from Updown-->
+    <h5 class="help-text text-center">{{home.randomTip}}</h5>
+<!--User Status-->
+    <form id="statusForm">
+      <div class="row well" style="padding:3px">
+        <div class="col-md-2 hidden-sm hidden-xs" style="margin-top:8px">
+          <img ng-src="{{home.user['avatar_url']}}" ng-hide="!home.user['avatar_url']" class="img-thumbnail img-circle img-responsive center-block ng-hide" style="height:35px; width:35px; padding-top:-6px; padding-bottom:0px;">
+          <img src="content/images/profile_image.jpg" ng-show="!home.user['avatar_url']" class="img-thumbnail img-circle img-responsive center-block ng-show" style="height:35px; width:35px; padding-top:-6px; padding-bottom:0px;">
+        </div>
+        <div class="col-md-8 col-sm-10 col-xs-8" style="padding-right:0px;padding-left:10px;">
+          <div class="form-group">
+            <input type="textarea" ng-model="home.statusString" maxlength="80" style="margin-top:10px" placeholder="Current status." name="userStatus" id="userStatus" class="form-control"></input>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-4">
+          <button id="postComment" style="margin-top:13px" class="btn btn-primary btn-sm img-responsive center-block" ng-click="home.updateStatus()" ng-disabled="home.statusString === '' || home.statusString === null">Post</button>
+        </div>
+      </div>
+    </form>
+    <br>
+<!--Event Feed-->
+    <div class="row" style="padding:2px">
+      <h4 class="text-center orangetext">What's Going On</h4>
+      <div style="max-height:400px;overflow:auto;">
+        <table class="table well">
+          <tr class="ng-show" ng-show="home.events.length === 0">
+            <td colspan="12" class="help-text">This feed displays activity for you and your friends. It's lonely here. Complete a workout or add some friends to populate the feed!</td>
+          </tr>
+          <tr style="font-size:14px;" ng-repeat-start="event in home.events">
+            <td colspan="2" class="hidden-sm hidden-xs">
+              <img ng-src="{{event['user']['avatar_url']}}" ng-hide="!event['user']['avatar_url']" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+              <img ng-src="content/images/profile_image.jpg" ng-hide="event['user']['avatar_url']" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+            </td>
+            <td colspan="3">{{home.formatTime(event['created_at'])}}</td>
+            <td class="ng-hide" ng-hide="event.event_type === 'finish_workout'" colspan="6">{{home.helpers.eventSentence(event)}}<a class="help_link"><i class="fa fa-lg fa-info-circle ng-show" style="cursor:pointer;margin-bottom:2px;padding-left:3px;padding-right:3px;" ng-init="event.showDesc = true" ng-show="event.event_data.quick_log.desc || event.event_data.quick_log.calories_burned || event.event_data.quick_log.distance_miles" ng-click="event.showDesc = !event.showDesc"></i></a></td>
+            <td class="ng-show" ng-show="event.event_type === 'finish_workout'" colspan="6"><a style="cursor:pointer" ng-click="home.expander(home.workouts, event.event_data.workout)">{{home.helpers.eventSentence(event)}}</a></td>
+            <td colspan="1">
+              <button class="btn btn-sm" style="position:relative; padding:0px; padding-bottom:15px; padding-left:3px; background-color:white;" ng-click="home.showComments(event)"><img src="content/images/comments.png" style="position:absolute;height:23px;right:-10px;top:-3px;opacity:0.6;"><span style="position:absolute;right:2px">{{event.comment_count}}</span></button>
+            </td>
+          </tr>
+<!--Workout expander-->
+          <tr class="ng-hide" ng-hide="event.event_data.workout.id && !home.workoutHidden[event.event_data.workout.id]">
+            <td colspan="12" style="padding:0px">
+              <table class='table table-condensed well' ng-repeat="block in home.workouts[event.event_data.workout.id].blocks | orderBy:block.rank track by $index" ng-init="$blockIndex = $index">
+                <tr class="warning">
+                  <td colspan="12"><h5 style="display:inline">{{home.exerciseLookup[block.block_sets[0].exercise_id].name}}</h5></td>
+                </tr>
+                <tr class='form-group-sm text-center form-inline warning' ng-repeat="blockSet in block.block_sets track by $index" ng-init="$blockSetIndex = $index">
+                  <td data-ng-repeat="name in blockSet.criterion | criterionDisplay as results">
+                    <p>{{home.criterionDisplayInfo[name].name}} {{blockSet.criterion[name]}}</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+<!--Quick log details-->
+          <tr class="ng-hide warning" ng-hide="event.showDesc">
+            <td colspan="12" style="font-size:14px" class="ng-hide" ng-hide="event.showDesc">
+              <h5 class="ng-show" ng-show="event.event_data.quick_log.desc">Description: {{event.event_data.quick_log.desc}}</h5>
+              <h5 class="ng-show" ng-show="event.event_data.quick_log.calories_burned">Cals Burned: {{event.event_data.quick_log.calories_burned}}</h5>
+              <h5 class="ng-show" ng-show="event.event_data.quick_log.distance_miles">Distance {{(home.metric === "standard" ? "(miles)" : "(km)")}}: {{home.metric !== "standard" ? home.helpers.mi_to_km(event.event_data.quick_log.distance_miles) : home.helpers.round(event.event_data.quick_log.distance_miles, -2) | number:2}}</h5>
+            </td>
+          </tr>
+<!--Comments-->
+          <tr ng-repeat-end class="ng-hide" ng-show="event.show">
+            <td colspan="12" style="padding:0px">
+              <table class="table" style="margin-bottom:0px">
+                <tr class="info" style="font-size:14px" ng-repeat="comment in event['comments'] | orderBy:'created_at':false" style="height:45px">
+                  <td class="hidden-sm hidden-xs" colspan="2">
+                    <img ng-src="{{comment['user']['avatar_url']}}" ng-hide="!comment['user']['avatar_url']" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+                    <img ng-src="content/images/profile_image.jpg" ng-hide="comment['user']['avatar_url']" class="img-circle pull-left ng-hide" style="height:35px; width:35px;">
+                  </td>
+                  <td colspan="3">{{home.formatTime(comment['created_at'])}}</td>
+                  <td colspan="5">{{comment['comment_text']}}</td>
+                  <td colspan="3">-{{comment['user']['first_name']}} {{home.helpers.firstLetter(comment['user']['last_name'])}}</td>
+                  <td colspan="1"><a ng-show="home.user['id'] == comment['user']['id']"><i class="fa fa-lg fa-times" style="cursor:pointer" ng-click="home.removeComment(event, comment)"></i></a></td>
+                </tr>
+                <tr class="info" style="padding-top:10px;padding-bottom:10px;">
+                  <td colspan="11" class="hidden-md hidden-lg">
+                    <input type="text" maxlength="80" class="form-control-small" style="font-size:14px; padding-right:0px" ng-model="event.commentText" placeholder="Enter comment here.">
+                  </td>
+                  <td colspan="13" class="hidden-sm hidden-xs">
+                    <input type="text" maxlength="80" class="form-control-small" style="font-size:14px; padding-right:0px" ng-model="event.commentText" placeholder="Enter comment here.">
+                  </td>
+                  <td colspan="1">
+                    <a><i class="fa fa-lg fa-plus-square-o" ng-click="home.submitComment(event); event.commentText = ''" ng-disabled="event.commentText === '' || event.commentText === null" style="padding-left:0px;cursor:pointer"></i></a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+<!--Google play + Apple-->
+    <div class="row topbottompad text-center">
+      <div class="col-md-offset-2 col-md-4 text-center">
+        <a href="https://play.google.com/store/apps/details?id=com.ionicframework.updownapp567681">
+          <img alt="Get it on Google Play"
+          src="content/images/google_icon.png" style="width:150px;height:auto" />
+        </a>
+      </div>
+      <div class="col-md-4 text-center">
+        <a href="https://itunes.apple.com/us/app/updown-fitness/id1057346888?mt=8">
+          <img alt="Get it on Apple iTunes" style="width:150px;height:auto" src="content/images/itunes.png" />
+        </a> 
+      </div>
+    </div>
+  </div>
+</div>
+
+

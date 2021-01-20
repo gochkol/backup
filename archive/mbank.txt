@@ -1,0 +1,232 @@
+These are the plans for a mutualist bank with all the documentation for how to run such a bank.
+
+The bank if founded by a draft of the articles of the bank and the first donation made to the bank.
+Actions taken at the bank:
+1)Donation - Make a donation to the general fund and recieve a collection receipt
+2)Collection - Turn in a collection receipt for a package
+3)Deposit - Put money/capital in your account from outside the bank
+4)Withdrawl - Take out money/capital from the bank
+5)Transfer - Move money to another person at the bank
+6)Loan - Give money to another person at a rate with set terms
+7)Secure - Secure an loan as a third party
+8)Buy - Place a buy order on something in the market
+9)Sell - Place a sell order on an account asset
+10)Insure - Insure an asset as a third party
+11)Preside - Must be made on all accounts simultaneously to make a new precedent
+12)Vote - like, dislike, agree, disagree, abstain
+13)Open - Start a monthly meeting
+14)Meet - Record the minutes of a monthly meeting
+15)Close - End a monthly meeting
+
+The bank itself is rund by the Fund Manager who is elected at a monthly meeting by the contributing donors
+or is appointed when there is no other Fund Manager and they are the largest donor when a donation is made.
+The bank keeps several ledgers:
+1)Donations Ledger - Keeps track of all donations
+2)Collections Ledger - Keeps track of all packages taken
+3)Accounts Ledger - Keeps track of all accounts including the main account
+4)Fund Ledger - Keeps track of all funds, long term investments and accounts are on this ledger but don't count toward the fund and
+  also on this ledger counting toward the fund are the short term investments, the cash on hand, and the packages.
+5)Minutes Ledger - Keeps track of monthly meeting minutes
+
+The bank is created when the first donation is made and taken to make the first account. The person who makes
+this donation automatically becomes the fund manager. A new presidence is set upon completion of this. Monthly
+meeting take place every four weeks at the place of the precedence at the time of the precidence (ie if it is set
+for Saturday at 6:00PM then the next meeeting will be the same day and time 4 weeks later). For a new precedence to
+be set all account holders must be in the same place at the same time.
+
+Rules:
+1)When a person makes a donation it must be larger than the largest package and it cannot be an ammount that would
+create a packet for the same ammount as the donation. When a person makes their first donation they immediately take
+the largest packet less than their donation. This donation and immediate collection mark the opening of their account.
+They immediately have to donate again to maintain their account standing. And make their account able to hold money.
+2)An account can only hold as much money as the sum of the users available donation tickets. When money is added to a
+persons account, if they have more than the sum of their donation tickets, a new donation is made equal to the smallest
+possible donation and the process is repeated until they are in good standing. A person cannot deposit more than the
+difference between their current account value and the total supported by their donation tickets.
+3)Unredeemed donation tickets can vote equal to their donation value
+4)Donations can be no larger than the total fund size, must be larger than the largest current packet, and cannot made if
+they produce a packet of equal value.
+5)The fund size is the total of the packets, the cash on hand, and the short term investments
+6)There are cooldowns for actions placed on the individual and the community. Individuals have to wait as long as they
+have waited before taking an action before they can take another action. The community has to wait at least as long as
+they waited since the last time an action was taken before they can take a new action. When positions are placed or
+created they are checked for action before they are resolved to the open market.
+7)Donation reciepts pay monthly dividends to their account holders equal to the value of the smallest packet and are
+taken from the cash on hand.
+8)Accounts considered in bad standing are defined as follows. If the account has a negative value or a value less than
+what is required to make a donation and no valid donation receipts then the account is in bad standing. Bad standing accounts
+are charged an ammount equal to the smallest packet. To come into good standing a donation must be made or the balance
+made positive. Accounts in bad standing with less than the largest package ammount value in the red at the time of account
+rectification are suspended. Suspended accounts must be put in good standing before they can be used anymore. An account
+can be closed at anytime by collecting on all donation reciepts, ending all positions, and emptying the account.
+9)The fund manager has to perform all transactions.
+
+
+
+
+
+Sample Fund
+Fund created by A1 at time T0 with a donation of $100.00
+Donation made, fund at $100.00, package P0 created with $1.00
+A1 recieves package P0 and has account with $1.00
+Since no donations on account min donation is at $0, person makes max package donation $1.00
+Fund at $100.00, package P1 $1.00 package made with T1 $1.00 donation voucher to person A
+Fund at $100.00 = $99COH & package P1 $1.00 <=> voucher T1 to person A1
+At first month $1.00 paid out
+Fund at $99.00 = $98COH & package P1 $1.00 <=> voucher T1 $1.00 to person A1, A1 account with $1.00
+12 * (1 donation voucher)*($1.00) + ($9.90 = 10% fund value) = $21.90 new cash on hand ammount
+Fund at $99.00 = $76.10 Short & $21.90 COH & package P1 = $1.00
+Last long gain 0%, 50% fund is $49.50
+Fund at $72.40 = (Last gain percentage is -34.954% Long $26.60) & short $49.50 & COH $21.90 & package P1 = $1
+Last gain percentage is -34.954%, interest earned is 0%, (10% of short is $4.95 added back to COH), consider 10% of total invesments 26.60 + 49.50 = 76.10 ... 10% = $7.61
+Fund at $72.40 = (long $26.60) & short $44.55 & COH $26.85 & package P1 = $1.00
+Accounts are resolved, $1.00 cannot make a donation so it does nothing.
+Election is held and winner gets 1% of cash on hand = $.27
+Goes to A1 => account has $1.27 with P1 = $1.00 voucher, puts account in bad standing, $1.01 donation made
+Fund at $72.13 = (long $26.60) & short $44.55 & COH $26.58 & package P1 = $1.00
+Fund at $73.14, package P2 = $.73 created from cash on hand
+Fund at $73.14, (long $26.60) & short $44.55 & COH $26.86 $ package P1 = $1.00, P2 = $.73
+A1 has account = $.26 and donation reciepts for P1-$1.00 = $1.00, P2-$1.01 = $.73, with total donation $2.01
+The budget for the first months admin fees was $0
+Nine times this months payout for management is 9*$.27 = $2.43 fund is assumed to be fully funded accounting budget
+$2.43 is 9.047% of the total cash on hand. If this is assumed to be spent on admin then the remaining for the next month
+must be calculated and the next month planned out as if nothing happened, then the next month budgeted for and so on and so forth,
+the budget for the next six months worth of admin must be set aside from the cash on hand to keep the fund running.
+Example of how this is done:
+Fund at next month:
+Fund at $70.71, (long $26.60) & short $44.55 & COH $24.43 & package P1 = %1.00, P2 = $.73
+A1 => $.26 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Pay dividends of $.73 X 2 = $1.46 to A1 from COH for P1 and P2
+Fund at $69.25, (long $26.60) & short $44.55 & COH $22.97 & package P1 = %1.00, P2 = $.73
+A1 => $1.52 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Transfer from cash on hand to short, 12 * (2 donation vouchers) * ($.73) + ($6.93 = 10% fund) = $24.45 greater than COH no transfer made
+Last long gain -34.954%, 50% of fund is 34.63. Double the profit percentage is -69.908% meaning no profit, since negative.
+$44.55 - $34.63 = $9.92 moved to the long.
+Fund at $59.33, last change -14.325% (long $36.52) & short $34.63 & COH $22.97 & package P1 = %1.00, P2 = $.73
+A1 => $1.52 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Last gain percentage is -14.325%, intrest earned is 0%, 10% of short is $3.46 moved back to cash on hand
+Fund at $59.33, last change -14.325% (long $36.52) & short $31.17 & COH $26.43 & package P1 = %1.00, P2 = $.73
+A1 => $1.52 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Accounts are resolved A1 does not donate under cap
+Elections Held A1 wins and get paid 1% of cash on hand = $.26
+Fund at $59.07, last change -14.325% (long $36.52) & short $31.17 & COH $26.17 & package P1 = %1.00, P2 = $.73
+A1 => $1.78 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Nine times this months payout for management is 9*$.26 = $2.34 times the six month ago funding which is 100%, becomes next months admin budget.
+$2.34 is 8.942% of the cash on hand for next month leading to that months admin budget.
+This process is continued to observe the total life of the fund if nothing happens.
+
+
+Sample Fund
+Fund created by A1 at time T0 with a donation of $100.00
+Donation made, fund at $100.00, package P0 created with $1.00
+A1 recieves package P0 and has account with $1.00
+Since no donations on account min donation is at $0, person makes max package donation $1.00
+Fund at $100.00, package P1 $1.00 package made with T1 $1.00 donation voucher to person A
+Fund at $100.00 = $99COH & package P1 $1.00 <=> voucher T1 to person A1
+At first month $1.00 paid out
+Fund at $99.00 = $98COH & package P1 $1.00 <=> voucher T1 $1.00 to person A1, A1 account with $1.00
+12 * (1 donation voucher)*($1.00) + ($9.90 = 10% fund value) = $21.90 new cash on hand ammount
+Fund at $99.00 = $76.10 Short & $21.90 COH & package P1 = $1.00
+Last long gain 0%, 50% fund is $49.50
+Fund at $72.40 = (Last gain percentage is -34.954% Long $26.60) & short $49.50 & COH $21.90 & package P1 = $1
+Last gain percentage is -34.954%, interest earned is 0%, 10% of total invesments 26.60 + 49.50 = 76.10 ... 10% = $7.61 moved from short to COH
+Fund at $72.40 = (long $26.60) & short $41.89 & COH $29.51 & package P1 = $1.00
+Accounts are resolved, $1.00 cannot make a donation so it does nothing.
+Election is held and winner gets 1% of cash on hand = $.30
+Goes to A1 => account has $1.30 with P1 = $1.00 voucher, puts account in bad standing, $1.01 donation made
+Fund at $72.10 = (long $26.60) & short $41.89 & COH $29.21 & package P1 = $1.00
+Fund at $73.11, package P2 = $.73 created from cash on hand
+Fund at $73.11, (long $26.60) & short $41.89 & COH $29.49 $ package P1 = $1.00, P2 = $.73
+A1 has account = $.29 and donation reciepts for P1-$1.00 = $1.00, P2-$1.01 = $.73, with total donation $2.01
+The budget for the first months admin fees was $0
+Nine times this months payout for management is 9*$.30 = $2.70 fund is assumed to be fully funded accounting budget
+$2.70 is 9.156% of the total cash on hand. If this is assumed to be spent on admin then the remaining for the next month
+must be calculated and the next month planned out as if nothing happened, then the next month budgeted for and so on and so forth,
+the budget for the next six months worth of admin must be set aside from the cash on hand to keep the fund running.
+Example of how this is done:
+Fund at next month:
+Budget of $2.70 spent leaving
+Fund at $70.41, (long $26.60) & short $41.89 & COH $26.79 & package P1 = %1.00, P2 = $.73
+A1 => $.29 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Pay dividends of $.73 X 2 = $1.46 to A1 from COH for P1 and P2
+Fund at $68.95, (long $26.60) & short $41.89 & COH $25.33 & package P1 = %1.00, P2 = $.73
+A1 => $1.75 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Transfer from cash on hand to short, 12 * (2 donation vouchers) * ($.73) + ($6.90 = 10% fund) = $24.42 less than COH
+$25.33 - $24.42 = $.91
+Fund at $68.95, (long $26.60) & short $42.80 & COH $24.42 & package P1 = %1.00, P2 = $.73
+A1 => $1.75 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Last long gain -34.954%, 50% of fund is $34.48. Double the profit percentage is -69.908% meaning no profit, since negative. If it were less in short you would move long to short to make up difference if available.
+$41.89 - $34.48 = $7.41 moved to the long.
+Fund at $61.54, last change -14.325% (long $34.01) & short $35.39 & COH $24.42 & package P1 = $1.00, P2 = $.73
+A1 => $1.75 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Last gain percentage is -10.677%, intrest earned is 0%, 10% of investments is $6.94 moved back to cash on hand
+Fund at $61.54, last change -10.677% (long $34.01) & short $28.45 & COH $31.36 & package P1 = $1.00, P2 = $.73
+A1 => $1.75 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+Accounts are resolved A1 does not donate under cap
+Elections Held A1 wins and get paid 1% of cash on hand = $.31
+Fund at $61.23, last change -10.677% (long $34.01) & short $28.45 & COH $31.05 & package P1 = $1.00, P2 = $.73
+A1 => $2.06 & P1-$1.00 = $1.00 & P2-$1.01 = $.73, TD = $2.01
+This is bad standing so a donation is made for $1.01
+Funds at $62.24 new package P3-$1.01 = $.62
+Funds at $62.24, last change -10.677% (long $34.01) & short $28.45 & COH $31.44 & package P1 =$1.00, P2 = $.73, P3 = $.62
+A1 => $1.05 & P1-$1.00 = $1.00 & P2-$1.01 = $.73 & P3-$1.01 = $.62, TD = $3.02   Package Total = $2.65
+Nine times this months payout for management is 9*$.31 = $2.79 times the six month ago funding which is 100%, becomes next months admin budget.
+$2.79 is 8.874% of the cash on hand for next month leading to that months admin budget.
+This process is continued to observe the total life of the fund if nothing happens. And that is used to formulate future budgets.
+This calculation is added to minutes at the start of the meeting after last meetings minutes are read.
+
+Any part of the monthly admin budget not used is added to the next month's budget, any shortfall is subtracted from the next months budget
+This would work great with personal cards linked to accounts.
+Depoits are made through the fund manager. And people can spend on their fund card from their account.
+Set up a website to view everything.
+
+Fund Page
+Accounts | Packages | Cash on Hand | Short | Long
+No count |        Part of Fund Total       | No Count Keep track of last month vs current value for percent up down
+
+Donations Page
+1)Donation Id
+2)Account donating
+3)Timestamp
+4)Package Id
+5)Package Value
+6)Id of donating recieving package
+7)Timestamp when package was recieved
+8)Id of package this donation recieves
+9)Timestamp when this donation recieves a package
+
+Packages Page
+1)Id of package recieved
+2)Id of donation redeemed
+3)Value of Package
+4)Account Package transfered to
+5)Id of donation generating package
+6)Timestamp when package was created
+7)Timestamp when package was redeemed
+
+Account Page
+Every transaction and position is listed here. Whenever one is set it is added to the que chain and the account page for reference
+
+Meetings Minutes Log
+Standardized format minutes
+
+Fund budget
+Lists all the expenses and projections for the future given different scenario to generate operating costs budget
+
+Login
+Anyone can login and use their card whenevers lol
+
+Coin mark transfers. LOLOL
+Buy and sell donations and other objects
+Fully Fund Marketplace for futures, stocks, bonds, cuffs, securities, insurances, commodities, and currencies
+Lol sec do it do it
+
+Ammount put in long is considered lost.
+At least half the long must remain liquid.
+The long can only be invested by action of a meeting.
+If the long must be transfered to the short it is taken from the liquid part of that session.
+The long plus or minus the ammount put in out from the short is the over under for funds transfer
+The this value is subtracted from the short when calculating the ammount to add to the long.
+
+Lets try a future scenario looking at the pages to see whats happening
+

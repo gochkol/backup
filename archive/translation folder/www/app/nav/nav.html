@@ -1,0 +1,34 @@
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" ng-click="nav.isCollapsed = !nav.isCollapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" ui-sref="home">
+      <img class="branding" alt="UpDown logo" src="content/images/upDownLogo.png" style="
+        margin-top: -4px;
+        margin-left: 30px;
+        width: 100px;
+        max-width: 100px;">
+    </a>
+    <p class="navbar-text">{{nav.user.first_name}} <!--{{user.last_name}}--></p>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" collapse="nav.isCollapsed">
+    <ul class="nav navbar-nav navbar-right">
+      <li ng-class="checkState('home')"><a ui-sref="home">Home</a></li>
+      <li ng-class="checkState('profile')"><a ui-sref="profile">Profile</a></li>
+      <li ng-class="checkState('locations')"><a ui-sref="locations">Locations</a></li>
+      <li ng-class="checkState('friends')"><a ui-sref="friends">Friends <span class="orangetext ng-show" ng-show="nav.friend_requests['incoming'].length >= 1">({{nav.friend_requests['incoming'].length}})</span></a></li>
+      <li ng-class="checkState('company')"><a ui-sref="company">Teams</a></li>
+      <li ng-class="checkState('points')"><a ui-sref="points">Points</a></li>
+      <li ng-class="checkState('settings')"><a ui-sref="settings">Settings</a></li>
+      <li><a ui-sref="logout" style="text-decoration: none" ng-click="nav.clicked('logout')">Logout</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>

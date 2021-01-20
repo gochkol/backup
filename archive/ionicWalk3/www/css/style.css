@@ -1,0 +1,192 @@
+/* Custom Fonts */
+@font-face {
+  font-family: 'avenir';
+  src: url('../fonts/avenir-book.eot');
+  src: url('../fonts/avenir-book.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/avenir-book.woff2') format('woff2'),
+       url('../fonts/avenir-book.woff') format('woff'),
+       url('../fonts/avenir-book.ttf') format('truetype'),
+       url('../fonts/avenir-book.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Side the scroll bar */
+.scroll-bar-indicator { 
+	display: none;
+}
+
+.demacate {
+  margin-top: 7vh;
+}
+
+/* Intro */
+.scroll-content {
+  background-color: #159CEE;
+}
+p.intro {
+  font-size: 1.5em;
+  line-height: 1.4em;
+  font-weight: 300;
+  animation-delay: 200ms;
+}
+.intro_title {
+  margin-top: 27vh;
+}
+.title {
+  margin-top: 14.3vh;
+}
+.title img {
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+}
+.title p {
+  text-align: center;
+  color: #000;
+  font-weight: 600;
+  margin-top: -20px;
+}
+.intro_title h1, .title h3 {
+	font-family: 'avenir-light', sans-serif;
+  font-size: 2.7em;
+  font-weight: bold;
+	text-transform: capitalize;
+	text-align: center;
+	color: #fff;
+  padding: 14px 0px;
+  color: #fff;
+}
+.intro_title p {
+  color: #fff;
+  margin: 3% auto;
+  text-align: center;
+}
+.intro_title p:last-child {
+  font-size: 1.1em;
+  text-align: center;
+  color: #000;
+  margin-top: 10%;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.slider-pager .slider-pager-page:first-child {
+  display: none;
+}
+
+/* Arrows */
+
+.arrow {
+  width: 100px;
+  margin: 22px 0px 0px 0px;
+  display: inline-block;
+  position: relative;
+}
+.arrow::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  left: 50%;
+  border-style: solid;
+  border-color: #000;
+  border-width: 1px 1px 0 0;
+  position: absolute;
+  -moz-transform-origin: 50% 50% 50%;
+  -ms-transform-origin: 50% 50% 50%;
+  -webkit-transform-origin: 50% 50% 50%;
+  transform-origin: 50% 50% 50%;
+}
+.arrow.right::before {
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px 0px 0 0;
+}
+.arrow.left::before {
+  -moz-transform: rotate(-130deg);
+  -ms-transform: rotate(-130deg);
+  -webkit-transform: rotate(-130deg);
+  transform: rotate(-130deg);
+  /*margin: -15px 0 0 -10px;*/
+  margin: -5.34px 0 0 -13px;
+}
+.arrow::after {
+  content: '';
+  display: block;
+  top: 50%;
+  left: 50%;
+  border-style: solid;
+  border-color: #000;
+  position: absolute;
+  -moz-transform-origin: 50% 50% 50%;
+  -ms-transform-origin: 50% 50% 50%;
+  -webkit-transform-origin: 50% 50% 50%;
+  transform-origin: 50% 50% 50%;
+}
+.arrow.left::after {
+  width: 60px;
+  height: 0;
+  border-width: 1px 0 0 0;
+  -moz-transform: translate(-14px, -1px);
+  -ms-transform: translate(-14px, -1px);
+  -webkit-transform: translate(-14px, -1px);
+  transform: translate(-14px, -1px);
+}
+.arrow.right::after {
+  width: 1110px;
+  height: 0;
+  margin-left: -20px;
+  border-width: 1px 0 0 0;
+  -moz-transform: translate(-26px, -1px);
+  -ms-transform: translate(-26px, -1px);
+  -webkit-transform: translate(-26px, -1px);
+  transform: translate(-26px, -1px);
+}
+
+
+/* Footer */
+.bar-footer {
+  background: #159CEE;
+}
+.bar-footer .row {
+  position: relative;
+  bottom: 30px;
+}
+.bar-footer a {
+	text-decoration: none;
+	color: #fff;
+	font-family: 'avenir', sans-serif;
+	font-size: 15px;
+  text-transform: capitalize;
+  display: block;
+  text-align: center;
+  padding: 5px 0px;
+}
+.bar-footer .row .col-50:last-child a {
+  border-left: 1px solid rgba(255, 255, 255, .5);
+}
+.slider {
+	height: 100%;
+}
+.slider-pager {
+  bottom: 27%;
+  display: none;
+}
+.slider-pager .slider-pager-page i.ion-record:before {
+	font-size: 7px;
+  color: #fff;
+}
+/* color of the active slider icon */
+.slider-pager .slider-pager-page.active i.ion-record:before {
+	color: #fff;
+}
+/* change margin between slider icon*/
+.slider-pager .slider-pager-page {
+  margin: 0px !important;
+}
+.first .slider-pager {
+  display: block;
+}

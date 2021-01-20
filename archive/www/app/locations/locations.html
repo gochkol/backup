@@ -1,0 +1,63 @@
+<ion-view view-title="<i class='icon ion-compass'></i> Locations" hide-back-button="true">
+
+<ion-content style="margin-bottom:65px">
+
+<ion-list ng-repeat="location in locations.locations track by $index" ng-init="locationIndex = $index" style="margin-top:15px">
+  <div class="item item-divider item-calm item-icon-right" ng-click="locations.hiding['location'][locationIndex]['hidden'] = !locations.hiding['location'][locationIndex]['hidden']">
+    <i class="icon ion-android-arrow-dropdown"></i>
+    {{location.name}}
+  </div>
+  <div class="list ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+    <label class="item item-input">
+      <div class="input-label">
+        Name:
+      </div>
+      <input class="text-right" ng-change="evalName()" ng-keydown="locations.blur($event)" maxlength="20" ng-model="location.name" type="text" placeholder="Location Name">
+      <i class="icon ion-edit placeholder-icon" style="padding-right:25px"></i>
+    </label>
+    <label class="item item-input item-select item-icon-right">
+      <i class="icon ion-edit placeholder-icon text-right"></i>
+      <div class="input-label">
+        Space:
+      </div>
+      <select ng-options="obj.id as obj.name for obj in locations.spaces" ng-model="location.space_id" name="spaceHome"></select>
+    </label>
+  </div>
+  <div class="item item-text-wrap text-center ng-hide" style="margin-top:-21px" ng-hide="locations.hiding['location'][locationIndex]['hidden']">
+    <h4 class="help-text">Check the equipment you have at this location.</h4>
+  </div>
+  <div ng-repeat="equipmentGroup in locations.equipmentGroups | orderBy:'name' track by $index" style="padding-top:0px;padding-bottom:0px;padding-right:0px;margin-right:0px;padding-left:5px;margin-top:0px;margin-bottom:0px" ng-init="groupIndex = $index" class="list list-inset ng-hide" ng-hide="locations.hiding.location[locationIndex].hidden">
+    <div class="item item-divider item-icon-right item-calm" ng-click="locations.hiding['location'][locationIndex]['hider'][groupIndex] = !locations.hiding['location'][locationIndex]['hider'][groupIndex]">
+      <i class="icon ion-android-arrow-dropdown"></i>
+      {{equipmentGroup.name}}
+    </div>
+    <div class="list">
+      <div ng-repeat="equipment in equipmentGroup['equipments'] | orderBy:'name'" style="padding-top:0px;padding-bottom:0px;margin-bottom:-20px" class="item item-text-wrap ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hider'][groupIndex]">
+        <label class="checkbox checkbox-calm">
+          <div class="row">
+            <div class="col col-20">
+              <input type="checkbox" ng-checked="location.equipment_ids.indexOf(equipment.id) > -1" ng-click="locations.toggleEquipment(location, equipment['id'])" value="{{equipment.id}}" class="ng-hide" ng-hide="locations.hiding['location'][locationIndex]['hider'][groupIndex]">             
+            </div>
+            <div class="col">
+              {{equipment.name}}
+            </div>
+            <div class="col col-33">
+              <img ng-src="{{locations.equipmentLookup[equipment.id].image_url}}" width="100px">
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</ion-list>
+
+</ion-content>
+
+<div class="tabs tabs-icon-top">
+  <a class="tab-item" ng-click="locations.submit()">
+    <i class="icon calm ion-ios-checkmark"></i>
+    Save
+  </a>
+</div>
+
+</ion-view>

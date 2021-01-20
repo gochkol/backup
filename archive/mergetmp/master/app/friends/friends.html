@@ -1,0 +1,142 @@
+<ion-view view-title="<i class='icon ion-person-stalker'></i> Friends" hide-back-button="true">
+
+<ion-content>
+
+<!--Friends Leaderboard-->
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedLeaders = !friends.isCollapsedLeaders">
+  <i class="icon ion-connection-bars"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  Friends Leaderboard
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedLeaders">
+<div class="button-bar" style="height:42px">
+  <button type="button" style="height:42px" class="button button-calm {{friends.ordering.daily}}" ng-click="friends.order('current_daily_points')"><span style="margin-top:-8px">Day</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{friends.ordering.monthly}}" ng-click="friends.order('current_monthly_points')"><span style="margin-top:-8px">Month</span></button>
+  <button type="button" style="height:42px" class="button button-calm {{friends.ordering.total}}" ng-click="friends.order('current_total_points')"><span style="margin-top:-8px">All Time</span></button>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:300px">
+<div class="item item-text-wrap ng-show" ng-show="friends.friends.length - 1 == 0">
+    <h4 class="help-text">
+	  Add friends to compete with them on the leaderboard!
+    </h4>
+  </div>
+<div class="list">
+  <div ng-repeat="friend in friends.friends | orderBy:friends.predicate:friends.reverse" class="item row row-center" ng-class="{'item-energized':friend.id == friends.user.id}" ng-click="friends.personClick(friend)">
+    <div class="col col-25 item-avatar">
+      <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url">
+	  <img ng-hide="friend.avatar_url" ng-src="content/images/profile_image.jpg">
+	</div>
+	<div class="col item-text-wrap">
+      <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+	  <h3>Lv {{friends.level[friend.level_id].value}} {{friends.level[friend.level_id].name}}</h3>
+	</div>
+	<div class="col col-33 text-center">
+      <h1 class="ng-hide" ng-hide="friends.showDay">{{friend.current_daily_points}}</h1>
+      <h1 class="ng-hide" ng-hide="friends.showMonth">{{friend.current_monthly_points}}</h1>
+      <h1 class="ng-hide" ng-hide="friends.showTotal">{{friend.current_total_points}}</h1>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>
+
+<!--My Friends-->
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedFriends = !friends.isCollapsedFriends">
+  <i class="icon ion-ios-people"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  My Friends ({{friends.friends.length - 1}})
+</div>
+<div class="item item-text-wrap ng-show" ng-show="friends.friends.length - 1 == 0">
+  <h4 class="help-text">
+	Add friends to view and share workouts and activity. Also, compete with them for points and levels!
+  </h4>
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedFriends">
+<div class="item item-text-wrap ng-hide" ng-hide="friends.friends.length < 2">
+  <h4 class="help-text text-center">
+	Tap on a friend to see more details.
+  </h4>
+</div>
+<ion-scroll zooming="true" direction="y" style="max-height:300px">
+<div class="list">
+  <div ng-repeat="friend in friends.friends | filter:friends.invert | orderBy:'first_name'" class="item row row-center ng-hide" ng-hide="friend.id == friends.user.id" ng-click="friends.showFriend(friend)">
+    <div class="col col-25 item-avatar">
+	  <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url">
+	  <img ng-hide="friend.avatar_url" ng-src="content/images/profile_image.jpg">
+	</div>
+	<div class="col">
+      <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+	  <h3>Lv {{friends.level[friend.level_id].value}} {{friends.level[friend.level_id].name}}</h3>
+	</div>
+  </div>
+</div>
+</ion-scroll>
+</div>
+
+<!--Find Friends-->
+<div class="item item-calm item-icon-left item-divider">
+  <i class="icon ion-android-search"></i>
+  Find Friends
+</div>
+<div class="list">
+  <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input ng-model="friends.searchText" type="text" maxlength="30" ng-keydown="friends.blur($event)" class="item-input" placeholder="Friend search"></td>
+    </label>
+    <button type="submit" class="button button-small button-calm" ng-click="friends.search()">Search</button>
+  </div>
+  <ion-scroll zooming="true" direction="y" style="max-height:200px">
+  <a ng-repeat="friend in friends.friendsFromSearch | orderBy:'last_name'" class="item item-avatar-left item-button-right">
+    <img ng-src="{{friend.avatar_url}}" ng-hide="!friend.avatar_url">
+	<img ng-hide="friend.avatar_url" ng-src="content/images/profile_image.jpg">
+    <h2>{{friend.first_name}} {{friend.last_name}}</h2>
+    <i class="icon button button-icon ion-ios-plus-outline ng-hide" ng-disabled="friends.isReadonlytwo" ng-hide="friends.isReadonlytwo" ng-click="friends.createFriendRequest(friend); friends.isReadonlytwo != friends.isReadyonlytwo"></i>
+  </a>
+  </ion-scroll>
+  <div class="item" ng-show="friends.searchText != '' && friends.friendsFromSearch.length == 0 && friends.searchSubmitted">
+    No search results found.
+  </div>
+</div>
+  
+<!--Friend Requests-->
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedRequests = !friends.isCollapsedRequests">
+  <i class="icon ion-person-add"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  Friend Requests ({{friends.friendRequestsForMe.length}})
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedRequests">
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <div ng-repeat="friendRequest in friends.friendRequestsForMe | orderBy:'first_name'" class="item item-avatar-left item-button-right">
+    <img ng-click="friends.showFriend(friendRequest.user)" ng-src="{{friendRequest.user.avatar_url}}" ng-hide="!friendRequest.user.avatar_url">
+	<img ng-click="friends.showFriend(friendRequest.user)" ng-hide="friendRequest.user.avatar_url" ng-src="content/images/profile_image.jpg">
+    <h2 class="calm" ng-click="friends.showFriend(friendRequest.user)">{{friendRequest.user.first_name}} {{friendRequest.user.last_name}}</h2>
+    <i class="icon button button-icon ion-ios-plus-outline" style="margin-right:70px" ng-click="friends.acceptFriendRequest(friendRequest)"></i> 
+    <i class="icon button button-icon ion-backspace-outline" ng-click="friends.declineFriendRequest(friendRequest)"></i>   
+  </div>
+</div>
+</ion-scroll>
+</div>
+
+<!--Pending Friends-->
+<div class="item item-calm item-icon-right item-icon-left item-divider" ng-click="friends.isCollapsedPending = !friends.isCollapsedPending">
+  <i class="icon ion-android-person-add"></i>
+  <i class="icon ion-android-arrow-dropdown button button-icon" style="color:white"></i>
+  Pending Friends ({{friends.friendRequestsFromMe.length}})
+</div>
+<div class="ng-show" ng-show="!friends.isCollapsedPending">
+<ion-scroll zooming="true" direction="y" style="max-height:250px">
+<div class="list">
+  <div ng-repeat="friendRequest in friends.friendRequestsFromMe | orderBy:'first_name'" class="item item-avatar-left item-button-right">
+    <img ng-src="{{friendRequest.friend.avatar_url}}" ng-hide="!friendRequest.friend.avatar_url">
+	<img ng-hide="friendRequest.friend.avatar_url" ng-src="content/images/profile_image.jpg">
+    <h2>{{friendRequest.friend.first_name}} {{friendRequest.friend.last_name}}</h2>
+    <i class="icon button button-icon ion-backspace-outline" ng-click="friends.deleteFriendRequest(friendRequest)"></i>
+  </div>
+</div>
+</ion-scroll>
+</div>
+
+</ion-content>
+
+</ion-view>

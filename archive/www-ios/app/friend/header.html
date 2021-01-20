@@ -1,0 +1,37 @@
+<!--Friend Header with no profile pic-->
+<div class="row text-center ng-show" ng-show="!friend.friend['avatar_url']" style="margin-top:10px">
+  <div class="col">
+    <img src="content/images/profile_image.jpg" style="padding:0px;width:15vmax;height:15vmax;border-radius:50%">
+  </div>
+  <div class="col">
+    <img ng-src="{{friend.level.icon_url}}" style="padding:0px;width:15vmax;height:15vmax;border-radius:50%">
+  </div>
+</div>
+<div class="row text-center ng-show" ng-show="!friend.friend['avatar_url']" style="margin-top:10px">
+  <div class="col">
+	<h3 style="padding:0px;margin:0px">{{friend.friend.first_name}} {{friend.friend.last_name}}</h3> 
+	<h4>Level {{friend.level.value}} {{friend.level.name}}</h4>
+    <p style="padding:0px;margin:0px" ng-hide="!friend.friend.current_status">
+	  "{{friend.friend.current_status}}" <!-- -{{home.formatTime(home.user['current_status_at'])}} -->
+	</p>
+  </div>
+</div>
+
+<!--Friend Header with profile pic-->
+<div class="row text-center ng-show" ng-show="friend.friend['avatar_url']" style="margin-top:10px">
+  <div class="col text-center">
+    <img ng-src="{{friend.friend.avatar_url}}" style="padding:0px;width:15vmax;height:15vmax;border-radius:50%">
+  </div>
+  <div class="col text-center">
+    <img ng-src="{{friend.level.icon_url}}" style="padding:0px;width:15vmax;height:15vmax;border-radius:50%">
+  </div>
+</div>
+<div class="row text-center ng-show" ng-show="friend.friend['avatar_url']" style="margin-top:10px">
+  <div class="col">
+	<h3 style="padding:0px;margin:0px">{{friend.friend.first_name}} {{friend.friend.last_name}}</h3> 
+	<h4>Level {{friend.level.value}} {{friend.level.name}}</h4>
+    <p style="padding:0px;margin:0px" ng-hide="!friend.friend.current_status">
+	  "{{friend.friend.current_status}}" <!-- -{{home.formatTime(home.user['current_status_at'])}} -->
+	</p>
+  </div>
+</div>

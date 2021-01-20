@@ -1,0 +1,240 @@
+<!--Intro Carousel
+================================ -->
+
+<div class="row" style="margin-top:50px;height:75vmin">
+	<carousel interval="myInterval">
+    <slide ng-repeat="slide in slides" active="slide.active">
+      <img ng-src="{{slide.image}}" alt="updown fitness app, fitness at your finger tips" class="img-responsive center-block" style="height:75vmin">
+    </slide>
+  </carousel>
+</div>
+
+<!--Video + Thumbnails
+================================ -->
+
+<!--Desktop version-->
+
+<a id="download" class="anchor"></a>
+<div class="row hidden-xs hidden-sm" id="mainimage" style="padding-top:10vh;min-height:90vh;background-color:powderblue">
+  <div class="col-md-5 col-md-offset-1 col-sm-12">
+    <h1 class="text-center whitetext" style="padding-bottom:50px">Updown Fitness App Overview</h1>
+    <a class="thumbnail">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ticvzMF9RTg" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-5 col-sm-12">
+    <h1 class="text-center whitetext">Free Download</h1>
+    <a href="https://play.google.com/store/apps/details?id=com.ionicframework.updownapp567681">
+      <img alt="Get the Updown Fitness app on Google Play" class="img-responsive center-block" style="width:200px;padding-top:50px" src="content/images/google_icon.png" />
+    </a>
+    <a href="https://itunes.apple.com/us/app/updown-fitness/id1057346888?mt=8">
+      <img alt="Get the Updown Fitness app on Apple Itunes store" class="img-responsive center-block" style="width:200px;padding-top:50px;padding-bottom:50px" src="content/images/itunes.png" />
+    </a>
+    <a ui-sref="signup">
+      <img alt="Try Updown Fitness app on the web" class="img-responsive center-block" style="width:200px;padding-top:0px;padding-bottom:50px" src="content/images/web_small.png" />
+    </a>
+  </div>
+</div>
+
+<!--Mobile version-->
+
+<a id="download" class="anchor"></a>
+<div class="row hidden-lg hidden-md" style="padding-top:10vh;min-height:90vh;background-color:powderblue">
+  <div class="col-md-5 col-md-offset-1 col-sm-12">
+    <h1 class="text-center whitetext" style="padding-bottom:50px">Updown Fitness App Overview</h1>
+    <a class="thumbnail">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ticvzMF9RTg" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-5 col-sm-12">
+    <h1 class="text-center whitetext">Free Download</h1>
+    <a href="https://play.google.com/store/apps/details?id=com.ionicframework.updownapp567681">
+      <img alt="Get the Updown Fitness app on Google Play" class="img-responsive center-block" style="width:200px;padding-top:50px" src="content/images/google_icon.png" />
+    </a>
+    <a href="https://itunes.apple.com/us/app/updown-fitness/id1057346888?mt=8">
+      <img alt="Get the Updown Fitness app on Apple Itunes store" class="img-responsive center-block" style="width:200px;padding-top:50px;padding-bottom:50px" src="content/images/itunes.png" />
+    </a>
+    <a ui-sref="signup">
+      <img alt="Try Updown Fitness app on the web" class="img-responsive center-block" style="width:200px;padding-top:0px;padding-bottom:50px" src="content/images/web_small.png" />
+    </a>
+  </div>
+</div>
+
+<!--Bullet descriptions 1
+================================ -->
+
+<a id="product" class="anchor"></a>
+<div class="row" style="padding-top:15vh;padding-bottom:15vh;min-height:50vh">
+  <div class="col-md-4 col-md-offset-2 col-sm-12">
+    Total finished workouts: {{main.stats[0].value}}
+    Total workout cals burned: {{main.stats[2].value}}
+    <ul>
+      <li class="vertpad"><b class="lbluetext"><h4>Personalized workouts.</h4></b> Built for you and your goals, on the spot.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>Advanced learning.</h4></b> Updown <i><b>automatically adjusts difficulty</b></i> - weights and reps - as you progress.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>1,500+ exercises.</h4></b> Fully animated, ranging from beginner to expert.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>Real-time guidance.</h4></b> Audio and visual cues assist you through workouts.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>Customizable locations.</h4></b> Updown will utilize whatever equipment you have at your current location.</li>
+    </ul>
+  </div>
+  <div class="col-md-4 col-sm-12">
+    <img class="img-responsive center-block" alt="updown screenshot exercise choose: cardio, core, cross, strength, stretch" style="width:50%;height:auto" src="content/images/selecttype.png">
+  </div>
+</div>
+
+<!-- Image descriptions
+================================ -->
+<div class="row" style="padding-top:100px;min-height:55vh;background-color:#ffc900;">
+  <div class="col-md-2 col-md-offset-2">
+    <a class="thumbnail" ng-click="main.collapsedOne =! main.collapsedOne">
+      <img class="img-responsive center-block" alt="Updown works with any device, exercise anywhere" src="content/images/anydeviceblue.png">
+      <div class="caption">
+        <h4 class="text-center">Any device</h4>
+        <p class="ng-hide" ng-hide="main.collapsedOne">
+          Updown is on iTunes and Google Play. Also, you can access a web-based version on any device with a browser.
+        </p>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-2">
+    <a class="thumbnail" ng-click="main.collapsedTwo =! main.collapsedTwo">
+      <img class="img-responsive center-block" alt="over 1500 exercises. cardio, yoga, cross, strength, core, stretch" src="content/images/anyexerciseblue.png">
+      <div class="caption">
+        <h4 class="text-center">Any exercise</h4>
+        <p class="ng-hide" ng-hide="main.collapsedTwo">
+          1,500+ exercises with animated guides and key technique pointers.
+        </p>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-2">
+    <a class="thumbnail" ng-click="main.collapsedThree =! main.collapsedThree">
+      <img class="img-responsive center-block" alt="Get in shape and exercise anywhere" src="content/images/anyplaceblue.png">
+      <div class="caption">
+        <h4 class="text-center">Any place</h4>
+        <p class="ng-hide" ng-hide="main.collapsedThree">
+          Updown builds you workouts using the equipment you have at your current location.
+        </p>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-2">
+    <a class="thumbnail" ng-click="main.collapsedFour =! main.collapsedFour">
+      <img class="img-responsive center-block" alt="anyone can use Updown Fitness app" src="content/images/anyoneblue.png">
+      <div class="caption">
+        <h4 class="text-center">Any person</h4>
+        <p class="ng-hide" ng-hide="main.collapsedFour">
+          Whether you're just starting to exercise or an Olympic athlete, Updown will work for you.
+        </p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!--Bullet descriptions 2
+================================ -->
+
+<div class="row" style="padding-top:15vh;padding-bottom:15vh;min-height:50vh">
+  <div class="col-md-4 col-md-offset-2 col-sm-12">
+    <img class="img-responsive center-block" style="width:50%;height:auto" alt="screenshot of updown fitness app workout" src="content/images/personalworkout.png">
+  </div>
+  <div class="col-md-4 col-sm-12">
+    <ul>
+      <li class="vertpad"><b class="lbluetext"><h4>Social fitness.</h4></b> Add friends, view and save their workouts, compete with them on points.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>Points and level system.</h4></b> Earn points to measure your engagement and keep you on track.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>Stat tracking.</h4></b> View your historical body stats with dynamic charts.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>Quick log.</h4></b> Track and get points for all of your daily exercise.</li>
+      <li class="vertpad"><b class="lbluetext"><h4>All the data.</h4></b> Every single exercise, set, and rep you ever perform easily viewable in your history.</li>
+    </ul>
+  </div>
+</div>
+
+<!--Exercises Word Cloud
+================================ -->
+
+
+<div class="row" style="min-height:60vh;background-color:lightblue;padding:0px">
+  <b><h1 class="text-center" style="font-size:8vmin;color:orange;position:absolute;margin-top:20vmin;margin-left:auto;margin-right:auto;left:0;right:0;">1,500+ weighted and bodyweight exercises</h1></b>
+  <img class="img-responsive center-block" alt="updown has 1500+ exercises" style="min-height:60vh;opacity:.05;width:100%" src="content/images/word_cloud.png">
+</div>
+
+
+<!--What people are saying
+================================ -->
+
+<a id="testimonials" class="anchor"></a>
+<div class="row" style="padding-top:15vh;padding-bottom:15vh;min-height:50vh;background-color:Azure">
+  <div class="col-md-8 col-md-offset-2 col-sm-12">
+	  <h2 class="text-center lbluetext" style="padding-bottom:5vh">What people are saying...</h2>
+	  <div class="row">
+      <div class="col-md-6 well">
+        "Best Exercise App! I use this daily. Offers a wide variety of exercises and stretches. The <b>auto generated workouts</b> are cool, they introduced me to new exercises. I usually do custom, which are very customizable and <b>easy to set up.</b> The database of exercises with automated images is huge. <b>Excellent for beginners and experts.</b>" -David D"
+      </div>
+      <div class="col-md-5 col-md-offset-1">
+        <div class="row" style="padding-top:2vh;padding-bottom:1vh">
+          <div class="col-md-12 well">
+            "Love it! Perfect little app for getting in <b>quick workouts that don't get boring.</b>" -Mike F
+          </div>
+        </div>
+        <div class="row" style="padding-top:1vh;padding-bottom:2vh">
+          <div class="col-md-12 well">
+            "<b>Very helpful</b> for me.. Well thought out exercises sessions with clear instructions." -Michelle W
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 well">
+        "I was looking for an app I could use to track and help with workout plans and <b>this definitely delivered.</b>" -Logan M
+      </div>
+      <div class="col-md-7 col-md-offset-1 well">
+        "This app has the unique feature of <b>challenging you to do better</b> with each subsequent workout. It <b>doesn't get stale.</b>" -Jon F
+      </div>
+    </div>
+    <a ui-sref="signup" class="smoothScroll"><h2 class="text-center lbluetext" style="padding-top:10vh">Join thousands of Updown users today!</h2></a>
+    <div class="row" style="padding-top:10vh">
+      <div class="col-md-3">
+        <a class="thumbnail" href="http://www.androidheadlines.com/2016/01/sponsored-app-review-updown-fitness.html">
+          <img class="img-responsive center-block" alt="Updown fitness app Android Headline review" src="content/images/AHlogo.png">
+          <div class="caption">
+            "Updown Fitness is a fully-featured app that has a lot of value. The ability to edit and tailor workouts as quickly as this to suit whichever environment you want is a powerful one."
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a class="thumbnail" href="http://appadvice.com/appnn/2016/01/get-the-workout-thats-fit-and-right-for-you-with-updown-fitness">
+          <img class="img-responsive center-block" alt="app advice updown fitness app review" src="content/images/appAdvice.png">
+          <div class="caption">
+            "Updown looks to be a great fitness app that enables you to exercise at your own pace and at your preferred place, whether you can only work out at home in your underwear or you can actually hit the gym and use special equipment."
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a class="thumbnail" href="http://www.iphoneglance.com/2016/02/08/updown-fitness-a-personal-trainer-in-your-pocket/">
+          <img class="img-responsive center-block" alt="iphoneglance review" src="content/images/iphoneGlance.png">
+          <div class="caption">
+            "The app is filled with features that provide you with the services of a real personal trainer."
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a ui-sref="media" class="thumbnail" style="padding-bottom:40px">
+          <div class="caption">
+            <h2 class="text-center lbluetext">See more</h2>
+          </div>
+          <img class="img-responsive center-block" alt="Updown Fitness app logo" src="content/images/xxhdpi-icon.png">
+        </a>
+      </div>
+    </div>
+  </div>
+<!--ADS-->
+  <div class="col-md-8 col-md-offset-2 hidden-sm hidden-xs">
+    <adsense ad-client="ca-pub-9957314535048944" ad-slot="9562378111" inline-style="display:inline-block;width:728px;height:90px"></adsense>
+  </div>
+  <div class="col-md-8 col-md-offset-2 hidden-md hidden-lg">
+    <adsense ad-client="ca-pub-9957314535048944" ad-slot="9414700112" inline-style="display:inline-block;width:320px;height:100px"></adsense>
+  </div>
+</div>
